@@ -1,0 +1,10 @@
+include ':main'
+include ':wallCats'
+include ':splashScreen'
+include ':settings'
+include ':searchCats'
+include ':coreApi'
+include ':coreImpl'
+include ':core'
+include ':app'
+rootProject.name = "CatApp"

@@ -1,0 +1,1 @@
+const val IS_DEBUG = false
