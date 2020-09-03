@@ -3,7 +3,6 @@ package com.evgeny.goncharov.settings.di.modules
 import androidx.lifecycle.ViewModelProviders
 import com.evgeny.goncharov.settings.ui.SettingsFragment
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
-import com.evgeny.goncharov.settings.view.model.SettingsViewModelImpl
 import dagger.Module
 import dagger.Provides
 
@@ -12,6 +11,6 @@ object SettingsProvidesModule {
 
     @Provides
     @JvmStatic
-    fun provideSettingsViewModel(fragment: SettingsFragment): SettingsViewModel =
-        ViewModelProviders.of(fragment).get(SettingsViewModelImpl::class.java)
+    fun provideSettingsViewModel(fragment: SettingsFragment) =
+        ViewModelProviders.of(fragment).get(SettingsViewModel::class.java)
 }

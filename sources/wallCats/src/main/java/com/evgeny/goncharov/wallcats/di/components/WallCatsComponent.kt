@@ -4,7 +4,7 @@ import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsBindsModule
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsProvidesModule
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment
-import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModelImpl
+import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -39,5 +39,5 @@ interface WallCatsComponent {
 
     fun inject(fragment: WallCatsFragment)
 
-    fun inject(viewModel: WallCatsViewModelImpl)
+    fun inject(viewModel: WallCatsViewModel)
 }

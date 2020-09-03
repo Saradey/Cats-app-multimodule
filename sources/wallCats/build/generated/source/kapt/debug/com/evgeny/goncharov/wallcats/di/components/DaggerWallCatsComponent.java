@@ -10,8 +10,7 @@ import com.evgeny.goncharov.wallcats.rest.ApiBreeds;
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment;
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment_MembersInjector;
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel;
-import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModelImpl;
-import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModelImpl_MembersInjector;
+import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel_MembersInjector;
 import dagger.internal.Preconditions;
 
 @SuppressWarnings({
@@ -50,8 +49,8 @@ public final class DaggerWallCatsComponent implements WallCatsComponent {
     injectWallCatsFragment(fragment);}
 
   @Override
-  public void inject(WallCatsViewModelImpl viewModel) {
-    injectWallCatsViewModelImpl(viewModel);}
+  public void inject(WallCatsViewModel viewModel) {
+    injectWallCatsViewModel(viewModel);}
 
   private WallCatsFragment injectWallCatsFragment(WallCatsFragment instance) {
     WallCatsFragment_MembersInjector.injectViewModel(instance, getWallCatsViewModel());
@@ -61,8 +60,8 @@ public final class DaggerWallCatsComponent implements WallCatsComponent {
     return instance;
   }
 
-  private WallCatsViewModelImpl injectWallCatsViewModelImpl(WallCatsViewModelImpl instance) {
-    WallCatsViewModelImpl_MembersInjector.injectInteractor(instance, getWallCatInteractorImpl());
+  private WallCatsViewModel injectWallCatsViewModel(WallCatsViewModel instance) {
+    WallCatsViewModel_MembersInjector.injectInteractor(instance, getWallCatInteractorImpl());
     return instance;
   }
 

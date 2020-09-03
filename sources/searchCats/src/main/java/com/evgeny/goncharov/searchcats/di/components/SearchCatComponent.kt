@@ -4,7 +4,7 @@ import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.searchcats.di.modules.SearchCatBindsModule
 import com.evgeny.goncharov.searchcats.di.modules.SearchCatProvidesModule
 import com.evgeny.goncharov.searchcats.ui.SearchCatFragment
-import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModelImpl
+import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -36,5 +36,5 @@ interface SearchCatComponent {
 
     fun inject(fragment: SearchCatFragment)
 
-    fun inject(viewModel: SearchCatViewModelImpl)
+    fun inject(viewModel: SearchCatViewModel)
 }

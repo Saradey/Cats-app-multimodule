@@ -12,8 +12,7 @@ import com.evgeny.goncharov.settings.ui.DialogChooseThemeApp_MembersInjector;
 import com.evgeny.goncharov.settings.ui.SettingsFragment;
 import com.evgeny.goncharov.settings.ui.SettingsFragment_MembersInjector;
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel;
-import com.evgeny.goncharov.settings.view.model.SettingsViewModelImpl;
-import com.evgeny.goncharov.settings.view.model.SettingsViewModelImpl_MembersInjector;
+import com.evgeny.goncharov.settings.view.model.SettingsViewModel_MembersInjector;
 import dagger.internal.Preconditions;
 
 @SuppressWarnings({
@@ -49,8 +48,8 @@ public final class DaggerSettingsComponent implements SettingsComponent {
     injectSettingsFragment(fragment);}
 
   @Override
-  public void inject(SettingsViewModelImpl viewModel) {
-    injectSettingsViewModelImpl(viewModel);}
+  public void inject(SettingsViewModel viewModel) {
+    injectSettingsViewModel(viewModel);}
 
   @Override
   public void inject(DialogChooseThemeApp viewModel) {
@@ -65,8 +64,8 @@ public final class DaggerSettingsComponent implements SettingsComponent {
     return instance;
   }
 
-  private SettingsViewModelImpl injectSettingsViewModelImpl(SettingsViewModelImpl instance) {
-    SettingsViewModelImpl_MembersInjector.injectInteractor(instance, getSettingsInteractorImpl());
+  private SettingsViewModel injectSettingsViewModel(SettingsViewModel instance) {
+    SettingsViewModel_MembersInjector.injectInteractor(instance, getSettingsInteractorImpl());
     return instance;
   }
 

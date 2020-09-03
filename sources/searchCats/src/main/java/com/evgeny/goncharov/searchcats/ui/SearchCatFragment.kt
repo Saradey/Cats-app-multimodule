@@ -7,25 +7,20 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.extension.setHintTextColor
 import com.evgeny.goncharov.coreapi.extension.setTextColor
 import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
-import com.evgeny.goncharov.searchcats.model.CatCatched
-import com.evgeny.goncharov.searchcats.ui.events.SearchCatEvents
-import com.evgeny.goncharov.coreapi.WithFacade
-import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.searchcats.R
 import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
+import com.evgeny.goncharov.searchcats.model.CatCatched
 import com.evgeny.goncharov.searchcats.ui.adapter.CatsCathedAdapter
+import com.evgeny.goncharov.searchcats.ui.events.SearchCatEvents
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
-import kotlinx.android.synthetic.main.fragment_search_cat.crvContainerCats
-import kotlinx.android.synthetic.main.fragment_search_cat.prgLoad
-import kotlinx.android.synthetic.main.fragment_search_cat.rcvCathedCats
-import kotlinx.android.synthetic.main.fragment_search_cat.srcSearchCat
-import kotlinx.android.synthetic.main.fragment_search_cat.toolbar
-import kotlinx.android.synthetic.main.fragment_search_cat.txvCatsStubNotFound
+import kotlinx.android.synthetic.main.fragment_search_cat.*
 import javax.inject.Inject
 
 class SearchCatFragment : BaseFragment() {

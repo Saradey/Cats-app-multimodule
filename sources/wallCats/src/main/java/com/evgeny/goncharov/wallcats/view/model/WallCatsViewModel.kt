@@ -1,16 +1,35 @@
 package com.evgeny.goncharov.wallcats.view.model
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
+import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
-import com.evgeny.goncharov.wallcats.ui.events.WallCatsEvents
+import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-interface WallCatsViewModel {
+class WallCatsViewModel : ViewModel() {
 
-    suspend fun initWallCat(): List<CatBreedView>
+    @Inject
+    lateinit var interactor: WallCatInteractor
 
-    suspend fun loadNextCats(key: Int): List<CatBreedView>
+    fun initInjection() {
+        WallCatsComponent.component?.inject(this)
+    }
 
-    fun getUiEventsLiveData(): LiveData<WallCatsEvents>
+    suspend fun initWallCat(): List<CatBreedView> {
+        val result = interactor.loadWallCat()
+        return suspendCoroutine { continuation ->
+            continuation.resume(result)
+        }
+    }
 
-    fun initInjection()
+    suspend fun loadNextCats(key: Int): List<CatBreedView> {
+        val result = interactor.loadNexPage(key)
+        return suspendCoroutine { continuation ->
+            continuation.resume(result)
+        }
+    }
+
+    fun getUiEventsLiveData() = interactor.getUiEventsLiveData()
 }
