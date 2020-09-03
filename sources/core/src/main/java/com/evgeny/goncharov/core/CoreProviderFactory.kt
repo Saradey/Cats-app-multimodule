@@ -5,7 +5,7 @@ import com.evgeny.goncharov.coreapi.providers.DatabaseProvider
 import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.providers.NetworkProvider
 import com.evgeny.goncharov.coreimpl.database.DaggerDatabaseComponent
-import com.evgeny.goncharov.coreimpl.mangers.DaggerManagersComponent
+import com.evgeny.goncharov.coreimpl.mangers.di.DaggerManagersComponent
 import com.evgeny.goncharov.coreimpl.network.DaggerNetworkComponent
 
 object CoreProviderFactory {

@@ -39,4 +39,6 @@ dependencies {
     kapt daggerKapt
     implementation constraintLayout
     implementation retrofit2
+    implementation coroutinesAndroid
+    implementation coroutinesCore
 }

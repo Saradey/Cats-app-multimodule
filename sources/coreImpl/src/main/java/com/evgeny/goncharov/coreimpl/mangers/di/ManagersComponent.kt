@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.coreimpl.mangers
+package com.evgeny.goncharov.coreimpl.mangers.di
 
 import com.evgeny.goncharov.coreapi.providers.ContextProvider
 import com.evgeny.goncharov.coreapi.providers.ManagerProvider
