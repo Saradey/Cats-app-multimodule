@@ -1,0 +1,14 @@
+R_DEF: Internal format may change without notice
+local
+id cnlContainerCathedCats
+id crvContainerCats
+id mySearchView
+id prgLoad
+id rcvCathedCats
+id srcSearchCat
+id toolbar
+id txvCatsStubNotFound
+id txvIdTitle
+id txvTitleName
+layout fragment_search_cat
+layout holder_cathed_cat

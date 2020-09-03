@@ -12,14 +12,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/coreApi" />
-            <option value="$PROJECT_DIR$/coreImpl" />
-            <option value="$PROJECT_DIR$/main" />
-            <option value="$PROJECT_DIR$/searchCats" />
-            <option value="$PROJECT_DIR$/settings" />
-            <option value="$PROJECT_DIR$/splashScreen" />
-            <option value="$PROJECT_DIR$/wallCats" />
+            <option value="$PROJECT_DIR$/sources" />
+            <option value="$PROJECT_DIR$/sources/core" />
+            <option value="$PROJECT_DIR$/sources/coreApi" />
+            <option value="$PROJECT_DIR$/sources/coreImpl" />
+            <option value="$PROJECT_DIR$/sources/main" />
+            <option value="$PROJECT_DIR$/sources/searchCats" />
+            <option value="$PROJECT_DIR$/sources/settings" />
+            <option value="$PROJECT_DIR$/sources/splashScreen" />
+            <option value="$PROJECT_DIR$/sources/wallCats" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
