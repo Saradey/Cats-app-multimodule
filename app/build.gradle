@@ -61,10 +61,10 @@ dependencies {
     kapt daggerKapt
     implementation dagger
     implementation retrofit2
-    implementation project(':core')
-    implementation project(':searchCats')
-    implementation project(':settings')
-    implementation project(':splashScreen')
-    implementation project(':wallCats')
-    implementation project(':main')
+    implementation project(':sources:core')
+    implementation project(':sources:searchCats')
+    implementation project(':sources:settings')
+    implementation project(':sources:splashScreen')
+    implementation project(':sources:wallCats')
+    implementation project(':sources:main')
 }

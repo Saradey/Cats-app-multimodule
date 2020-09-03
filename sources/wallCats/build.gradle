@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    buildToolsVersion "30.0.1"
 
     defaultConfig {
         minSdkVersion 22
@@ -33,10 +33,22 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(':coreApi')
+    implementation project(':sources:coreApi')
     implementation dagger
     kapt daggerKapt
+    implementation cardview
+    implementation swiperefreshlayout
+    implementation glide
+    kapt glideKapt
+    implementation coroutinesTest
     implementation coroutinesCore
-    implementation constraintLayout
     implementation coroutinesAndroid
+    implementation coroutinesAdapter
+    implementation paging
+    implementation constraintLayout
+    implementation lifecycleViewModel
+    implementation retrofit2converterGson
+    implementation retrofit2
+    implementation lifecycleExtensions
+    implementation material
 }

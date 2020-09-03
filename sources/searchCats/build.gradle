@@ -33,16 +33,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    api project(':coreApi')
+    implementation project(':sources:coreApi')
     implementation dagger
     kapt daggerKapt
-    implementation room
-    kapt roomKapt
-    implementation okhttp
-    implementation okhttp3logging
-    implementation retrofit2
-    debugApi chuckdebug
-    releaseApi chuckrelease
-    implementation retrofit2converterGson
+    implementation coroutinesTest
+    implementation coroutinesCore
+    implementation coroutinesAndroid
     implementation coroutinesAdapter
+    implementation constraintLayout
+    implementation lifecycleViewModel
+    implementation lifecycleExtensions
+    implementation cardview
+    implementation material
 }
