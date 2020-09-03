@@ -37,7 +37,6 @@ dependencies {
     kapt roomKapt
     implementation retrofit2converterGson
     implementation dagger
-    implementation material
     implementation retrofit2
     implementation coroutinesAdapter
 }

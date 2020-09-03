@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/sources/searchCats" />
             <option value="$PROJECT_DIR$/sources/settings" />
             <option value="$PROJECT_DIR$/sources/splashScreen" />
+            <option value="$PROJECT_DIR$/sources/uiKit" />
             <option value="$PROJECT_DIR$/sources/wallCats" />
           </set>
         </option>
