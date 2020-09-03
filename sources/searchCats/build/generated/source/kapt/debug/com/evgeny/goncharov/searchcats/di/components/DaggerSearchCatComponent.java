@@ -8,8 +8,7 @@ import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractorImpl;
 import com.evgeny.goncharov.searchcats.ui.SearchCatFragment;
 import com.evgeny.goncharov.searchcats.ui.SearchCatFragment_MembersInjector;
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel;
-import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModelImpl;
-import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModelImpl_MembersInjector;
+import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel_MembersInjector;
 import dagger.internal.Preconditions;
 
 @SuppressWarnings({
@@ -45,8 +44,8 @@ public final class DaggerSearchCatComponent implements SearchCatComponent {
     injectSearchCatFragment(fragment);}
 
   @Override
-  public void inject(SearchCatViewModelImpl viewModel) {
-    injectSearchCatViewModelImpl(viewModel);}
+  public void inject(SearchCatViewModel viewModel) {
+    injectSearchCatViewModel(viewModel);}
 
   private SearchCatFragment injectSearchCatFragment(SearchCatFragment instance) {
     SearchCatFragment_MembersInjector.injectViewModel(instance, getSearchCatViewModel());
@@ -54,8 +53,8 @@ public final class DaggerSearchCatComponent implements SearchCatComponent {
     return instance;
   }
 
-  private SearchCatViewModelImpl injectSearchCatViewModelImpl(SearchCatViewModelImpl instance) {
-    SearchCatViewModelImpl_MembersInjector.injectInteractor(instance, getSearchCatInteractorImpl());
+  private SearchCatViewModel injectSearchCatViewModel(SearchCatViewModel instance) {
+    SearchCatViewModel_MembersInjector.injectInteractor(instance, getSearchCatInteractorImpl());
     return instance;
   }
 

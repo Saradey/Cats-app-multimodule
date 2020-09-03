@@ -4,7 +4,7 @@ import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.wallcats.di.modules.CatDescriptionBindsModule
 import com.evgeny.goncharov.wallcats.di.modules.CatDescriptionProvidesModule
 import com.evgeny.goncharov.wallcats.ui.CatDescriptionFragment
-import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModelImpl
+import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -40,5 +40,5 @@ interface CatDescriptionComponent {
 
     fun inject(fragment: CatDescriptionFragment)
 
-    fun inject(viewModel: CatDescriptionViewModelImpl)
+    fun inject(viewModel: CatDescriptionViewModel)
 }

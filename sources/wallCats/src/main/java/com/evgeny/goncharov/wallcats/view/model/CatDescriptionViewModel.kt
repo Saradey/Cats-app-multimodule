@@ -1,18 +1,39 @@
 package com.evgeny.goncharov.wallcats.view.model
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.evgeny.goncharov.wallcats.di.components.CatDescriptionComponent
+import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
-import com.evgeny.goncharov.wallcats.ui.events.CatDescriptionEvents
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-interface CatDescriptionViewModel {
+class CatDescriptionViewModel : ViewModel() {
 
-    fun setCatId(catId: String)
+    private val catDescriptionLiveData = MutableLiveData<CatDescription>()
 
-    fun loadChooseCat()
+    @Inject
+    lateinit var interactor: CatDescriptionInteractor
 
-    fun getCatDescriptionLiveData(): LiveData<CatDescription>
+    fun initInjection() {
+        CatDescriptionComponent.component?.inject(this)
+    }
 
-    fun initInjection()
+    fun setCatId(catId: String) {
+        interactor.setCatId(catId)
+    }
 
-    fun getLiveDataUiEvents(): LiveData<CatDescriptionEvents>
+    fun loadChooseCat() {
+        viewModelScope.launch {
+            val cat = interactor.loadChooseCat()
+            cat?.let {
+                catDescriptionLiveData.postValue(cat)
+            }
+        }
+    }
+
+    fun getCatDescriptionLiveData() = catDescriptionLiveData
+
+    fun getLiveDataUiEvents() = interactor.getLiveDataUiEvents()
 }

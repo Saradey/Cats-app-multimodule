@@ -2,7 +2,7 @@ package com.evgeny.goncharov.wallcats.di.components;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u001e\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\bg\u0018\u0000 \b2\u00020\u0001:\u0002\b\tJ\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0005H&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0006\u001a\u00020\u0007H&\u00a8\u0006\n"}, d2 = {"Lcom/evgeny/goncharov/wallcats/di/components/WallCatsComponent;", "", "inject", "", "fragment", "Lcom/evgeny/goncharov/wallcats/ui/WallCatsFragment;", "viewModel", "Lcom/evgeny/goncharov/wallcats/view/model/WallCatsViewModelImpl;", "Companion", "Factory", "wallCats_debug"})
+@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u001e\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\bg\u0018\u0000 \b2\u00020\u0001:\u0002\b\tJ\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0005H&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0006\u001a\u00020\u0007H&\u00a8\u0006\n"}, d2 = {"Lcom/evgeny/goncharov/wallcats/di/components/WallCatsComponent;", "", "inject", "", "fragment", "Lcom/evgeny/goncharov/wallcats/ui/WallCatsFragment;", "viewModel", "Lcom/evgeny/goncharov/wallcats/view/model/WallCatsViewModel;", "Companion", "Factory", "wallCats_debug"})
 @dagger.Component(dependencies = {com.evgeny.goncharov.coreapi.providers.ProviderFacade.class}, modules = {com.evgeny.goncharov.wallcats.di.modules.WallCatsBindsModule.class, com.evgeny.goncharov.wallcats.di.modules.WallCatsProvidesModule.class})
 @javax.inject.Singleton()
 public abstract interface WallCatsComponent {
@@ -12,7 +12,7 @@ public abstract interface WallCatsComponent {
     com.evgeny.goncharov.wallcats.ui.WallCatsFragment fragment);
     
     public abstract void inject(@org.jetbrains.annotations.NotNull()
-    com.evgeny.goncharov.wallcats.view.model.WallCatsViewModelImpl viewModel);
+    com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel viewModel);
     
     @kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000\u001c\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\bg\u0018\u00002\u00020\u0001J\u001a\u0010\u0002\u001a\u00020\u00032\b\b\u0001\u0010\u0004\u001a\u00020\u00052\u0006\u0010\u0006\u001a\u00020\u0007H&\u00a8\u0006\b"}, d2 = {"Lcom/evgeny/goncharov/wallcats/di/components/WallCatsComponent$Factory;", "", "plus", "Lcom/evgeny/goncharov/wallcats/di/components/WallCatsComponent;", "fragment", "Lcom/evgeny/goncharov/wallcats/ui/WallCatsFragment;", "provide", "Lcom/evgeny/goncharov/coreapi/providers/ProviderFacade;", "wallCats_debug"})
     @dagger.Component.Factory()

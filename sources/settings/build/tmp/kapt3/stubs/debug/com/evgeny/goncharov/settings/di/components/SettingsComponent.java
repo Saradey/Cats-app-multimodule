@@ -2,7 +2,7 @@ package com.evgeny.goncharov.settings.di.components;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000&\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\bg\u0018\u0000 \n2\u00020\u0001:\u0002\n\u000bJ\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0005H&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0006H&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0007\u001a\u00020\bH&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\tH&\u00a8\u0006\f"}, d2 = {"Lcom/evgeny/goncharov/settings/di/components/SettingsComponent;", "", "inject", "", "viewModel", "Lcom/evgeny/goncharov/settings/ui/DialogChooseLanguageApp;", "Lcom/evgeny/goncharov/settings/ui/DialogChooseThemeApp;", "fragment", "Lcom/evgeny/goncharov/settings/ui/SettingsFragment;", "Lcom/evgeny/goncharov/settings/view/model/SettingsViewModelImpl;", "Companion", "Factory", "settings_debug"})
+@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000&\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\bg\u0018\u0000 \n2\u00020\u0001:\u0002\n\u000bJ\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0005H&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0006H&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0007\u001a\u00020\bH&J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\tH&\u00a8\u0006\f"}, d2 = {"Lcom/evgeny/goncharov/settings/di/components/SettingsComponent;", "", "inject", "", "viewModel", "Lcom/evgeny/goncharov/settings/ui/DialogChooseLanguageApp;", "Lcom/evgeny/goncharov/settings/ui/DialogChooseThemeApp;", "fragment", "Lcom/evgeny/goncharov/settings/ui/SettingsFragment;", "Lcom/evgeny/goncharov/settings/view/model/SettingsViewModel;", "Companion", "Factory", "settings_debug"})
 @dagger.Component(dependencies = {com.evgeny.goncharov.coreapi.providers.ManagerProvider.class}, modules = {com.evgeny.goncharov.settings.di.modules.SettingsBindsModule.class, com.evgeny.goncharov.settings.di.modules.SettingsProvidesModule.class})
 @javax.inject.Singleton()
 public abstract interface SettingsComponent {
@@ -12,7 +12,7 @@ public abstract interface SettingsComponent {
     com.evgeny.goncharov.settings.ui.SettingsFragment fragment);
     
     public abstract void inject(@org.jetbrains.annotations.NotNull()
-    com.evgeny.goncharov.settings.view.model.SettingsViewModelImpl viewModel);
+    com.evgeny.goncharov.settings.view.model.SettingsViewModel viewModel);
     
     public abstract void inject(@org.jetbrains.annotations.NotNull()
     com.evgeny.goncharov.settings.ui.DialogChooseThemeApp viewModel);

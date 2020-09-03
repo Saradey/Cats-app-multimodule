@@ -6,7 +6,7 @@ import com.evgeny.goncharov.settings.di.modules.SettingsProvidesModule
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp
 import com.evgeny.goncharov.settings.ui.DialogChooseThemeApp
 import com.evgeny.goncharov.settings.ui.SettingsFragment
-import com.evgeny.goncharov.settings.view.model.SettingsViewModelImpl
+import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -42,7 +42,7 @@ interface SettingsComponent {
 
     fun inject(fragment: SettingsFragment)
 
-    fun inject(viewModel: SettingsViewModelImpl)
+    fun inject(viewModel: SettingsViewModel)
 
     fun inject(viewModel: DialogChooseThemeApp)
 

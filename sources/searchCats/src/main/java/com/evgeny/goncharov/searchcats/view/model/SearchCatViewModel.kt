@@ -1,16 +1,32 @@
 package com.evgeny.goncharov.searchcats.view.model
 
-import androidx.lifecycle.LiveData
-import com.evgeny.goncharov.searchcats.model.CatCatched
-import com.evgeny.goncharov.searchcats.ui.events.SearchCatEvents
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
+import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractor
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-interface SearchCatViewModel {
+class SearchCatViewModel : ViewModel() {
 
-    fun initInject()
+    @Inject
+    lateinit var interactor: SearchCatInteractor
 
-    fun setInputTextSearchView(text: String)
+    private var job: Job? = null
 
-    fun getUiEventsLiveData(): LiveData<SearchCatEvents>
+    fun initInject() {
+        SearchCatComponent.component?.inject(this)
+    }
 
-    fun getLiveDataCatsCathed(): LiveData<List<CatCatched>>
+    fun setInputTextSearchView(text: String) {
+        job?.cancel()
+        job = viewModelScope.launch {
+            interactor.setInputTextSearchView(text)
+        }
+    }
+
+    fun getUiEventsLiveData() = interactor.getUiEventsLiveData()
+
+    fun getLiveDataCatsCathed() = interactor.getLiveDataCatsCathed()
 }

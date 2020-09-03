@@ -8,8 +8,7 @@ import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractorImpl;
 import com.evgeny.goncharov.wallcats.ui.CatDescriptionFragment;
 import com.evgeny.goncharov.wallcats.ui.CatDescriptionFragment_MembersInjector;
 import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel;
-import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModelImpl;
-import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModelImpl_MembersInjector;
+import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel_MembersInjector;
 import dagger.internal.Preconditions;
 
 @SuppressWarnings({
@@ -45,17 +44,16 @@ public final class DaggerCatDescriptionComponent implements CatDescriptionCompon
     injectCatDescriptionFragment(fragment);}
 
   @Override
-  public void inject(CatDescriptionViewModelImpl viewModel) {
-    injectCatDescriptionViewModelImpl(viewModel);}
+  public void inject(CatDescriptionViewModel viewModel) {
+    injectCatDescriptionViewModel(viewModel);}
 
   private CatDescriptionFragment injectCatDescriptionFragment(CatDescriptionFragment instance) {
     CatDescriptionFragment_MembersInjector.injectViewModel(instance, getCatDescriptionViewModel());
     return instance;
   }
 
-  private CatDescriptionViewModelImpl injectCatDescriptionViewModelImpl(
-      CatDescriptionViewModelImpl instance) {
-    CatDescriptionViewModelImpl_MembersInjector.injectInteractor(instance, getCatDescriptionInteractorImpl());
+  private CatDescriptionViewModel injectCatDescriptionViewModel(CatDescriptionViewModel instance) {
+    CatDescriptionViewModel_MembersInjector.injectInteractor(instance, getCatDescriptionInteractorImpl());
     return instance;
   }
 
