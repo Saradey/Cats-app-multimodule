@@ -5,12 +5,13 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.evgeny.goncharov.coreapi.WithFacade
-import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
+import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.main.di.MainComponent
-import java.util.Locale
+import com.evgeny.goncharov.main.managers.MainRouter
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), WithFacade {
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity(), WithFacade {
 
     @Inject
     lateinit var splashScreenMediator: SplashScreenMediator
+
+    private val routerManager = MainRouter(this)
 
     init {
         initDaggerGraph()
@@ -52,5 +55,9 @@ class MainActivity : AppCompatActivity(), WithFacade {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(applySelectedAppLanguage(base))
+    }
+
+    override fun onBackPressed() {
+        routerManager.onBackPressed()
     }
 }
