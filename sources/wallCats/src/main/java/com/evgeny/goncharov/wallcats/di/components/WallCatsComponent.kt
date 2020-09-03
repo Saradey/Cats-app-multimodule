@@ -1,15 +1,15 @@
 package com.evgeny.goncharov.wallcats.di.components
 
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
+import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsBindsModule
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsProvidesModule
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+@FragmentScope
 @Component(
     dependencies = [ProviderFacade::class],
     modules = [WallCatsBindsModule::class, WallCatsProvidesModule::class]

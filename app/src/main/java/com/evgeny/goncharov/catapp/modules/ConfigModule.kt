@@ -1,15 +1,15 @@
 package com.evgeny.goncharov.catapp.modules
 
 import IS_DEBUG
+import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 object ConfigModule {
 
     @JvmStatic
     @Provides
-    @Singleton
+    @AppScope
     fun provideBuildVariantsType(): Boolean = IS_DEBUG
 }

@@ -1,6 +1,7 @@
 package com.evgeny.goncharov.settings.di.components
 
 import com.evgeny.goncharov.coreapi.providers.ManagerProvider
+import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.settings.di.modules.SettingsBindsModule
 import com.evgeny.goncharov.settings.di.modules.SettingsProvidesModule
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp
@@ -9,9 +10,8 @@ import com.evgeny.goncharov.settings.ui.SettingsFragment
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+@FragmentScope
 @Component(
     dependencies = [ManagerProvider::class],
     modules = [SettingsBindsModule::class, SettingsProvidesModule::class]

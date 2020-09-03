@@ -15,7 +15,6 @@ import dagger.Reusable
 @Module
 interface MediatorModuleBindings {
 
-
     @Binds
     @Reusable
     fun bindSearchCatsMediator(mediator: SearchCatsMediatorImpl): SearchCatsMediator
