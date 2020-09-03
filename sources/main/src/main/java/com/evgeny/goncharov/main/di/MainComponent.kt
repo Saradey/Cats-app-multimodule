@@ -1,11 +1,11 @@
 package com.evgeny.goncharov.main.di
 
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
+import com.evgeny.goncharov.coreapi.scope.ActivityScope
 import com.evgeny.goncharov.main.MainActivity
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+@ActivityScope
 @Component(
     dependencies = [ProviderFacade::class]
 )

@@ -1,11 +1,12 @@
 package com.evgeny.goncharov.coreimpl.network
 
 import android.content.Context
-import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
 import com.evgeny.goncharov.coreapi.BASE_URL
 import com.evgeny.goncharov.coreapi.CONNECTION_TIMEOUT
 import com.evgeny.goncharov.coreapi.READ_TIMEOUT
 import com.evgeny.goncharov.coreapi.WRITE_TIMEOUT
+import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
+import com.evgeny.goncharov.coreapi.scope.AppScope
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
@@ -16,20 +17,20 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 object NetworkModule {
 
     @Provides
-    @Singleton
+    @AppScope
     @JvmStatic
-    fun provideLoggingInterceptor(buildVariants: Boolean): HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(
-        if (buildVariants) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-    )
+    fun provideLoggingInterceptor(buildVariants: Boolean): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().setLevel(
+            if (buildVariants) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        )
 
     @Provides
-    @Singleton
+    @AppScope
     @JvmStatic
     fun provideHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
@@ -46,7 +47,7 @@ object NetworkModule {
         .build()
 
     @Provides
-    @Singleton
+    @AppScope
     @JvmStatic
     fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

@@ -4,11 +4,11 @@ import android.app.Application
 import android.content.Context
 import com.evgeny.goncharov.catapp.modules.ConfigModule
 import com.evgeny.goncharov.coreapi.providers.ContextProvider
+import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 @Component(modules = [ConfigModule::class])
 interface AppComponent : ContextProvider {
 

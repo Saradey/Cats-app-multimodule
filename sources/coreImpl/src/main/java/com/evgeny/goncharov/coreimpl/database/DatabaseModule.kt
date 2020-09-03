@@ -6,15 +6,15 @@ import com.evgeny.goncharov.coreapi.DATA_BASE_NAME
 import com.evgeny.goncharov.coreapi.database.DatabaseContract
 import com.evgeny.goncharov.coreapi.database.dao.CatDescriptionDAO
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
+import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import javax.inject.Singleton
 
 @Module
 object DatabaseModule {
 
-    @Singleton
+    @AppScope
     @Provides
     @JvmStatic
     fun provideDatabaseContract(context: Context): DatabaseContract =
