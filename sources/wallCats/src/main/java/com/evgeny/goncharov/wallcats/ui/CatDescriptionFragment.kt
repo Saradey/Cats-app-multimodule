@@ -118,9 +118,7 @@ class CatDescriptionFragment : BaseFragment() {
             mbtnWikiLink.setOnClickListener {
                 val uri = Uri.parse(model.urlWiki)
                 val intent = Intent(Intent.ACTION_VIEW, uri)
-                if (intent.resolveActivity(context!!.packageManager) != null) {
-                    context?.startActivity(intent)
-                }
+                startActivity(intent)
             }
             Glide.with(this)
                 .load(model.urlImage)
