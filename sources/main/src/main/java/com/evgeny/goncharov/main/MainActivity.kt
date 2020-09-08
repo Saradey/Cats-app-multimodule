@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), WithFacade {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(themeManager.getThemeNow())
         setContentView(R.layout.activity_main)
         savedInstanceState ?: splashScreenMediator.showSplashScreen(supportFragmentManager)
     }

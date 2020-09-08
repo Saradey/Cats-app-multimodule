@@ -2,14 +2,14 @@ package com.evgeny.goncharov.settings.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
+import com.evgeny.goncharov.coreapi.base.BaseFragmentDialog
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import javax.inject.Inject
 
-class DialogChooseThemeApp : DialogFragment() {
+class DialogChooseThemeApp : BaseFragmentDialog() {
 
     @Inject
     lateinit var vm: SettingsViewModel
@@ -22,7 +22,7 @@ class DialogChooseThemeApp : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builderDialog = MaterialAlertDialogBuilder(
             requireContext(),
-            R.style.Costume_ThemeMaterialAlertDialog
+            getDialogTheme()
         )
         builderDialog.setTitle(R.string.theme_title_settings)
             .setPositiveButton(

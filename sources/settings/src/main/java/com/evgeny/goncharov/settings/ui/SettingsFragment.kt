@@ -4,26 +4,24 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.widget.TextView
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.evgeny.goncharov.settings.events.SettingUiEvents
-import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.coreapi.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
+import com.evgeny.goncharov.settings.events.SettingUiEvents
+import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
-import kotlinx.android.synthetic.main.fragment_settings.toolbar
-import kotlinx.android.synthetic.main.fragment_settings.txvLanguageApp
-import kotlinx.android.synthetic.main.fragment_settings.txvThemeApp
+import kotlinx.android.synthetic.main.fragment_settings.*
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment() {
@@ -90,16 +88,17 @@ class SettingsFragment : BaseFragment() {
         })
         uiEventLiveData.observe(this, Observer { event ->
             when (event) {
-                SettingUiEvents.ChooseLanguageApp -> activity?.recreate()
+                SettingUiEvents.ChooseLanguageApp,
+                SettingUiEvents.ChooseThemeApp
+                -> activity?.recreate()
             }
         })
     }
 
     private fun setThemeModel(value: ThemeModel) {
-        if (value.themeValue == AppCompatDelegate.MODE_NIGHT_NO) {
-            initLightTheme()
-        } else if (value.themeValue == AppCompatDelegate.MODE_NIGHT_YES) {
-            initNightTheme()
+        when (value.themeValue) {
+            R.style.AppThemeNight -> initNightTheme()
+            R.style.AppThemeDay -> initLightTheme()
         }
     }
 
@@ -107,6 +106,7 @@ class SettingsFragment : BaseFragment() {
         initSpannableTextView(
             title = R.string.theme_title_settings,
             subTitle = R.string.settings_night_title,
+            drawStart = R.drawable.ic_theme_night,
             textView = txvThemeApp
         )
     }
@@ -115,6 +115,7 @@ class SettingsFragment : BaseFragment() {
         initSpannableTextView(
             title = R.string.theme_title_settings,
             subTitle = R.string.settings_light_title,
+            drawStart = R.drawable.ic_theme,
             textView = txvThemeApp
         )
     }
@@ -124,7 +125,8 @@ class SettingsFragment : BaseFragment() {
         @StringRes subTitle: Int,
         @ColorRes colorTitle: Int = getColorTitle(),
         @ColorRes colorSubTitle: Int = getColorSubtitle(),
-        textView: TextView
+        @DrawableRes drawStart: Int,
+        textView: AppCompatTextView
     ) {
         val titleStr = requireActivity().getString(title)
         val subTitleStr = requireActivity().getString(subTitle)
@@ -137,6 +139,10 @@ class SettingsFragment : BaseFragment() {
                 ContextCompat.getColor(requireContext(), colorSubTitle)
             )
         textView.text = resultTitle
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(
+            requireContext(),
+            drawStart
+        ), null, null, null)
     }
 
     private fun initClickThemeApp() {
@@ -148,7 +154,10 @@ class SettingsFragment : BaseFragment() {
 
     private fun initToolbar() {
         toolbar.apply {
-            setNavigationIcon(R.drawable.ic_arrow_back_black)
+            when (themeManager.getThemeNow()) {
+                R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
+                R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
+            }
             setNavigationOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }
@@ -167,25 +176,32 @@ class SettingsFragment : BaseFragment() {
         initSpannableTextView(
             title = R.string.language_app_title,
             subTitle = R.string.language_app_title_ru,
+            drawStart = getIconTheme(),
             textView = txvLanguageApp
         )
+    }
+
+    private fun getIconTheme() = when (themeManager.getThemeNow()) {
+        R.style.AppThemeNight -> R.drawable.ic_global_night
+        else -> R.drawable.ic_global
     }
 
     private fun initEnLanguageTitle() {
         initSpannableTextView(
             title = R.string.language_app_title,
             subTitle = R.string.language_app_title_en,
+            drawStart = getIconTheme(),
             textView = txvLanguageApp
         )
     }
 
     private fun getColorTitle(): Int = when (viewModel.getThemeNow()) {
-        AppCompatDelegate.MODE_NIGHT_YES -> R.color.white
+        R.style.AppThemeNight -> R.color.white
         else -> R.color.text_toolbar_title_light
     }
 
     private fun getColorSubtitle(): Int = when (viewModel.getThemeNow()) {
-        AppCompatDelegate.MODE_NIGHT_YES -> R.color.white_hint
+        R.style.AppThemeNight -> R.color.white_hint
         else -> R.color.color_dark_grey
     }
 

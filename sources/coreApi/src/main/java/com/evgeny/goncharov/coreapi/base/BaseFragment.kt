@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.evgeny.goncharov.coreapi.managers.ThemeManager
+import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
+
+    @Inject
+    lateinit var themeManager: ThemeManager
 
     override fun onCreateView(
         inflater: LayoutInflater,

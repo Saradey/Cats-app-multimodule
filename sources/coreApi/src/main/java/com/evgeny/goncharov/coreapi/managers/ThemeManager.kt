@@ -1,8 +1,10 @@
 package com.evgeny.goncharov.coreapi.managers
 
+import androidx.annotation.StyleRes
+
 interface ThemeManager {
 
-    fun getThemeModeAppNow(): Int
+    fun getThemeNow(): Int
 
-    fun setThemeMode(modeNight: Int)
+    fun setThemeNow(@StyleRes themeId: Int)
 }
