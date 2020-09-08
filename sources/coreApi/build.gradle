@@ -39,4 +39,5 @@ dependencies {
     implementation dagger
     implementation retrofit2
     implementation coroutinesAdapter
+    implementation project(':sources:uiKit')
 }

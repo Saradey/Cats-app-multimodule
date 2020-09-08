@@ -2,14 +2,14 @@ package com.evgeny.goncharov.settings.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
+import com.evgeny.goncharov.coreapi.base.BaseFragmentDialog
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import javax.inject.Inject
 
-class DialogChooseLanguageApp : DialogFragment() {
+class DialogChooseLanguageApp : BaseFragmentDialog() {
 
     companion object {
         const val INDEX_CHOOSE_RU = 0
@@ -27,7 +27,7 @@ class DialogChooseLanguageApp : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builderDialog = MaterialAlertDialogBuilder(
             requireContext(),
-            R.style.Costume_ThemeMaterialAlertDialog
+            getDialogTheme()
         )
         builderDialog.setTitle(R.string.language_app_title)
             .setPositiveButton(

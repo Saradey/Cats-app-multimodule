@@ -15,10 +15,10 @@ class SettingsGatewayImpl @Inject constructor(
 ) : SettingsGateway {
 
 
-    override fun getThemeModeAppNow() = ThemeModel(themeManager.getThemeModeAppNow())
+    override fun getThemeModeAppNow() = ThemeModel(themeManager.getThemeNow())
 
     override fun saveChooseTheme(themeValue: Int) {
-        themeManager.setThemeMode(themeValue)
+        themeManager.setThemeNow(themeValue)
     }
 
     override fun getAppLanguage() = when (languageManager.getAppLanguage()) {

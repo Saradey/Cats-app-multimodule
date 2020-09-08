@@ -2,7 +2,6 @@ package com.evgeny.goncharov.searchcats.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -99,7 +98,10 @@ class SearchCatFragment : BaseFragment() {
 
     private fun initToolbar() {
         toolbar.apply {
-            setNavigationIcon(R.drawable.ic_arrow_back_black)
+            when (themeManager.getThemeNow()) {
+                R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
+                R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
+            }
             setNavigationOnClickListener {
                 activity?.supportFragmentManager?.popBackStack()
             }
@@ -122,7 +124,7 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun initEditTextSearchView(searchView: SearchView) {
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+        if (themeManager.getThemeNow() == R.style.AppThemeDay) {
             searchView.setHintTextColor(R.color.color_dark_grey_hint)
         } else {
             searchView.setHintTextColor(R.color.white_hint)

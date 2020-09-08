@@ -8,13 +8,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
-import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
-import com.evgeny.goncharov.wallcats.ui.adapters.DiffUtilsCatBreeds
-import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.coreapi.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
@@ -22,14 +18,14 @@ import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
+import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
+import com.evgeny.goncharov.wallcats.ui.adapters.DiffUtilsCatBreeds
+import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.events.WallCatsEvents
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
-import kotlinx.android.synthetic.main.fragment_wall_cats.grpStubWallCat
-import kotlinx.android.synthetic.main.fragment_wall_cats.prgLoad
-import kotlinx.android.synthetic.main.fragment_wall_cats.rcvCatBreeds
-import kotlinx.android.synthetic.main.fragment_wall_cats.swrlContainer
-import kotlinx.android.synthetic.main.fragment_wall_cats.toolbar
+import kotlinx.android.synthetic.main.fragment_wall_cats.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
@@ -155,7 +151,7 @@ class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderLi
     }
 
     private fun initPagedAdapterAndRecycle() {
-        adapter = CatBreedsPagedAdapter(DiffUtilsCatBreeds(), this)
+        adapter = CatBreedsPagedAdapter(DiffUtilsCatBreeds(), this, themeManager)
         dataSource = PageKeyedDataSourceCatBreeds(viewModel)
         val pagedConfig = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
@@ -172,7 +168,10 @@ class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderLi
 
     private fun initToolbar() {
         toolbar.setTitle(R.string.wall_cat_toolbar_title)
-        toolbar.inflateMenu(R.menu.menu_wall_cats)
+        when (themeManager.getThemeNow()) {
+            R.style.AppThemeDay -> toolbar.inflateMenu(R.menu.menu_wall_cats_day)
+            R.style.AppThemeNight -> toolbar.inflateMenu(R.menu.menu_wall_cats_night)
+        }
         toolbar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
                 R.id.menuSearchCat -> {

@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.settings.interactor
 
-import androidx.appcompat.app.AppCompatDelegate
 import com.evgeny.goncharov.coreapi.utils.Language
+import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.gateway.SettingsGateway
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_EN
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_RU
@@ -32,17 +32,17 @@ class SettingsInteractorImpl @Inject constructor(
     override fun getThemeNow() = gateway.getThemeModeAppNow()
 
     override fun onLight() {
-        themeValue = AppCompatDelegate.MODE_NIGHT_NO
+        themeValue = R.style.AppThemeDay
         gateway.saveChooseTheme(themeValue)
     }
 
     override fun onNight() {
-        themeValue = AppCompatDelegate.MODE_NIGHT_YES
+        themeValue = R.style.AppThemeNight
         gateway.saveChooseTheme(themeValue)
     }
 
     override fun getThemeValue() = when (themeValue) {
-        AppCompatDelegate.MODE_NIGHT_YES -> INDEX_NIGHT_DIALOG
+        R.style.AppThemeNight -> INDEX_NIGHT_DIALOG
         else -> INDEX_LIGHT_DIALOG
     }
 

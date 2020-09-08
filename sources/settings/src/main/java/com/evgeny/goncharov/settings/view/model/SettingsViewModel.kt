@@ -37,6 +37,7 @@ class SettingsViewModel : ViewModel() {
             SettingsInteractorImpl.INDEX_NIGHT_DIALOG -> interactor.onNight()
             else -> interactor.onLight()
         }
+        uiLiveDataEvent.value = SettingUiEvents.ChooseThemeApp
     }
 
     fun getLanguageLiveData() = languageLiveData

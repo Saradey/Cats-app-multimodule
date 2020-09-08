@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppThemeNight" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">?attr/color_card_background</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -16,9 +16,9 @@
         <item name="color_text_button">@color/white</item>
         <item name="color_background_button">@color/color_light_black</item>
 
+        <item name="imitation_card_view_background">@drawable/imitation_cardview_back_night</item>
+
         <item name="android:navigationBarColor">?attr/color_card_background</item>
         <item name="android:statusBarColor">?attr/color_card_background</item>
     </style>
-
-
 </resources>
