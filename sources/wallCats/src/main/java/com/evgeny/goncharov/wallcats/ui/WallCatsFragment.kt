@@ -123,9 +123,7 @@ class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderLi
         urlImage?.let {
             val uri = Uri.parse(urlImage)
             val intent = Intent(Intent.ACTION_VIEW, uri)
-            if (intent.resolveActivity(activity?.packageManager!!) != null) {
-                startActivity(intent)
-            }
+            startActivity(intent)
         }
     }
 
