@@ -6,7 +6,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.extension.setHintTextColor
 import com.evgeny.goncharov.coreapi.extension.setTextColor
@@ -150,14 +150,6 @@ class SearchCatFragment : BaseFragment() {
 
     private fun setCatsCatched(models: List<CatCatched>?) {
         adapter.models = models ?: emptyList()
-    }
-
-    private fun showProgress() {
-        prgLoad?.setVisibilityBool(true)
-    }
-
-    private fun hideProgress() {
-        prgLoad?.setVisibilityBool(false)
     }
 
     override fun onDestroy() {

@@ -9,13 +9,13 @@ import dagger.Component
 @Component(
     dependencies = [ProviderFacade::class]
 )
-interface MainComponent : ProviderFacade {
+interface MainActivityComponent : ProviderFacade {
 
     companion object {
-        var component: MainComponent? = null
+        var component: MainActivityComponent? = null
 
-        fun init(): MainComponent {
-            return DaggerMainComponent
+        fun init(): MainActivityComponent {
+            return DaggerMainActivityComponent
                 .builder()
                 .providerFacade(ProviderFacade.component)
                 .build().apply {

@@ -2,7 +2,7 @@ package com.evgeny.goncharov.catapp
 
 import android.app.Application
 import com.evgeny.goncharov.catapp.components.FacadeComponent
-import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 
 class App : Application(), WithFacade {

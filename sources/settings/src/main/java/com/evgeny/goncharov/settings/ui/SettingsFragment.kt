@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.set
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent

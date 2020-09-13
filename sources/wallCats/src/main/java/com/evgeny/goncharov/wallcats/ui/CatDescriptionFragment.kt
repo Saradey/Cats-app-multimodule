@@ -7,7 +7,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
@@ -132,17 +132,8 @@ class CatDescriptionFragment : BaseFragment() {
         grpAllContent.setVisibilityBool(true)
     }
 
-    private fun hideProgress() {
-        prgLoad?.setVisibilityBool(false)
-    }
-
-    private fun showProgress() {
-        prgLoad?.setVisibilityBool(true)
-    }
-
     private fun showStubSomethingWrong() {
-        prgLoad?.setVisibilityBool(false)
-        grpStubWallCat?.setVisibilityBool(true)
+        showSomethingWrong()
     }
 
     override fun onDestroy() {
