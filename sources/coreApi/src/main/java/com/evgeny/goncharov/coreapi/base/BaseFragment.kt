@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.ui.StubController
-import com.evgeny.goncharov.coreapi.ui.events.MainActivityUiEvents
+import com.evgeny.goncharov.coreapi.ui.events.BaseUiEvents
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
@@ -36,18 +36,18 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected fun showProgress() {
-        stubController.initUiState(MainActivityUiEvents.ShowProgress)
+        stubController.initUiState(BaseUiEvents.ShowProgress)
     }
 
     protected fun hideProgress() {
-        stubController.initUiState(MainActivityUiEvents.HideProgress)
+        stubController.initUiState(BaseUiEvents.HideProgress)
     }
 
     protected fun showSomethingWrong() {
-        stubController.initUiState(MainActivityUiEvents.ShowSomethingWrong)
+        stubController.initUiState(BaseUiEvents.ShowSomethingWrong)
     }
 
     protected fun hideSomethingWrong() {
-        stubController.initUiState(MainActivityUiEvents.HideSomethingWrong)
+        stubController.initUiState(BaseUiEvents.HideSomethingWrong)
     }
 }
