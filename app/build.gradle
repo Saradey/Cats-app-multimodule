@@ -46,6 +46,11 @@ android {
             applicationId defaultConfig.applicationId
             versionName defaultConfig.versionName
         }
+        dev {
+            dimension "environment"
+            applicationId defaultConfig.applicationId
+            versionName defaultConfig.versionName
+        }
     }
 }
 
