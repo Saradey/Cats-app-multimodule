@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 2
+def versionPatch = 1
 
 android {
     compileSdkVersion 30
@@ -37,11 +37,6 @@ android {
     flavorDimensions "environment"
     productFlavors {
         product {
-            dimension "environment"
-            applicationId defaultConfig.applicationId
-            versionName defaultConfig.versionName
-        }
-        demo {
             dimension "environment"
             applicationId defaultConfig.applicationId
             versionName defaultConfig.versionName

@@ -6,7 +6,6 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
-
     defaultConfig {
         minSdkVersion 22
         targetSdkVersion 30
@@ -21,6 +20,19 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationId defaultConfig.applicationId
+            versionName defaultConfig.versionName
+        }
+        product {
+            dimension "environment"
+            applicationId defaultConfig.applicationId
+            versionName defaultConfig.versionName
         }
     }
 }
