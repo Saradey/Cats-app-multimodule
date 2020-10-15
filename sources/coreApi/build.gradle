@@ -39,5 +39,6 @@ dependencies {
     implementation dagger
     implementation retrofit2
     implementation coroutinesAdapter
+    implementation constraintLayout
     implementation project(':sources:uiKit')
 }

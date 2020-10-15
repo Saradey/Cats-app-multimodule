@@ -143,49 +143,4 @@
                 tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <ImageView
-        android:id="@+id/imvStubWallCat"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/ic_wrap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.40" />
-
-
-    <TextView
-        android:id="@+id/txvMessageStubWallCat"
-        style="@style/ColorMainText.LargeText.TextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/message_stub_wall_cat"
-        app:layout_constraintEnd_toEndOf="@+id/imvStubWallCat"
-        app:layout_constraintStart_toStartOf="@+id/imvStubWallCat"
-        app:layout_constraintTop_toBottomOf="@+id/imvStubWallCat" />
-
-
-    <ProgressBar
-        android:id="@+id/prgLoad"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:indeterminate="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/grpStubWallCat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="imvStubWallCat,txvMessageStubWallCat"
-        tools:visibility="gone" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

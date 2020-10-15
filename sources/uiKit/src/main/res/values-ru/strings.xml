@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_stub_wall_cat">Упс! Что то пошло не так :(</string>
+    <string name="wall_menu_search_cat">Поиск по породе</string>
+    <string name="wall_menu_settings">Настройки</string>
+</resources>

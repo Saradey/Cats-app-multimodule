@@ -8,9 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
-import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
@@ -88,11 +87,11 @@ class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderLi
         uiLiveData.observe(this, Observer {
             when (it) {
                 WallCatsEvents.EventShowProgressAndHideStub -> {
-                    hideStubSomethingWrong()
+                    hideSomethingWrong()
                     showProgress()
                 }
                 WallCatsEvents.EventSomethingWrong -> {
-                    showStubSomethingWrong()
+                    showSomethingWrong()
                 }
                 WallCatsEvents.EventHideProgressAndInitRefreshLayout -> {
                     hideProgress()
@@ -100,23 +99,6 @@ class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderLi
                 }
             }
         })
-    }
-
-    private fun showProgress() {
-        prgLoad?.setVisibilityBool(true)
-    }
-
-    private fun hideStubSomethingWrong() {
-        grpStubWallCat?.setVisibilityBool(false)
-    }
-
-    private fun showStubSomethingWrong() {
-        prgLoad?.setVisibilityBool(false)
-        grpStubWallCat?.setVisibilityBool(true)
-    }
-
-    private fun hideProgress() {
-        prgLoad?.setVisibilityBool(false)
     }
 
     override fun clickCatUrlBreed(urlImage: String?) {
@@ -140,7 +122,7 @@ class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderLi
     }
 
     private fun initSwipeRefreshLayout() {
-        grpStubWallCat?.setVisibilityBool(false)
+        hideSomethingWrong()
         swrlContainer.setOnRefreshListener {
             initPagedAdapterAndRecycle()
             swrlContainer.isRefreshing = false

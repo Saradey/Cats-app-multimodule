@@ -7,15 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import com.evgeny.goncharov.coreapi.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.imvCat
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.txvTitle
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_splash_screen.view.*
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class SplashScreenFragment : Fragment() {

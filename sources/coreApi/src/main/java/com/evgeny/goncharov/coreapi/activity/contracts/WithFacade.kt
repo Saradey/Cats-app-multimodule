@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.coreapi
+package com.evgeny.goncharov.coreapi.activity.contracts
 
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 
