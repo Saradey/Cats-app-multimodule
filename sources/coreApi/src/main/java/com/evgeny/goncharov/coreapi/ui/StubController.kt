@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.Group
 import com.evgeny.goncharov.coreapi.R
 import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.ui.events.MainActivityUiEvents
+import com.evgeny.goncharov.uikit.ProgressCat
 
 class StubController {
 
@@ -17,9 +18,11 @@ class StubController {
             rootLayout?.addView(viewStub)
             groupProgress = field?.findViewById(R.id.grpProgress)
             groupSomethingWrong = field?.findViewById(R.id.grpSomethingWrong)
+            progress = field?.findViewById(R.id.prgLoad)
         }
     private var groupProgress: Group? = null
     private var groupSomethingWrong: Group? = null
+    private var progress: ProgressCat? = null
 
     fun initUiState(event: MainActivityUiEvents) {
         initState(event)
@@ -36,10 +39,12 @@ class StubController {
 
     private fun showProgress() {
         groupProgress?.setVisibilityBool(true)
+        progress?.startAnimation()
     }
 
     private fun hideProgress() {
         groupProgress?.setVisibilityBool(false)
+        progress?.stopAnimation()
     }
 
     private fun showSomethingWrong() {

@@ -130,4 +130,9 @@
         <item name="colorAccent">@color/white</item>
         <item name="colorPrimary">@color/color_background_white</item>
     </style>
+
+    <style name="BackgroundClickAndFocusTrue.TranslucentBackground">
+        <item name="android:background">@color/color_black_translucent</item>
+        <item name="android:alpha">0.5</item>
+    </style>
 </resources>
