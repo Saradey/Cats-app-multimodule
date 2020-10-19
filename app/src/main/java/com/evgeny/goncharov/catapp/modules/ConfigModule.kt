@@ -5,6 +5,9 @@ import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Для провайда зависимости из билд варианта
+ */
 @Module
 object ConfigModule {
 

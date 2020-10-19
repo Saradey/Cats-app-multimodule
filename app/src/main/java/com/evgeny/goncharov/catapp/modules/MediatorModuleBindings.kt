@@ -12,22 +12,25 @@ import dagger.Binds
 import dagger.Module
 import dagger.Reusable
 
+/**
+ * Модуль для биндинга медиатров, медиатры нужны для переходов между экранами
+ */
 @Module
 interface MediatorModuleBindings {
 
     @Binds
     @Reusable
-    fun bindSearchCatsMediator(mediator: SearchCatsMediatorImpl): SearchCatsMediator
+    fun SearchCatsMediatorImpl.bindSearchCatsMediator(): SearchCatsMediator
 
     @Binds
     @Reusable
-    fun bindSSplashScreenMediator(mediator: SplashScreenMediatorImpl): SplashScreenMediator
+    fun SplashScreenMediatorImpl.bindSSplashScreenMediator(): SplashScreenMediator
 
     @Binds
     @Reusable
-    fun bindWallCatsMediator(mediator: WallCatsMediatorImpl): WallCatsMediator
+    fun WallCatsMediatorImpl.bindWallCatsMediator(): WallCatsMediator
 
     @Binds
     @Reusable
-    fun bindSettingsMediator(mediator: SettingsMediatorImpl): SettingsMediator
+    fun SettingsMediatorImpl.bindSettingsMediator(): SettingsMediator
 }
