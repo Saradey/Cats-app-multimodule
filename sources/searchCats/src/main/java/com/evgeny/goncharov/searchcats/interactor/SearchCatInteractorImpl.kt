@@ -4,38 +4,45 @@ import androidx.lifecycle.MutableLiveData
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.searchcats.gateway.SearchCatGateway
-import com.evgeny.goncharov.searchcats.model.CatCatched
-import com.evgeny.goncharov.searchcats.ui.events.SearchCatEvents
+import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.ui.events.SearchCatUiEvents
 import javax.inject.Inject
 
+/**
+ * Реализация бизнес кейсов экрана поиска котов
+ * @property gateway источник данных искомых котов
+ */
 class SearchCatInteractorImpl @Inject constructor(
-    private val repository: SearchCatGateway
+    private val gateway: SearchCatGateway
 ) : SearchCatInteractor {
 
-    private val liveDataUiEvents = SingleLiveEvent<SearchCatEvents>()
-    private val liveDataCatsCathed = MutableLiveData<List<CatCatched>>()
+    /** LiveData отдает Ui эвенты */
+    private val liveDataUiEvents = SingleLiveEvent<SearchCatUiEvents>()
+
+    /** LiveData отдает список искомых котов */
+    private val liveDataCatsCatch = MutableLiveData<List<CatCatch>>()
 
     override suspend fun setInputTextSearchView(text: String) {
-        liveDataUiEvents.value = SearchCatEvents.EventShowProgressAndHideStubAndHideModels
+        liveDataUiEvents.value = SearchCatUiEvents.EventShowProgressAndHideStubAndHideModels
         val models = try {
-            repository.loadFromInternet(GetChooseCatRequest(text).createRequest())
+            gateway.loadFromInternet(GetChooseCatRequest(text).createRequest())
         } catch (exp: Exception) {
             exp.printStackTrace()
-            repository.loadFromDatabase(text)
+            gateway.loadFromDatabase(text)
         }
         validateData(models)
     }
 
-    private fun validateData(models: List<CatCatched>) {
+    private fun validateData(models: List<CatCatch>) {
         if (models.isEmpty()) {
-            liveDataUiEvents.value = SearchCatEvents.EventHideProgressAndShowStub
+            liveDataUiEvents.value = SearchCatUiEvents.EventHideProgressAndShowStub
         } else {
-            liveDataUiEvents.value = SearchCatEvents.EventHideProgressAndShowRecycleView
-            liveDataCatsCathed.postValue(models)
+            liveDataUiEvents.value = SearchCatUiEvents.EventHideProgressAndShowRecycleView
+            liveDataCatsCatch.postValue(models)
         }
     }
 
     override fun getUiEventsLiveData() = liveDataUiEvents
 
-    override fun getLiveDataCatsCathed() = liveDataCatsCathed
+    override fun getLiveDataCatsCatch() = liveDataCatsCatch
 }

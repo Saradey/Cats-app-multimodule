@@ -7,6 +7,9 @@ import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Провайд зависмостей на экран поиска котов
+ */
 @Module
 object SearchCatProvidesModule {
 

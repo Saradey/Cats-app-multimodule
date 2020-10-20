@@ -8,6 +8,9 @@ import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractorImpl
 import dagger.Binds
 import dagger.Module
 
+/**
+ * Биндинг интерактора и источника данных на экран поиска котов
+ */
 @Module
 interface SearchCatBindsModule {
 
