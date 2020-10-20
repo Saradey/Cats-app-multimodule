@@ -8,14 +8,17 @@ import com.evgeny.goncharov.coreimpl.mangers.ThemeManagerImpl
 import dagger.Binds
 import dagger.Module
 
+/**
+ * Модуль для бинда менеджеров в проекте
+ */
 @Module
 interface ManagersBindsModule {
 
     @Binds
     @AppScope
-    fun bindLanguageManager(manager: LanguageManagerImpl): LanguageManager
+    fun LanguageManagerImpl.bindLanguageManager(): LanguageManager
 
     @Binds
     @AppScope
-    fun bindThemeManager(manager: ThemeManagerImpl): ThemeManager
+    fun ThemeManagerImpl.bindThemeManager(): ThemeManager
 }

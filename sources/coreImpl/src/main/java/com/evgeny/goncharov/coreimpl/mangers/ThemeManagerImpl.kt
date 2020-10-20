@@ -6,17 +6,33 @@ import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreimpl.R
 import javax.inject.Inject
 
+/**
+ * Реализация бизнес логики менеджера тем
+ * @property context сслка на application
+ */
 class ThemeManagerImpl @Inject constructor(
     private val context: Context
 ) : ThemeManager {
 
     companion object {
+
+        /** Имя шарады */
         const val SHARED_THEME_PREFERENCES_NAME = "SHARED_THEME_PREFERENCES_NAME"
+
+        /** Имя value темы сохраняемой в шараду */
         const val MODE_NIGHT_NAME = "MODE_NIGHT_NAME"
+
+        /** Value дневной темы */
         const val THEME_VALUE_DAY = "THEME_VALUE_DAY"
+
+        /** Value ночной темы */
         const val THEME_VALUE_NIGHT = "THEME_VALUE_NIGHT"
     }
 
+    /**
+     * Получить ресурс темы в зависимости от темы
+     * @return
+     */
     override fun getThemeNow(): Int {
         val shared =
             context.getSharedPreferences(SHARED_THEME_PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -26,6 +42,10 @@ class ThemeManagerImpl @Inject constructor(
         }
     }
 
+    /**
+     * Установить новую тему
+     * @param themeId ресурса темы
+     */
     override fun setThemeNow(@StyleRes themeId: Int) {
         val shared =
             context.getSharedPreferences(SHARED_THEME_PREFERENCES_NAME, Context.MODE_PRIVATE)

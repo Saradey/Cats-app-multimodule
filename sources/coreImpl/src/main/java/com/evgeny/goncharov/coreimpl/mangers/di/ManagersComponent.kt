@@ -5,9 +5,9 @@ import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.Component
 
+/**
+ * Даггер граф менеджеров
+ */
 @AppScope
-@Component(
-    dependencies = [ContextProvider::class],
-    modules = [ManagersBindsModule::class]
-)
+@Component(dependencies = [ContextProvider::class], modules = [ManagersBindsModule::class])
 interface ManagersComponent : ManagerProvider

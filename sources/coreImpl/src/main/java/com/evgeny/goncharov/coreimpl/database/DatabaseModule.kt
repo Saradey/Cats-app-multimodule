@@ -11,6 +11,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 
+/**
+ * Модуль для провайда базы данных и DAO
+ */
 @Module
 object DatabaseModule {
 
