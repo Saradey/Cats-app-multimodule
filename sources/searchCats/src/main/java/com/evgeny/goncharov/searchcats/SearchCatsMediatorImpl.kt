@@ -8,11 +8,11 @@ import javax.inject.Inject
 
 class SearchCatsMediatorImpl @Inject constructor() : SearchCatsMediator {
 
-    override fun goToTheSearchScreen(manager: FragmentManager) {
+    override fun goToTheSearchScreen(supportFragmentManager: FragmentManager) {
         val fragment = SearchCatFragment.getInstance()
-        manager.beginTransaction()
+        supportFragmentManager.beginTransaction()
             .hide(
-                manager.fragments.find {
+                supportFragmentManager.fragments.find {
                     it is BaseFragment
                 }!!
             )

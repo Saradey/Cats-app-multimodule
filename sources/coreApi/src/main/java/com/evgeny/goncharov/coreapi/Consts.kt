@@ -7,7 +7,6 @@ const val CHOOSE_CAT_BREED_TABLE_NAME = "choose_cat_breed"
 
 const val DATA_BASE_NAME = "pisa"
 
-
 const val CONNECTION_TIMEOUT = 30L
 const val READ_TIMEOUT = 30L
 const val WRITE_TIMEOUT = 30L
@@ -24,11 +23,9 @@ const val GET_PARAM_PAGE = "page"
 const val GET_PARAM_BREED_ID = "breed_id"
 const val GET_PARAM_Q_SEARCH = "q"
 
-
 //code
 const val RU_CODE = "ru"
 const val EN_CODE = "en"
-
 
 const val LIMIT_PAGE_SIZE_CAT_WALL = 15
 
