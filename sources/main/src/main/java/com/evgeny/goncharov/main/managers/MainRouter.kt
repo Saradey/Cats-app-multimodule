@@ -9,19 +9,35 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * Логика нажатия на бекпрессед
+ * @property activity ссылка на активити
+ */
 class MainRouter(
     private val activity: AppCompatActivity
 ) {
 
     companion object {
+
+        /** Константа обозначающая что в стеке остался один фрагмент */
         private const val FIRST_FRAGMENT_TO_SHOW = 1
+
+        /** Константа обозначающая что в стеке осталось ноль фрагментов */
         private const val EMPTY_FRAGMENT_STACK = 0
+
+        /** Задержка между нажатиями на онбекпрессед */
         private const val DELAYED_TO_RESET_COUNTER = 2000L
     }
 
+    /** Количество нажатых бекпрессед */
     private var counterBackPressed = 0
+
+    /** Для запуска задержки */
     private var mainScope = CoroutineScope(Dispatchers.Main)
 
+    /**
+     * Срабатывает когда нажали бекпрессед
+     */
     fun onBackPressed() {
         val counter = activity.supportFragmentManager.fragments.count {
             it is BaseFragment
