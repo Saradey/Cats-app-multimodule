@@ -11,6 +11,9 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import dagger.BindsInstance
 import dagger.Component
 
+/**
+ * Компонент для экрана настроек
+ */
 @FragmentScope
 @Component(
     dependencies = [ManagerProvider::class],

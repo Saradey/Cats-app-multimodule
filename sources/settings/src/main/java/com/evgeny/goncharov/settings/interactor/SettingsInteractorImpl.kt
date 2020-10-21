@@ -7,19 +7,33 @@ import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_RU
 import javax.inject.Inject
 
+/**
+ * Реализация бизнес логики экрана настроек
+ * @property gateway источник данных для экрана настроек
+ */
 class SettingsInteractorImpl @Inject constructor(
     private val gateway: SettingsGateway
 ) : SettingsInteractor {
 
     companion object {
+
+        /** Индекс светлой темы в окне */
         const val INDEX_LIGHT_DIALOG = 0
+
+        /** Индекс темной темы в окне */
         const val INDEX_NIGHT_DIALOG = 1
 
+        /** Индекс русского языка в окне */
         const val INDEX_RUSSIAN_DIALOG = 0
+
+        /** Индекс английского языка в окне */
         const val INDEX_ENGLISH_DIALOG = 1
     }
 
+    /** Ресурс темы установленной на данный момент в приложении */
     private var themeValue = gateway.getThemeModeAppNow().themeValue
+
+    /** Индекс выбранного языка */
     private var chooseLanguageIndex = initIndexLanguage()
 
     private fun initIndexLanguage(): Int {

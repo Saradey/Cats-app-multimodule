@@ -8,6 +8,9 @@ import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
 import dagger.Binds
 import dagger.Module
 
+/**
+ * Бинд модуль для создания слоя бизнес логики и источника данных на экране настроек
+ */
 @Module
 interface SettingsBindsModule {
 

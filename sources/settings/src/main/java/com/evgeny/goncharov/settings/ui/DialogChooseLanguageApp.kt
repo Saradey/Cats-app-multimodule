@@ -9,13 +9,21 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import javax.inject.Inject
 
+/**
+ * Дилоговое окно выбора языка
+ */
 class DialogChooseLanguageApp : BaseFragmentDialog() {
 
     companion object {
+
+        /** Индекс русского языка в списке выбора */
         const val INDEX_CHOOSE_RU = 0
+
+        /** Индекс английского языка в списке выбора */
         const val INDEX_CHOOSE_EN = 1
     }
 
+    /** ВьюМодель экрана настроек */
     @Inject
     lateinit var vm: SettingsViewModel
 

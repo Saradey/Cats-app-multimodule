@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.settings.view.model
 
+import androidx.annotation.StyleRes
 import androidx.lifecycle.ViewModel
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
@@ -10,28 +11,51 @@ import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
 import com.evgeny.goncharov.settings.models.ThemeModel
 import javax.inject.Inject
 
+/**
+ * ВьюМодель экрана настроек
+ */
 class SettingsViewModel : ViewModel() {
 
+    /** Интерактор экрана настроек */
     @Inject
     lateinit var interactor: SettingsInteractor
 
+    /** Отдает какая тема установлена */
     private val themeLiveDataModel = SingleLiveEvent<ThemeModel>()
+
+    /** Отдает какой язык установлен */
     private val languageLiveData = SingleLiveEvent<Language>()
+
+    /** Отдает ui эвенты */
     private val uiLiveDataEvent = SingleLiveEvent<SettingUiEvents>()
 
+    /**
+     * Иницилизация зависимостей
+     */
     fun initInjection() {
         SettingsComponent.component?.inject(this)
     }
 
     fun getThemeLiveData() = themeLiveDataModel
 
+    /**
+     * Проиницилизировать тему во View
+     */
     fun initThemeToView() {
         val theme = interactor.getThemeNow()
         themeLiveDataModel.value = theme
     }
 
+    /**
+     * Возвращает ресурс темы
+     */
+    @StyleRes
     fun getThemeValue() = interactor.getThemeValue()
 
+    /**
+     *
+     * @param item
+     */
     fun setChooseThemeIndex(item: Int) {
         when (item) {
             SettingsInteractorImpl.INDEX_NIGHT_DIALOG -> interactor.onNight()
@@ -42,6 +66,9 @@ class SettingsViewModel : ViewModel() {
 
     fun getLanguageLiveData() = languageLiveData
 
+    /**
+     * Проиницилизировать язык в вью
+     */
     fun initLanguageToView() {
         val lan = interactor.getAppLanguage()
         languageLiveData.value = lan
@@ -53,6 +80,10 @@ class SettingsViewModel : ViewModel() {
 
     fun getSelectLanguage() = interactor.getSelectLanguage()
 
+    /**
+     * Выбрали язык
+     * @param itemIndex индек выбранного поля
+     */
     fun chooseLanguage(itemIndex: Int) {
         if (interactor.getChooseLanguageIndex() != itemIndex) {
             interactor.chooseLanguage(itemIndex)

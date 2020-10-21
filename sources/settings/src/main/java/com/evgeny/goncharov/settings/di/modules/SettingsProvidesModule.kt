@@ -7,6 +7,9 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Провайд модуль для создания вьюмодели экрана настрок
+ */
 @Module
 object SettingsProvidesModule {
 

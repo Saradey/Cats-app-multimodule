@@ -33,6 +33,7 @@ class ThemeManagerImpl @Inject constructor(
      * Получить ресурс темы в зависимости от темы
      * @return
      */
+    @StyleRes
     override fun getThemeNow(): Int {
         val shared =
             context.getSharedPreferences(SHARED_THEME_PREFERENCES_NAME, Context.MODE_PRIVATE)

@@ -21,22 +21,32 @@ import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
-import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.toolbar
+import kotlinx.android.synthetic.main.fragment_settings.txvLanguageApp
+import kotlinx.android.synthetic.main.fragment_settings.txvThemeApp
 import javax.inject.Inject
 
+/**
+ * Экран настроек
+ */
 class SettingsFragment : BaseFragment() {
 
     companion object {
+
         fun getInstance() = SettingsFragment()
     }
 
+    /** ВьюМодель экрана настроек */
     @Inject
     lateinit var viewModel: SettingsViewModel
 
-    private var lang: Language = Language.RU
-
+    /** Отдает выбранную тему */
     private lateinit var themeLiveData: LiveData<ThemeModel>
+
+    /** Отдает выбранный язык */
     private lateinit var languageLiveData: LiveData<Language>
+
+    /** Отдает ui  события */
     private lateinit var uiEventLiveData: LiveData<SettingUiEvents>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +92,6 @@ class SettingsFragment : BaseFragment() {
         })
         languageLiveData.observe(this, Observer { lang ->
             lang?.let {
-                this.lang = lang
                 setLanguageApp(lang)
             }
         })
@@ -120,6 +129,15 @@ class SettingsFragment : BaseFragment() {
         )
     }
 
+    /**
+     * Иницилизация TextView которая выглядит как CardView
+     * @param title надпись
+     * @param subTitle выбранное значение
+     * @param colorTitle цвет тайтла
+     * @param colorSubTitle цвет выбранного значения
+     * @param drawStart иконка которая отрисовывается рядом с текстом
+     * @param textView вьюха для модификации
+     */
     private fun initSpannableTextView(
         @StringRes title: Int,
         @StringRes subTitle: Int,
@@ -139,10 +157,12 @@ class SettingsFragment : BaseFragment() {
                 ContextCompat.getColor(requireContext(), colorSubTitle)
             )
         textView.text = resultTitle
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(
-            requireContext(),
-            drawStart
-        ), null, null, null)
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            ContextCompat.getDrawable(
+                requireContext(),
+                drawStart
+            ), null, null, null
+        )
     }
 
     private fun initClickThemeApp() {

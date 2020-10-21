@@ -6,6 +6,9 @@ import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.settings.ui.SettingsFragment
 import javax.inject.Inject
 
+/**
+ * Реализауия логики перехода на экран настроек
+ */
 class SettingsMediatorImpl @Inject constructor() : SettingsMediator {
 
     override fun goToTheSettingsScreen(supportFragmentManager: FragmentManager) {
