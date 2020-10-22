@@ -31,13 +31,14 @@ class ProgressCat : ConstraintLayout {
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
 
     /** Покадровая анимация кота */
-    private val animationCatFrame: AnimationDrawable = imvCat.background as AnimationDrawable
+    private lateinit var animationCatFrame: AnimationDrawable
 
     /** Для анимации вращения планеты */
     private val animatorRotatePlanet = ValueAnimator.ofFloat(0f, RADIUS_ROTATE)
 
     init {
         inflate(context, R.layout.layout_progress_cat, this)
+        animationCatFrame = imvCat.background as AnimationDrawable
         animatorRotatePlanet.addUpdateListener {
             val value = it.animatedValue as Float
             imvPlanet.rotation = value
