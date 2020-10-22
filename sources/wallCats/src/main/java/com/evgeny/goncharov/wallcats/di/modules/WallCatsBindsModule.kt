@@ -8,6 +8,9 @@ import com.evgeny.goncharov.wallcats.interactors.WallCatInteractorImpl
 import dagger.Binds
 import dagger.Module
 
+/**
+ * Бинд модуль который создает слой бизнес логики и слой источника данных для экрана стены котов
+ */
 @Module
 interface WallCatsBindsModule {
 

@@ -9,6 +9,9 @@ import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
 import dagger.BindsInstance
 import dagger.Component
 
+/**
+ * Компонент для экрана стены котов
+ */
 @FragmentScope
 @Component(
     dependencies = [ProviderFacade::class],
@@ -17,6 +20,7 @@ import dagger.Component
 interface WallCatsComponent {
 
     companion object {
+
         var component: WallCatsComponent? = null
 
         fun init(provide: ProviderFacade, fragment: WallCatsFragment): WallCatsComponent {

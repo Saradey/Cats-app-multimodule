@@ -9,26 +9,41 @@ import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Вьюмодель экрана описание кота
+ */
 class CatDescriptionViewModel : ViewModel() {
 
+    /** Отдает выбранного кота для отоборажения в View */
     private val catDescriptionLiveData = MutableLiveData<CatDescription>()
 
+    /** Бизнес логика экрана описание кота */
     @Inject
     lateinit var interactor: CatDescriptionInteractor
 
+    /**
+     * Иницилизация зависимостей
+     */
     fun initInjection() {
         CatDescriptionComponent.component?.inject(this)
     }
 
+    /**
+     * Делегирование id кота слою бизнес логики
+     * @param catId
+     */
     fun setCatId(catId: String) {
         interactor.setCatId(catId)
     }
 
+    /**
+     * Загрузить выбранного кота для отображения в View
+     */
     fun loadChooseCat() {
         viewModelScope.launch {
             val cat = interactor.loadChooseCat()
             cat?.let {
-                catDescriptionLiveData.postValue(cat)
+                catDescriptionLiveData.value = it
             }
         }
     }

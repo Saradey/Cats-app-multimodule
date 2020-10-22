@@ -3,14 +3,24 @@ package com.evgeny.goncharov.wallcats.ui.adapters
 import androidx.paging.PageKeyedDataSource
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
+/**
+ * Для пангинации списка стены котов
+ * @property viewModel вьюмодель экрана стена котов
+ */
 class PageKeyedDataSourceCatBreeds(
     private val viewModel: WallCatsViewModel
 ) : PageKeyedDataSource<Int, CatBreedView>() {
 
+    /** Скоуп для запуска корутины которые делают запрос в сеть */
     private var mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
+    /** Пангинируем страницы */
     private var page = 0
 
     override fun loadInitial(

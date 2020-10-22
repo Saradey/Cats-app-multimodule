@@ -9,12 +9,17 @@ import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 
+/**
+ * Адаптер стены котов
+ * @property listener контракт слушателя нажатий
+ * @property themeManager менеджер отвечающий за темы в приложении
+ * @param diffUtils для рассчета списка
+ */
 class CatBreedsPagedAdapter(
     diffUtils: DiffUtil.ItemCallback<CatBreedView>,
     private val listener: CatBreedViewHolder.CatBreedViewHolderListener,
     private val themeManager: ThemeManager
 ) : PagedListAdapter<CatBreedView, CatBreedViewHolder>(diffUtils) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatBreedViewHolder {
         val view =

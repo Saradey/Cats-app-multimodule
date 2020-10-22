@@ -7,6 +7,9 @@ import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Модуль который провайдит вьюмодель на экран описание кота
+ */
 @Module
 object CatDescriptionProvidesModule {
 

@@ -8,12 +8,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Реализация бизнес логики экрана описание кота
+ * @property repository источник данных экрана описание кота
+ */
 class CatDescriptionInteractorImpl @Inject constructor(
     private val repository: CatDescriptionGateway
 ) : CatDescriptionInteractor {
 
+    /** Id выбранного кота */
     private var catId = ""
 
+    /** Отдает ui эвенты */
     private var liveDataUiEvents = SingleLiveEvent<CatDescriptionEvents>()
 
     override fun setCatId(catId: String) {
