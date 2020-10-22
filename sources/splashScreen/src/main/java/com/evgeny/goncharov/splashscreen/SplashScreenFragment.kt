@@ -9,19 +9,32 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.*
-import kotlinx.coroutines.*
+import kotlinx.android.synthetic.main.fragment_splash_screen.view.imvCat
+import kotlinx.android.synthetic.main.fragment_splash_screen.view.txvTitle
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Сплешскрин
+ */
 class SplashScreenFragment : Fragment() {
 
     companion object {
+
+        /** Задержка в миллисекундах */
         private const val DELAY_SPLASH_SCREEN_MILLISECONDS = 2500L
+
         fun getInstance() = SplashScreenFragment()
     }
 
+    /** Для осуществление задержки */
     private val mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
+    /** Для перехода на экран настроек */
     @Inject
     lateinit var wallCatsMediator: WallCatsMediator
 

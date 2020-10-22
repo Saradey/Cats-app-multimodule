@@ -9,11 +9,15 @@ import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_RU
 import javax.inject.Inject
 
+/**
+ * Реализация источника данных для экрана настрое
+ * @property themeManager менеджер отвечающий за смену и хранения темы приложения
+ * @property languageManager менеджер отвечающий за хранения языка приложения
+ */
 class SettingsGatewayImpl @Inject constructor(
     private val themeManager: ThemeManager,
     private val languageManager: LanguageManager
 ) : SettingsGateway {
-
 
     override fun getThemeModeAppNow() = ThemeModel(themeManager.getThemeNow())
 

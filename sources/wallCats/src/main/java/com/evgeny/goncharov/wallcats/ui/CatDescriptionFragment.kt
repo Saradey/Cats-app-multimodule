@@ -16,22 +16,38 @@ import com.evgeny.goncharov.wallcats.di.components.CatDescriptionComponent
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import com.evgeny.goncharov.wallcats.ui.events.CatDescriptionEvents
 import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
-import kotlinx.android.synthetic.main.fragment_cat_description.*
+import kotlinx.android.synthetic.main.fragment_cat_description.grpAllContent
+import kotlinx.android.synthetic.main.fragment_cat_description.imvCat
+import kotlinx.android.synthetic.main.fragment_cat_description.mbtnWikiLink
+import kotlinx.android.synthetic.main.fragment_cat_description.toolbar
+import kotlinx.android.synthetic.main.fragment_cat_description.txvDescription
+import kotlinx.android.synthetic.main.fragment_cat_description.txvLifeSpan
+import kotlinx.android.synthetic.main.fragment_cat_description.txvNameCat
+import kotlinx.android.synthetic.main.fragment_cat_description.txvOrigin
+import kotlinx.android.synthetic.main.fragment_cat_description.txvTemperament
+import kotlinx.android.synthetic.main.fragment_cat_description.txvWeight
 import javax.inject.Inject
 
+/**
+ * Экран описания кота
+ */
 class CatDescriptionFragment : BaseFragment() {
 
     companion object {
+
         fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
             setCatId(idCat ?: "")
         }
     }
 
+    /** Вьюмодель экрана описания кота */
     @Inject
     lateinit var viewModel: CatDescriptionViewModel
 
+    /** id выбранного кота */
     private var catId: String? = null
 
+    /** Шлет ui эвенты */
     private lateinit var uiLiveData: LiveData<CatDescriptionEvents>
 
     override fun onCreate(savedInstanceState: Bundle?) {

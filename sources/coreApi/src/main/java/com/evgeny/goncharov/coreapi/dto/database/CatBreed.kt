@@ -6,6 +6,18 @@ import com.evgeny.goncharov.coreapi.CAT_BREED_TABLE_NAME
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Порода кота
+ * @property description описание породы
+ * @property name имя породы
+ * @property lifeSpan сколько живет в годах
+ * @property id породы
+ * @property origin происхождение породы
+ * @property temperament характер породы
+ * @property wikipediaUrl ссылка на википедию
+ * @property weight вес породы
+ * @property urlImageCat ссылка на картинку как выглядит кошак
+ */
 @Entity(tableName = CAT_BREED_TABLE_NAME)
 data class CatBreed(
     @SerializedName("description") val description: String? = null,

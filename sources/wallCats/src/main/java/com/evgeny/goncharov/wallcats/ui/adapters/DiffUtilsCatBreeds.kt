@@ -3,6 +3,9 @@ package com.evgeny.goncharov.wallcats.ui.adapters
 import androidx.recyclerview.widget.DiffUtil
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 
+/**
+ * Для рассчета списков
+ */
 class DiffUtilsCatBreeds : DiffUtil.ItemCallback<CatBreedView>() {
 
     override fun areItemsTheSame(oldItem: CatBreedView, newItem: CatBreedView): Boolean {

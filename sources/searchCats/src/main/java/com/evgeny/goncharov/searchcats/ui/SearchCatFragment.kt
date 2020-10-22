@@ -15,26 +15,38 @@ import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.searchcats.R
 import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
-import com.evgeny.goncharov.searchcats.model.CatCatched
-import com.evgeny.goncharov.searchcats.ui.adapter.CatsCathedAdapter
-import com.evgeny.goncharov.searchcats.ui.events.SearchCatEvents
+import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.ui.adapter.CatsCatchAdapter
+import com.evgeny.goncharov.searchcats.ui.events.SearchCatUiEvents
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
-import kotlinx.android.synthetic.main.fragment_search_cat.*
+import kotlinx.android.synthetic.main.fragment_search_cat.crvContainerCats
+import kotlinx.android.synthetic.main.fragment_search_cat.rcvCathedCats
+import kotlinx.android.synthetic.main.fragment_search_cat.srcSearchCat
+import kotlinx.android.synthetic.main.fragment_search_cat.toolbar
+import kotlinx.android.synthetic.main.fragment_search_cat.txvCatsStubNotFound
 import javax.inject.Inject
 
+/**
+ * Фрагмент поиска котов
+ */
 class SearchCatFragment : BaseFragment() {
 
+    /** ВьюМодель поиска котов */
     @Inject
     lateinit var viewModel: SearchCatViewModel
 
+    /** Для запуска стены котов */
     @Inject
     lateinit var wallCatsMediator: WallCatsMediator
 
-    private lateinit var uiLiveData: LiveData<SearchCatEvents>
+    /** Отдает ui эвенты */
+    private lateinit var uiLiveData: LiveData<SearchCatUiEvents>
 
-    private lateinit var adapter: CatsCathedAdapter
+    /** Для управления список искомых котов */
+    private lateinit var adapter: CatsCatchAdapter
 
     companion object {
+
         fun getInstance() = SearchCatFragment()
     }
 
@@ -79,19 +91,20 @@ class SearchCatFragment : BaseFragment() {
         uiLiveData = viewModel.getUiEventsLiveData()
         uiLiveData.observe(this, Observer {
             when (it) {
-                SearchCatEvents.EventShowProgressAndHideStubAndHideModels -> hideStubAndListAndShowProgress()
-                SearchCatEvents.EventHideProgressAndShowStub -> hideProgressAndShowStub()
-                SearchCatEvents.EventHideProgressAndShowRecycleView -> hideProgressAndShowModels()
+                SearchCatUiEvents.EventShowProgressAndHideStubAndHideModels -> hideStubAndListAndShowProgress()
+                SearchCatUiEvents.EventHideProgressAndShowStub -> hideProgressAndShowStub()
+                SearchCatUiEvents.EventHideProgressAndShowRecycleView -> hideProgressAndShowModels()
             }
         })
     }
 
+    /** Выбрали кота, делаем переход в на экран описание кота */
     private fun chooseCat(id: String) {
         wallCatsMediator.goToTheScreenCatDescription(id, fragmentManager!!)
     }
 
     private fun initAdapterAndRecycle() {
-        adapter = CatsCathedAdapter(::chooseCat)
+        adapter = CatsCatchAdapter(::chooseCat)
         rcvCathedCats.layoutManager = LinearLayoutManager(context)
         rcvCathedCats.adapter = adapter
     }
@@ -148,7 +161,7 @@ class SearchCatFragment : BaseFragment() {
         crvContainerCats.setVisibilityBool(true)
     }
 
-    private fun setCatsCatched(models: List<CatCatched>?) {
+    private fun setCatsCatched(models: List<CatCatch>?) {
         adapter.models = models ?: emptyList()
     }
 
@@ -156,6 +169,6 @@ class SearchCatFragment : BaseFragment() {
         super.onDestroy()
         SearchCatComponent.component = null
         hideKeyboard()
-        (uiLiveData as SingleLiveEvent<SearchCatEvents>).call()
+        (uiLiveData as SingleLiveEvent<SearchCatUiEvents>).call()
     }
 }

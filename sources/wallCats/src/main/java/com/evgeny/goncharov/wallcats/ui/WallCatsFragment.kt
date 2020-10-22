@@ -24,34 +24,49 @@ import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.events.WallCatsEvents
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
-import kotlinx.android.synthetic.main.fragment_wall_cats.*
+import kotlinx.android.synthetic.main.fragment_wall_cats.rcvCatBreeds
+import kotlinx.android.synthetic.main.fragment_wall_cats.swrlContainer
+import kotlinx.android.synthetic.main.fragment_wall_cats.toolbar
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class WallCatsFragment : BaseFragment(), CatBreedViewHolder.CatBreedViewHolderListener {
+/**
+ * Экран стены котов
+ */
+class WallCatsFragment : BaseFragment(),
+    CatBreedViewHolder.CatBreedViewHolderListener {
 
     companion object {
+
         fun getInstance() = WallCatsFragment()
     }
 
+    /** Вьюмодель стены котов */
     @Inject
     lateinit var viewModel: WallCatsViewModel
 
+    /** Для перехода на экран описание кота */
     @Inject
     lateinit var wallCatsMediator: WallCatsMediator
 
+    /** Для перехода на экран поиска котов */
     @Inject
     lateinit var searchMediator: SearchCatsMediator
 
+    /** Для перехода на экран настроек */
     @Inject
     lateinit var settingsMediator: SettingsMediator
 
+    /** Принимает ui эвенты */
     private lateinit var uiLiveData: LiveData<WallCatsEvents>
 
+    /** Для пангинации списка котов */
     private lateinit var dataSource: PageKeyedDataSourceCatBreeds
 
+    /** Для осуществление пангинации */
     private var mainThreadExecutor = MainThreadExecutor()
 
+    /** Для управления холдерами списка стены котов */
     private lateinit var adapter: CatBreedsPagedAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

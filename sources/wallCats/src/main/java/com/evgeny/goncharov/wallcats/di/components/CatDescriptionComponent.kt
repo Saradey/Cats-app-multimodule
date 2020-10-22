@@ -9,6 +9,9 @@ import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
 import dagger.BindsInstance
 import dagger.Component
 
+/**
+ * Компонент для экрана описание котов
+ */
 @FragmentScope
 @Component(
     dependencies = [ProviderFacade::class],

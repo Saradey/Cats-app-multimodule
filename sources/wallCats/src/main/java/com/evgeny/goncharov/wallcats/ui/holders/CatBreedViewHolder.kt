@@ -7,8 +7,18 @@ import com.bumptech.glide.request.RequestOptions
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
-import kotlinx.android.synthetic.main.holder_cat_breed.view.*
+import kotlinx.android.synthetic.main.holder_cat_breed.view.cnlContainerCat
+import kotlinx.android.synthetic.main.holder_cat_breed.view.imbWiki
+import kotlinx.android.synthetic.main.holder_cat_breed.view.imvShowCat
+import kotlinx.android.synthetic.main.holder_cat_breed.view.txvBreedDescription
+import kotlinx.android.synthetic.main.holder_cat_breed.view.txvBreedName
 
+/**
+ * Холдер кота на экране стены котов
+ * @property listener контракт слушатель нажатий
+ * @property themeManager менеджер отвечающий за темы в приложении
+ * @param view макет холдера кота на стене котов
+ */
 class CatBreedViewHolder(
     view: View,
     private val listener: CatBreedViewHolderListener,
@@ -17,9 +27,14 @@ class CatBreedViewHolder(
     RecyclerView.ViewHolder(view) {
 
     companion object {
+
         private const val SIZE_BITMAP_CATS = 100
     }
 
+    /**
+     * Биндим данные со вью
+     * @param item модель кота
+     */
     fun bind(item: CatBreedView?) {
         item?.let {
             itemView.txvBreedName.text = item.name
@@ -45,8 +60,21 @@ class CatBreedViewHolder(
         }
     }
 
+    /**
+     * Контракт, слушателя нажатий
+     */
     interface CatBreedViewHolderListener {
+
+        /**
+         * Нажатие на холдер
+         * @param id кота на которого нажали
+         */
         fun clickCatBreed(id: String?)
+
+        /**
+         * Нажатие на кнопку википедии
+         * @param urlImage урл страницы кота в википедии
+         */
         fun clickCatUrlBreed(urlImage: String?)
     }
 }

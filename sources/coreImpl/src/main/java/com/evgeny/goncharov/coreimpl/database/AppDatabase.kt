@@ -9,11 +9,9 @@ import com.evgeny.goncharov.coreapi.dto.converters.WeightTypeConverter
 import com.evgeny.goncharov.coreapi.dto.database.CatBreed
 import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreed
 
-@Database(
-    version = VERSION_DATA_BASE, entities = [
-        CatBreed::class,
-        ChooseCatBreed::class
-    ]
-)
+/**
+ * Главный класс базы данных поставляющий DAO
+ */
+@Database(version = VERSION_DATA_BASE, entities = [CatBreed::class, ChooseCatBreed::class])
 @TypeConverters(value = [WeightTypeConverter::class])
 abstract class AppDatabase : RoomDatabase(), DatabaseContract

@@ -7,7 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
+/**
+ * ЛайвДата способная обнулять значения при вызове call
+ * @param T тип value который хранится в лайвдата
+ */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
+
     private val pending = AtomicBoolean(false)
 
     @MainThread
@@ -38,6 +43,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 
     companion object {
+
         private const val TAG = "SingleLiveEvent"
     }
 }

@@ -17,11 +17,17 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+/**
+ * Реализация логики источника данных экрана стены котов
+ * @property api для загрузки котов из сети
+ * @property daoWallCat для загрузки котов из бд
+ */
 class WallCatGatewayImpl @Inject constructor(
     private val api: ApiBreeds,
     private val daoWallCat: CatsWallDao
 ) : WallCatGateway {
 
+    /** Скоуп для загрузки картинок и ожидание пока все не загрузится */
     private val coroutineScopeIo = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override suspend fun loadWallCatFromInternet(request: WallCatRequest) =

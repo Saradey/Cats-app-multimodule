@@ -12,10 +12,15 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+/**
+ * Реализауия бизнес логики экрана стены котов
+ * @property repository источник даных экрана стены котов
+ */
 class WallCatInteractorImpl @Inject constructor(
     private val repository: WallCatGateway
 ) : WallCatInteractor {
 
+    /** Отдает ui эвенты */
     private val liveDataUiEvents = SingleLiveEvent<WallCatsEvents>()
 
     override suspend fun loadWallCat(): List<CatBreedView> {
@@ -39,33 +44,26 @@ class WallCatInteractorImpl @Inject constructor(
         }
     }
 
-    override suspend fun loadNexPage(key: Int): List<CatBreedView> {
-        val result = repository.loadWallCatFromInternet(
+    override suspend fun loadNexPage(nextCount: Int): List<CatBreedView> =
+        repository.loadWallCatFromInternet(
             WallCatRequest(
                 limit = LIMIT_PAGE_SIZE_CAT_WALL,
-                page = key
+                page = nextCount
             )
         )
-        return suspendCoroutine { continuation ->
-            continuation.resume(
-                result
-            )
-        }
-    }
 
     private suspend fun loadFromDatabase(exp: Exception): List<CatBreedView> {
         exp.printStackTrace()
         return repository.loadWallCatFromDatabase()
     }
 
-    private suspend fun loadFromInternet(): List<CatBreedView> {
-        return repository.loadWallCatFromInternet(
+    private suspend fun loadFromInternet(): List<CatBreedView> =
+        repository.loadWallCatFromInternet(
             WallCatRequest(
                 limit = LIMIT_PAGE_SIZE_CAT_WALL,
                 page = 0
             )
         )
-    }
 
     private suspend fun showProgress() = withContext(Dispatchers.Main) {
         liveDataUiEvents.value = WallCatsEvents.EventShowProgressAndHideStub

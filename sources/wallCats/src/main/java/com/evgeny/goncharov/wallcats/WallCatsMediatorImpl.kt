@@ -7,6 +7,9 @@ import com.evgeny.goncharov.wallcats.ui.CatDescriptionFragment
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment
 import javax.inject.Inject
 
+/**
+ * Реализация логики перехода на экран стены котов и на экран описание кота
+ */
 class WallCatsMediatorImpl @Inject constructor() : WallCatsMediator {
 
     override fun goToTheWallCatsFragment(supportFragmentManager: FragmentManager) {

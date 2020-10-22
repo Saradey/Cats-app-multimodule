@@ -5,6 +5,17 @@ import androidx.room.PrimaryKey
 import com.evgeny.goncharov.coreapi.CHOOSE_CAT_BREED_TABLE_NAME
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Модель описание конкретной породы
+ * @property id породы
+ * @property weight веси породы
+ * @property name имя породы
+ * @property temperament характер породы
+ * @property origin происхождение породы
+ * @property description описанеи породы
+ * @property lifeSpan сколько живет в годах
+ * @property wikipediaUrl ссылка на википедию
+ */
 @Entity(tableName = CHOOSE_CAT_BREED_TABLE_NAME)
 data class ChooseCatBreed(
     @SerializedName("id") @PrimaryKey val id: String = "",

@@ -6,13 +6,16 @@ import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.searchcats.ui.SearchCatFragment
 import javax.inject.Inject
 
+/**
+ * Реализация логики перехода на экран поиска котов
+ */
 class SearchCatsMediatorImpl @Inject constructor() : SearchCatsMediator {
 
-    override fun goToTheSearchScreen(manager: FragmentManager) {
+    override fun goToTheSearchScreen(supportFragmentManager: FragmentManager) {
         val fragment = SearchCatFragment.getInstance()
-        manager.beginTransaction()
+        supportFragmentManager.beginTransaction()
             .hide(
-                manager.fragments.find {
+                supportFragmentManager.fragments.find {
                     it is BaseFragment
                 }!!
             )

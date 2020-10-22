@@ -5,10 +5,11 @@ import com.evgeny.goncharov.coreapi.scope.ActivityScope
 import com.evgeny.goncharov.main.MainActivity
 import dagger.Component
 
+/**
+ * Даггер граф уровня активити
+ */
 @ActivityScope
-@Component(
-    dependencies = [ProviderFacade::class]
-)
+@Component(dependencies = [ProviderFacade::class])
 interface MainActivityComponent : ProviderFacade {
 
     companion object {

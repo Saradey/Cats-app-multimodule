@@ -8,11 +8,15 @@ import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.BindsInstance
 import dagger.Component
 
+/**
+ * Главный апп компонент, который провайдит контекст
+ */
 @AppScope
 @Component(modules = [ConfigModule::class])
 interface AppComponent : ContextProvider {
 
     companion object {
+
         private var appComponent: AppComponent? = null
 
         fun getLazy(app: Application? = null): AppComponent {

@@ -9,6 +9,9 @@ import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
 import dagger.BindsInstance
 import dagger.Component
 
+/**
+ * Компонент для провайда зависимостей на экран стены котов
+ */
 @FragmentScope
 @Component(
     dependencies = [ProviderFacade::class],
@@ -17,6 +20,7 @@ import dagger.Component
 interface SearchCatComponent {
 
     companion object {
+
         var component: SearchCatComponent? = null
 
         fun init(fragment: SearchCatFragment, provide: ProviderFacade): SearchCatComponent {

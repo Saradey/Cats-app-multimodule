@@ -1,23 +1,28 @@
 package com.evgeny.goncharov.wallcats.gateways
 
-import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
-import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
 import com.evgeny.goncharov.coreapi.database.dao.CatDescriptionDAO
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
 import com.evgeny.goncharov.coreapi.dto.database.CatBreed
 import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreed
+import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import com.evgeny.goncharov.coreapi.exception.ChooseCateNullPointerException
+import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Реализаия догики источника даных экрана описание кота
+ * @property api для загрузки искомого кота
+ * @property dao для загрузки искомого кота из базы данных
+ * @property daoWallCat для загрузки искомого кота из базы данных
+ */
 class CatDescriptionGatewayImpl @Inject constructor(
     private val api: ApiCatSearch,
     private val dao: CatDescriptionDAO,
     private val daoWallCat: CatsWallDao
 ) : CatDescriptionGateway {
-
 
     override suspend fun loadChooseCatFromInternet(catId: String): CatDescription? =
         withContext(Dispatchers.IO) {
