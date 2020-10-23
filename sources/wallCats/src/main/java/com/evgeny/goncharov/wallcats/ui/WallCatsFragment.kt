@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
@@ -28,7 +29,6 @@ import kotlinx.android.synthetic.main.fragment_wall_cats.rcvCatBreeds
 import kotlinx.android.synthetic.main.fragment_wall_cats.swrlContainer
 import kotlinx.android.synthetic.main.fragment_wall_cats.toolbar
 import java.util.concurrent.Executors
-import javax.inject.Inject
 
 /**
  * Экран стены котов
@@ -42,20 +42,16 @@ class WallCatsFragment : BaseFragment(),
     }
 
     /** Вьюмодель стены котов */
-    @Inject
-    lateinit var viewModel: WallCatsViewModel
+    private lateinit var viewModel: WallCatsViewModel
 
     /** Для перехода на экран описание кота */
-    @Inject
-    lateinit var wallCatsMediator: WallCatsMediator
+    private lateinit var wallCatsMediator: WallCatsMediator
 
     /** Для перехода на экран поиска котов */
-    @Inject
-    lateinit var searchMediator: SearchCatsMediator
+    private lateinit var searchMediator: SearchCatsMediator
 
     /** Для перехода на экран настроек */
-    @Inject
-    lateinit var settingsMediator: SettingsMediator
+    private lateinit var settingsMediator: SettingsMediator
 
     /** Принимает ui эвенты */
     private lateinit var uiLiveData: LiveData<WallCatsEvents>
@@ -69,20 +65,25 @@ class WallCatsFragment : BaseFragment(),
     /** Для управления холдерами списка стены котов */
     private lateinit var adapter: CatBreedsPagedAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initDaggerGraph()
-        savedInstanceState ?: viewModel.initInjection()
-    }
-
     private fun initDaggerGraph() {
-        WallCatsComponent.init((requireActivity() as WithFacade).getFacade(), this)
-            .inject(this)
+        WallCatsComponent.getByLazy(
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithProviders).getProviderAndroidComponent()
+        )
+            .apply {
+                viewModel = provideWallCatsViewModel()
+                wallCatsMediator = provideWallCatsMediator()
+                searchMediator = provideSearchCatsMediator()
+                settingsMediator = provideSettingMediator()
+                themeManager = provideThemeManager()
+            }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_wall_cats
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initDaggerGraph()
+        savedInstanceState ?: viewModel.initInjection()
         init()
     }
 
@@ -187,6 +188,5 @@ class WallCatsFragment : BaseFragment(),
     override fun onDestroy() {
         super.onDestroy()
         (uiLiveData as SingleLiveEvent<WallCatsEvents>).call()
-        WallCatsComponent.component = null
     }
 }

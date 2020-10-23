@@ -4,8 +4,8 @@ import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.searchcats.di.modules.SearchCatBindsModule
 import com.evgeny.goncharov.searchcats.di.modules.SearchCatProvidesModule
+import com.evgeny.goncharov.searchcats.di.provides.SearchCatProvider
 import com.evgeny.goncharov.searchcats.ui.SearchCatFragment
-import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
 import dagger.BindsInstance
 import dagger.Component
 
@@ -17,7 +17,7 @@ import dagger.Component
     dependencies = [ProviderFacade::class],
     modules = [SearchCatBindsModule::class, SearchCatProvidesModule::class]
 )
-interface SearchCatComponent {
+interface SearchCatComponent : SearchCatProvider {
 
     companion object {
 
@@ -37,8 +37,4 @@ interface SearchCatComponent {
 
         fun plus(@BindsInstance fragment: SearchCatFragment, provide: ProviderFacade): SearchCatComponent
     }
-
-    fun inject(fragment: SearchCatFragment)
-
-    fun inject(viewModel: SearchCatViewModel)
 }

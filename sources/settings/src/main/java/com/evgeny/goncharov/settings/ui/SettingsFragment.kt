@@ -24,7 +24,6 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import kotlinx.android.synthetic.main.fragment_settings.toolbar
 import kotlinx.android.synthetic.main.fragment_settings.txvLanguageApp
 import kotlinx.android.synthetic.main.fragment_settings.txvThemeApp
-import javax.inject.Inject
 
 /**
  * Экран настроек
@@ -37,8 +36,7 @@ class SettingsFragment : BaseFragment() {
     }
 
     /** ВьюМодель экрана настроек */
-    @Inject
-    lateinit var viewModel: SettingsViewModel
+    private lateinit var viewModel: SettingsViewModel
 
     /** Отдает выбранную тему */
     private lateinit var themeLiveData: LiveData<ThemeModel>
@@ -60,7 +58,10 @@ class SettingsFragment : BaseFragment() {
         SettingsComponent.init(
             this,
             (requireActivity() as WithFacade).getFacade()
-        ).inject(this)
+        ).apply {
+            viewModel = provideSettingsViewModel()
+            themeManager = provideThemeManager()
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_settings

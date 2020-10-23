@@ -7,7 +7,6 @@ import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import javax.inject.Inject
 
 /**
  * Дилоговое окно выбора языка
@@ -24,12 +23,14 @@ class DialogChooseLanguageApp : BaseFragmentDialog() {
     }
 
     /** ВьюМодель экрана настроек */
-    @Inject
-    lateinit var vm: SettingsViewModel
+    private lateinit var vm: SettingsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsComponent.component?.inject(this)
+        SettingsComponent.component?.apply {
+            vm = provideSettingsViewModel()
+            themeManager = provideThemeManager()
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

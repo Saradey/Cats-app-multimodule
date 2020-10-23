@@ -2,12 +2,12 @@ package com.evgeny.goncharov.wallcats.view.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.evgeny.goncharov.wallcats.di.components.CatDescriptionComponent
+import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Вьюмодель экрана описание кота
@@ -18,14 +18,18 @@ class CatDescriptionViewModel : ViewModel() {
     private val catDescriptionLiveData = MutableLiveData<CatDescription>()
 
     /** Бизнес логика экрана описание кота */
-    @Inject
-    lateinit var interactor: CatDescriptionInteractor
+    private lateinit var interactor: CatDescriptionInteractor
+
+    /** Корутина для запроса выбранного кота */
+    private val coroutineMainScope = CoroutineScope(Dispatchers.Main)
 
     /**
      * Иницилизация зависимостей
      */
     fun initInjection() {
-        CatDescriptionComponent.component?.inject(this)
+        WallCatsComponent.component?.let {
+            interactor = it.provideDescriptionInteractor()
+        }
     }
 
     /**
@@ -40,7 +44,7 @@ class CatDescriptionViewModel : ViewModel() {
      * Загрузить выбранного кота для отображения в View
      */
     fun loadChooseCat() {
-        viewModelScope.launch {
+        coroutineMainScope.launch {
             val cat = interactor.loadChooseCat()
             cat?.let {
                 catDescriptionLiveData.value = it

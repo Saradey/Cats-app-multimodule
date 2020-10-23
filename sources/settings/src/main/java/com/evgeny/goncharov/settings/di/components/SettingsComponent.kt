@@ -4,10 +4,8 @@ import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.settings.di.modules.SettingsBindsModule
 import com.evgeny.goncharov.settings.di.modules.SettingsProvidesModule
-import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp
-import com.evgeny.goncharov.settings.ui.DialogChooseThemeApp
+import com.evgeny.goncharov.settings.di.provides.SettingsProvides
 import com.evgeny.goncharov.settings.ui.SettingsFragment
-import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import dagger.BindsInstance
 import dagger.Component
 
@@ -19,7 +17,7 @@ import dagger.Component
     dependencies = [ManagerProvider::class],
     modules = [SettingsBindsModule::class, SettingsProvidesModule::class]
 )
-interface SettingsComponent {
+interface SettingsComponent : SettingsProvides {
 
     companion object {
 
@@ -42,12 +40,4 @@ interface SettingsComponent {
             provider: ManagerProvider
         ): SettingsComponent
     }
-
-    fun inject(fragment: SettingsFragment)
-
-    fun inject(viewModel: SettingsViewModel)
-
-    fun inject(viewModel: DialogChooseThemeApp)
-
-    fun inject(viewModel: DialogChooseLanguageApp)
 }

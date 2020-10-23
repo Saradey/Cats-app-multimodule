@@ -16,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Сплешскрин
@@ -35,8 +34,7 @@ class SplashScreenFragment : Fragment() {
     private val mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     /** Для перехода на экран настроек */
-    @Inject
-    lateinit var wallCatsMediator: WallCatsMediator
+    private lateinit var wallCatsMediator: WallCatsMediator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +42,9 @@ class SplashScreenFragment : Fragment() {
             .builder()
             .mediatorsProvider((requireActivity() as WithFacade).getFacade())
             .build()
-            .inject(this)
+            .apply {
+                wallCatsMediator = provideWallCatsMediator()
+            }
     }
 
     override fun onCreateView(

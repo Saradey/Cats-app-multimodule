@@ -6,7 +6,6 @@ import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
 import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractor
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Вьюмодель поиска котов
@@ -14,8 +13,7 @@ import javax.inject.Inject
 class SearchCatViewModel : ViewModel() {
 
     /** Интерактор бизнес логика поиска котов */
-    @Inject
-    lateinit var interactor: SearchCatInteractor
+    private lateinit var interactor: SearchCatInteractor
 
     /**
      * Для отмены поиска если мы ввели новое значение
@@ -26,7 +24,9 @@ class SearchCatViewModel : ViewModel() {
      * иницилизация зависимостей
      */
     fun initInject() {
-        SearchCatComponent.component?.inject(this)
+        SearchCatComponent.component?.apply {
+            interactor = provideSearchCatInteractor()
+        }
     }
 
     /**
