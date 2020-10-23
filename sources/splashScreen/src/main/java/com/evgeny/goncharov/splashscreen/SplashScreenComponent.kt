@@ -7,7 +7,4 @@ import dagger.Component
  * Компонент для экрана сплеш скрина
  */
 @Component(dependencies = [MediatorsProvider::class])
-interface SplashScreenComponent {
-
-    fun inject(fragment: SplashScreenFragment)
-}
+interface SplashScreenComponent : MediatorsProvider
