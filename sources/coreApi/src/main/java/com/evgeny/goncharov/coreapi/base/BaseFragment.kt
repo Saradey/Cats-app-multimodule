@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.ui.StubController
 import com.evgeny.goncharov.coreapi.ui.events.BaseUiEvents
-import javax.inject.Inject
 
 /**
  * Базовый класс фрагмент, с базовой реализацией, должны наследовать ВСЕ фрагменты
@@ -18,8 +17,7 @@ import javax.inject.Inject
 abstract class BaseFragment : Fragment() {
 
     /** Менеджер тем */
-    @Inject
-    lateinit var themeManager: ThemeManager
+    protected lateinit var themeManager: ThemeManager
 
     /** Контроллер за состоянием экранов */
     private var stubController = StubController()

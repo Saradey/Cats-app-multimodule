@@ -1,11 +1,13 @@
 package com.evgeny.goncharov.wallcats.di.components
 
+import com.evgeny.goncharov.coreapi.providers.ManagerProvider
+import com.evgeny.goncharov.coreapi.providers.MediatorsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsBindsModule
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsProvidesModule
+import com.evgeny.goncharov.wallcats.di.provides.WallCatsProvider
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment
-import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
 import dagger.BindsInstance
 import dagger.Component
 
@@ -17,7 +19,7 @@ import dagger.Component
     dependencies = [ProviderFacade::class],
     modules = [WallCatsBindsModule::class, WallCatsProvidesModule::class]
 )
-interface WallCatsComponent {
+interface WallCatsComponent : WallCatsProvider, MediatorsProvider, ManagerProvider {
 
     companion object {
 
@@ -40,8 +42,4 @@ interface WallCatsComponent {
             provide: ProviderFacade
         ): WallCatsComponent
     }
-
-    fun inject(fragment: WallCatsFragment)
-
-    fun inject(viewModel: WallCatsViewModel)
 }

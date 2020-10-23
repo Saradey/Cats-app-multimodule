@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
-import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -14,14 +13,15 @@ import kotlin.coroutines.suspendCoroutine
 class WallCatsViewModel : ViewModel() {
 
     /** Интерактор стены котов */
-    @Inject
-    lateinit var interactor: WallCatInteractor
+    private lateinit var interactor: WallCatInteractor
 
     /**
      * Иницилизация зависимостей
      */
     fun initInjection() {
-        WallCatsComponent.component?.inject(this)
+        WallCatsComponent.component?.let {
+            interactor = it.provideInteractor()
+        }
     }
 
     /**
