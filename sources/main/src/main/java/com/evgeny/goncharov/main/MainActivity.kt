@@ -5,9 +5,11 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
+import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
+import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.main.di.MainActivityComponent
 import com.evgeny.goncharov.main.managers.MainRouter
@@ -16,7 +18,7 @@ import java.util.Locale
 /**
  * Архитектура построена на single activity, единственная активити в проекте
  */
-class MainActivity : AppCompatActivity(), WithFacade {
+class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
 
     /** Для установки светлой или темной темы */
     private lateinit var themeManager: ThemeManager
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity(), WithFacade {
      * Иницилизация зависимостей
      */
     private fun initDaggerGraph() {
-        MainActivityComponent.init().apply {
+        MainActivityComponent.init(this, ProviderFacade.component).apply {
             themeManager = provideThemeManager()
             languageManager = provideLanguageManager()
             splashScreenMediator = provideSplashScreenMediator()
@@ -76,5 +78,9 @@ class MainActivity : AppCompatActivity(), WithFacade {
 
     override fun onBackPressed() {
         routerManager.onBackPressed()
+    }
+
+    override fun getProviderAndroidComponent(): AndroidComponentsProvider {
+        return MainActivityComponent.component!!
     }
 }

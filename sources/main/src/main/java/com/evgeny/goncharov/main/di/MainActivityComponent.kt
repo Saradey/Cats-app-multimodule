@@ -1,27 +1,39 @@
 package com.evgeny.goncharov.main.di
 
+import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.ActivityScope
+import com.evgeny.goncharov.main.MainActivity
+import dagger.BindsInstance
 import dagger.Component
 
 /**
  * Даггер граф уровня активити
  */
 @ActivityScope
-@Component(dependencies = [ProviderFacade::class])
-interface MainActivityComponent : ProviderFacade {
+@Component(dependencies = [ProviderFacade::class], modules = [MainActivityProvideModule::class])
+interface MainActivityComponent : ProviderFacade, AndroidComponentsProvider {
 
     companion object {
 
         var component: MainActivityComponent? = null
 
-        fun init(): MainActivityComponent {
+        fun init(mainActivity: MainActivity, provider: ProviderFacade): MainActivityComponent {
             return DaggerMainActivityComponent
-                .builder()
-                .providerFacade(ProviderFacade.component)
-                .build().apply {
+                .factory()
+                .plus(mainActivity, provider)
+                .apply {
                     component = this
                 }
         }
+    }
+
+    @Component.Factory
+    interface Factory {
+
+        fun plus(
+            @BindsInstance mainActivity: MainActivity,
+            provider: ProviderFacade
+        ): MainActivityComponent
     }
 }

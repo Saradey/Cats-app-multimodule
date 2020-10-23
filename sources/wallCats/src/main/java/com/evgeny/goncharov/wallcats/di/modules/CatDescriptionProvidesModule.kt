@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.wallcats.di.modules
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.wallcats.ui.CatDescriptionFragment
@@ -16,6 +17,10 @@ object CatDescriptionProvidesModule {
     @Provides
     @JvmStatic
     @FragmentScope
-    fun provideCatDescriptionViewModel(fragment: CatDescriptionFragment) =
-        ViewModelProviders.of(fragment).get(CatDescriptionViewModel::class.java)
+    fun provideCatDescriptionViewModel(fragmentManager: FragmentManager) =
+        ViewModelProviders.of(
+            fragmentManager.fragments.find {
+                it is CatDescriptionFragment
+            }!!
+        ).get(CatDescriptionViewModel::class.java)
 }
