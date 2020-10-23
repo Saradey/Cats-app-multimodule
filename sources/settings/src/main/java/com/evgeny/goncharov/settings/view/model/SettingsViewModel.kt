@@ -9,7 +9,6 @@ import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.interactor.SettingsInteractor
 import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
 import com.evgeny.goncharov.settings.models.ThemeModel
-import javax.inject.Inject
 
 /**
  * ВьюМодель экрана настроек
@@ -17,8 +16,7 @@ import javax.inject.Inject
 class SettingsViewModel : ViewModel() {
 
     /** Интерактор экрана настроек */
-    @Inject
-    lateinit var interactor: SettingsInteractor
+    private lateinit var interactor: SettingsInteractor
 
     /** Отдает какая тема установлена */
     private val themeLiveDataModel = SingleLiveEvent<ThemeModel>()
@@ -33,7 +31,9 @@ class SettingsViewModel : ViewModel() {
      * Иницилизация зависимостей
      */
     fun initInjection() {
-        SettingsComponent.component?.inject(this)
+        SettingsComponent.component?.apply {
+            interactor = provideInteractor()
+        }
     }
 
     fun getThemeLiveData() = themeLiveDataModel
