@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_cat_description.txvNameCat
 import kotlinx.android.synthetic.main.fragment_cat_description.txvOrigin
 import kotlinx.android.synthetic.main.fragment_cat_description.txvTemperament
 import kotlinx.android.synthetic.main.fragment_cat_description.txvWeight
-import javax.inject.Inject
 
 /**
  * Экран описания кота
@@ -41,8 +40,7 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     /** Вьюмодель экрана описания кота */
-    @Inject
-    lateinit var viewModel: CatDescriptionViewModel
+    private lateinit var viewModel: CatDescriptionViewModel
 
     /** id выбранного кота */
     private var catId: String? = null
@@ -68,7 +66,10 @@ class CatDescriptionFragment : BaseFragment() {
         CatDescriptionComponent.init(
             (requireActivity() as WithFacade).getFacade(),
             this
-        ).inject(this)
+        ).apply {
+            viewModel = provideCatDescriptionViewModel()
+            themeManager = provideThemeManager()
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_cat_description

@@ -7,7 +7,6 @@ import com.evgeny.goncharov.wallcats.di.components.CatDescriptionComponent
 import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Вьюмодель экрана описание кота
@@ -18,14 +17,15 @@ class CatDescriptionViewModel : ViewModel() {
     private val catDescriptionLiveData = MutableLiveData<CatDescription>()
 
     /** Бизнес логика экрана описание кота */
-    @Inject
-    lateinit var interactor: CatDescriptionInteractor
+    private lateinit var interactor: CatDescriptionInteractor
 
     /**
      * Иницилизация зависимостей
      */
     fun initInjection() {
-        CatDescriptionComponent.component?.inject(this)
+        CatDescriptionComponent.component?.let {
+            interactor = it.provideInteractor()
+        }
     }
 
     /**
