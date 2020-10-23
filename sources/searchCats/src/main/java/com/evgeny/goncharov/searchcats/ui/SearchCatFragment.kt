@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_search_cat.rcvCathedCats
 import kotlinx.android.synthetic.main.fragment_search_cat.srcSearchCat
 import kotlinx.android.synthetic.main.fragment_search_cat.toolbar
 import kotlinx.android.synthetic.main.fragment_search_cat.txvCatsStubNotFound
-import javax.inject.Inject
 
 /**
  * Фрагмент поиска котов
@@ -32,12 +31,10 @@ import javax.inject.Inject
 class SearchCatFragment : BaseFragment() {
 
     /** ВьюМодель поиска котов */
-    @Inject
-    lateinit var viewModel: SearchCatViewModel
+    private lateinit var viewModel: SearchCatViewModel
 
     /** Для запуска стены котов */
-    @Inject
-    lateinit var wallCatsMediator: WallCatsMediator
+    private lateinit var wallCatsMediator: WallCatsMediator
 
     /** Отдает ui эвенты */
     private lateinit var uiLiveData: LiveData<SearchCatUiEvents>
@@ -61,7 +58,11 @@ class SearchCatFragment : BaseFragment() {
         SearchCatComponent.init(
             this,
             (requireActivity() as WithFacade).getFacade()
-        ).inject(this)
+        ).apply {
+            viewModel = provideSearchCatViewModel()
+            wallCatsMediator = provideWallCatsMediator()
+            themeManager = provideThemeManager()
+        }
     }
 
     override fun getLayoutId() = R.layout.fragment_search_cat
