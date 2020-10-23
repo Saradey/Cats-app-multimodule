@@ -1,6 +1,5 @@
 package com.evgeny.goncharov.wallcats.di.components
 
-import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.providers.MediatorsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
@@ -19,7 +18,7 @@ import dagger.Component
     dependencies = [ProviderFacade::class],
     modules = [WallCatsBindsModule::class, WallCatsProvidesModule::class]
 )
-interface WallCatsComponent : WallCatsProvider, MediatorsProvider, ManagerProvider {
+interface WallCatsComponent : WallCatsProvider, MediatorsProvider {
 
     companion object {
 

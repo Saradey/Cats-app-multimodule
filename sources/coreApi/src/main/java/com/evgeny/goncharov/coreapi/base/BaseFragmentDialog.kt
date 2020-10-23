@@ -3,7 +3,6 @@ package com.evgeny.goncharov.coreapi.base
 import androidx.fragment.app.DialogFragment
 import com.evgeny.goncharov.coreapi.R
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
-import javax.inject.Inject
 
 /**
  * Базовая реализация диалоговых окон, должен наследовать каждый диалоговый фрагмент
@@ -11,8 +10,7 @@ import javax.inject.Inject
 abstract class BaseFragmentDialog : DialogFragment() {
 
     /** Менеджер тем */
-    @Inject
-    lateinit var themeManager: ThemeManager
+    protected lateinit var themeManager: ThemeManager
 
     /**
      * Получить текущую тему

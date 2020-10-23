@@ -60,6 +60,7 @@ class SettingsFragment : BaseFragment() {
             (requireActivity() as WithFacade).getFacade()
         ).apply {
             viewModel = provideSettingsViewModel()
+            themeManager = provideThemeManager()
         }
     }
 

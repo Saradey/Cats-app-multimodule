@@ -1,7 +1,5 @@
 package com.evgeny.goncharov.wallcats.di.components
 
-import com.evgeny.goncharov.coreapi.providers.ManagerProvider
-import com.evgeny.goncharov.coreapi.providers.MediatorsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.wallcats.di.modules.CatDescriptionBindsModule
@@ -19,7 +17,7 @@ import dagger.Component
     dependencies = [ProviderFacade::class],
     modules = [CatDescriptionBindsModule::class, CatDescriptionProvidesModule::class]
 )
-interface CatDescriptionComponent : CatDescriptionProvider, MediatorsProvider, ManagerProvider {
+interface CatDescriptionComponent : CatDescriptionProvider {
 
     companion object {
 

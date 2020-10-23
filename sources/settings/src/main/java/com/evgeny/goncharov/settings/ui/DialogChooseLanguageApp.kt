@@ -29,6 +29,7 @@ class DialogChooseLanguageApp : BaseFragmentDialog() {
         super.onCreate(savedInstanceState)
         SettingsComponent.component?.apply {
             vm = provideSettingsViewModel()
+            themeManager = provideThemeManager()
         }
     }
 

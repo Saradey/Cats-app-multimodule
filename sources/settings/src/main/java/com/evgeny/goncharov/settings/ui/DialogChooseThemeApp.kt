@@ -20,6 +20,7 @@ class DialogChooseThemeApp : BaseFragmentDialog() {
         super.onCreate(savedInstanceState)
         SettingsComponent.component?.apply {
             vm = provideSettingsViewModel()
+            themeManager = provideThemeManager()
         }
     }
 
