@@ -163,7 +163,7 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun setCatsCatched(models: List<CatCatch>?) {
-        adapter.models = models ?: emptyList()
+        adapter.submitList(models ?: emptyList())
     }
 
     override fun onDestroy() {
