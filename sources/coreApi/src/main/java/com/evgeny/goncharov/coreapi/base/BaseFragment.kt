@@ -68,7 +68,28 @@ abstract class BaseFragment : Fragment() {
     /**
      * Спрятать заглушку ошибки
      */
-    protected fun hideSomethingWrong() {
+    private fun hideSomethingWrong() {
         stubController.initUiState(BaseUiEvents.HideSomethingWrong)
+    }
+
+    /**
+     * Метод смены ui состояния
+     * @param event состояние ui
+     */
+    protected fun changeUiState(event: BaseUiEvent?) {
+        when (event) {
+            BaseUiEvent.EventShowProgress -> {
+                showProgress()
+            }
+            BaseUiEvent.EventSomethingWrong -> {
+                showSomethingWrong()
+            }
+            BaseUiEvent.EventHideProgress -> {
+                hideProgress()
+            }
+            BaseUiEvent.EventHideSomethingWrong -> {
+                hideSomethingWrong()
+            }
+        }
     }
 }

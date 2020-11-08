@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
@@ -15,14 +13,12 @@ import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
-import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
 import com.evgeny.goncharov.wallcats.ui.adapters.DiffUtilsCatBreeds
 import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
-import com.evgeny.goncharov.wallcats.ui.events.WallCatsEvents
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
 import kotlinx.android.synthetic.main.fragment_wall_cats.rcvCatBreeds
@@ -52,9 +48,6 @@ class WallCatsFragment : BaseFragment(),
 
     /** Для перехода на экран настроек */
     private lateinit var settingsMediator: SettingsMediator
-
-    /** Принимает ui эвенты */
-    private lateinit var uiLiveData: LiveData<WallCatsEvents>
 
     /** Для пангинации списка котов */
     private lateinit var dataSource: PageKeyedDataSourceCatBreeds
@@ -95,26 +88,11 @@ class WallCatsFragment : BaseFragment(),
     private fun initUi() {
         initToolbar()
         initPagedAdapterAndRecycle()
-        initFirstSwipeRefreshLayout()
+        initSwipeRefreshLayout()
     }
 
     private fun initLiveData() {
-        uiLiveData = viewModel.getUiEventsLiveData()
-        uiLiveData.observe(this, Observer {
-            when (it) {
-                WallCatsEvents.EventShowProgressAndHideStub -> {
-                    hideSomethingWrong()
-                    showProgress()
-                }
-                WallCatsEvents.EventSomethingWrong -> {
-                    showSomethingWrong()
-                }
-                WallCatsEvents.EventHideProgressAndInitRefreshLayout -> {
-                    hideProgress()
-                    initSwipeRefreshLayout()
-                }
-            }
-        })
+        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
     }
 
     override fun clickCatUrlBreed(urlImage: String?) {
@@ -131,18 +109,10 @@ class WallCatsFragment : BaseFragment(),
         }
     }
 
-    private fun initFirstSwipeRefreshLayout() {
-        swrlContainer.setOnRefreshListener {
-            swrlContainer.isRefreshing = false
-        }
-    }
-
     private fun initSwipeRefreshLayout() {
-        hideSomethingWrong()
         swrlContainer.setOnRefreshListener {
             initPagedAdapterAndRecycle()
             swrlContainer.isRefreshing = false
-            initFirstSwipeRefreshLayout()
         }
     }
 
@@ -187,6 +157,6 @@ class WallCatsFragment : BaseFragment(),
 
     override fun onDestroy() {
         super.onDestroy()
-        (uiLiveData as SingleLiveEvent<WallCatsEvents>).call()
+        viewModel.liveDataUiEvents.call()
     }
 }
