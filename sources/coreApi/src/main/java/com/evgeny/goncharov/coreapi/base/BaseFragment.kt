@@ -78,18 +78,16 @@ abstract class BaseFragment : Fragment() {
      */
     protected fun changeUiState(event: BaseUiEvent?) {
         when (event) {
-            BaseUiEvent.EventShowProgress -> {
-                showProgress()
-            }
-            BaseUiEvent.EventSomethingWrong -> {
-                showSomethingWrong()
-            }
-            BaseUiEvent.EventHideProgress -> {
-                hideProgress()
-            }
-            BaseUiEvent.EventHideSomethingWrong -> {
-                hideSomethingWrong()
-            }
+            BaseUiEvent.EventShowProgress -> showProgress()
+            BaseUiEvent.EventSomethingWrong -> showSomethingWrong()
+            BaseUiEvent.EventHideProgress -> hideProgress()
+            BaseUiEvent.EventHideSomethingWrong -> hideSomethingWrong()
+            BaseUiEvent.EventShowContent -> showContent()
         }
     }
+
+    /**
+     * Метод для переопределния, показать контент
+     */
+    open fun showContent() {}
 }

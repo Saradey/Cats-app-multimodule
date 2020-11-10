@@ -20,4 +20,9 @@ sealed class BaseUiEvent {
      * Спрятать заглушку ошибки
      */
     object EventHideSomethingWrong : BaseUiEvent()
+
+    /**
+     * Показать контент
+     */
+    object EventShowContent : BaseUiEvent()
 }

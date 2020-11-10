@@ -35,6 +35,8 @@ class WallCatsFragment : BaseFragment(),
     companion object {
 
         fun getInstance() = WallCatsFragment()
+
+        private const val PAGE_WALL_CATS_SIZE = 15
     }
 
     /** Вьюмодель стены котов */
@@ -121,7 +123,7 @@ class WallCatsFragment : BaseFragment(),
         dataSource = PageKeyedDataSourceCatBreeds(viewModel)
         val pagedConfig = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setPageSize(15)
+            .setPageSize(PAGE_WALL_CATS_SIZE)
             .build()
         val pagedList = PagedList.Builder<Int, CatBreedView>(dataSource, pagedConfig)
             .setNotifyExecutor(mainThreadExecutor)

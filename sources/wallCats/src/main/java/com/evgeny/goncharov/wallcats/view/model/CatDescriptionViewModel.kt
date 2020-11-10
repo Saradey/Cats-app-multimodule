@@ -2,6 +2,8 @@ package com.evgeny.goncharov.wallcats.view.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
+import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
@@ -15,13 +17,16 @@ import kotlinx.coroutines.launch
 class CatDescriptionViewModel : ViewModel() {
 
     /** Отдает выбранного кота для отоборажения в View */
-    private val catDescriptionLiveData = MutableLiveData<CatDescription>()
+    val catDescriptionLiveData = MutableLiveData<CatDescription>()
 
     /** Бизнес логика экрана описание кота */
     private lateinit var interactor: CatDescriptionInteractor
 
     /** Корутина для запроса выбранного кота */
     private val coroutineMainScope = CoroutineScope(Dispatchers.Main)
+
+    /** Отдает ui эвенты */
+    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent?>()
 
     /**
      * Иницилизация зависимостей
@@ -45,14 +50,21 @@ class CatDescriptionViewModel : ViewModel() {
      */
     fun loadChooseCat() {
         coroutineMainScope.launch {
+            liveDataUiEvents.value = BaseUiEvent.EventShowProgress
             val cat = interactor.loadChooseCat()
+            liveDataUiEvents.value = BaseUiEvent.EventHideProgress
+            changeUiState(cat)
             cat?.let {
                 catDescriptionLiveData.value = it
             }
         }
     }
 
-    fun getCatDescriptionLiveData() = catDescriptionLiveData
-
-    fun getLiveDataUiEvents() = interactor.getLiveDataUiEvents()
+    private fun changeUiState(model: CatDescription?) {
+        model?.let {
+            liveDataUiEvents.value = BaseUiEvent.EventShowContent
+        } ?: run {
+            liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong
+        }
+    }
 }
