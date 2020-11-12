@@ -11,7 +11,7 @@ import com.evgeny.goncharov.uikit.ProgressCat
 /**
  * Контроллер над состоянием ui (показываем крутилу, показываем заглушку ошибки)
  */
-class StubController {
+class UiStateController {
 
     /** Корневой макет всех фрагментов, добавляем ему макет состояний экрана */
     var rootLayout: ViewGroup? = null

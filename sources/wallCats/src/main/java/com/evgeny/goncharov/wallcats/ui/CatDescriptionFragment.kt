@@ -5,18 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
-import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
-import com.evgeny.goncharov.wallcats.ui.events.CatDescriptionEvents
 import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
 import kotlinx.android.synthetic.main.fragment_cat_description.grpAllContent
 import kotlinx.android.synthetic.main.fragment_cat_description.imvCat
@@ -46,9 +42,6 @@ class CatDescriptionFragment : BaseFragment() {
 
     /** id выбранного кота */
     private var catId: String? = null
-
-    /** Шлет ui эвенты */
-    private lateinit var uiLiveData: LiveData<CatDescriptionEvents>
 
     private fun loadOrInit(savedInstanceState: Bundle?) {
         savedInstanceState ?: run {
@@ -82,23 +75,8 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        initUiEventsLiveData()
-        initCatDescriptionLiveData()
-    }
-
-    private fun initCatDescriptionLiveData() {
-        viewModel.getCatDescriptionLiveData().observe(this, ::setCatDescription)
-    }
-
-    private fun initUiEventsLiveData() {
-        uiLiveData = viewModel.getLiveDataUiEvents()
-        uiLiveData.observe(this, Observer {
-            when (it) {
-                CatDescriptionEvents.EventShowProgress -> showProgress()
-                CatDescriptionEvents.EventHideProgressAndShowContent -> showAllContent()
-                CatDescriptionEvents.EventHideProgressAndShowSomethingWrong -> showStubSomethingWrong()
-            }
-        })
+        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
+        viewModel.catDescriptionLiveData.observe(this, ::setCatDescription)
     }
 
     fun setCatId(catId: String) {
@@ -140,17 +118,12 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
-    private fun showAllContent() {
-        hideProgress()
+    override fun showContent() {
         grpAllContent.isVisible = true
-    }
-
-    private fun showStubSomethingWrong() {
-        showSomethingWrong()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        (uiLiveData as SingleLiveEvent<CatDescriptionEvents>).call()
+        viewModel.liveDataUiEvents.call()
     }
 }

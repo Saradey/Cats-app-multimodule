@@ -3,8 +3,6 @@ package com.evgeny.goncharov.searchcats.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
@@ -12,12 +10,10 @@ import com.evgeny.goncharov.coreapi.extension.setHintTextColor
 import com.evgeny.goncharov.coreapi.extension.setTextColor
 import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
-import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.searchcats.R
 import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
 import com.evgeny.goncharov.searchcats.model.CatCatch
 import com.evgeny.goncharov.searchcats.ui.adapter.CatsCatchAdapter
-import com.evgeny.goncharov.searchcats.ui.events.SearchCatUiEvents
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
 import kotlinx.android.synthetic.main.fragment_search_cat.crvContainerCats
 import kotlinx.android.synthetic.main.fragment_search_cat.rcvCathedCats
@@ -35,9 +31,6 @@ class SearchCatFragment : BaseFragment() {
 
     /** Для запуска стены котов */
     private lateinit var wallCatsMediator: WallCatsMediator
-
-    /** Отдает ui эвенты */
-    private lateinit var uiLiveData: LiveData<SearchCatUiEvents>
 
     /** Для управления список искомых котов */
     private lateinit var adapter: CatsCatchAdapter
@@ -78,25 +71,8 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        initUiEvents()
-        initCatsCathed()
-    }
-
-    private fun initCatsCathed() {
-        viewModel.getLiveDataCatsCathed().observe(this, Observer {
-            setCatsCatched(it)
-        })
-    }
-
-    private fun initUiEvents() {
-        uiLiveData = viewModel.getUiEventsLiveData()
-        uiLiveData.observe(this, Observer {
-            when (it) {
-                SearchCatUiEvents.EventShowProgressAndHideStubAndHideModels -> hideStubAndListAndShowProgress()
-                SearchCatUiEvents.EventHideProgressAndShowStub -> hideProgressAndShowStub()
-                SearchCatUiEvents.EventHideProgressAndShowRecycleView -> hideProgressAndShowModels()
-            }
-        })
+        viewModel.liveDataCatsCatch.observe(this, ::setCatsCatched)
+        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
     }
 
     /** Выбрали кота, делаем переход в на экран описание кота */
@@ -146,30 +122,30 @@ class SearchCatFragment : BaseFragment() {
         }
     }
 
-    private fun hideStubAndListAndShowProgress() {
-        crvContainerCats.setVisibilityBool(false)
-        txvCatsStubNotFound.setVisibilityBool(false)
-        showProgress()
+    private fun setCatsCatched(models: List<CatCatch>?) {
+        adapter.submitList(models ?: emptyList())
     }
 
-    private fun hideProgressAndShowStub() {
-        txvCatsStubNotFound.setVisibilityBool(true)
-        hideProgress()
-    }
-
-    private fun hideProgressAndShowModels() {
-        hideProgress()
+    override fun showContent() {
         crvContainerCats.setVisibilityBool(true)
     }
 
-    private fun setCatsCatched(models: List<CatCatch>?) {
-        adapter.submitList(models ?: emptyList())
+    override fun showSomethingWrong() {
+        txvCatsStubNotFound.setVisibilityBool(true)
+    }
+
+    override fun hideSomethingWrong() {
+        txvCatsStubNotFound.setVisibilityBool(false)
+    }
+
+    override fun hideContent() {
+        crvContainerCats.setVisibilityBool(false)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         SearchCatComponent.component = null
         hideKeyboard()
-        (uiLiveData as SingleLiveEvent<SearchCatUiEvents>).call()
+        viewModel.liveDataUiEvents.call()
     }
 }

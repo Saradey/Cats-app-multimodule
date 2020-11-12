@@ -14,8 +14,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 /**
  * Реализация логики источника данных экрана стены котов
@@ -50,8 +48,8 @@ class WallCatGatewayImpl @Inject constructor(
             mapResult
         }
 
-    private fun mapResponse(modelResponse: List<CatBreed>): List<CatBreedView> {
-        return modelResponse.map { modelDb ->
+    private fun mapResponse(modelResponse: List<CatBreed>): List<CatBreedView> =
+        modelResponse.map { modelDb ->
             CatBreedView(
                 name = modelDb.name,
                 description = modelDb.description,
@@ -60,7 +58,6 @@ class WallCatGatewayImpl @Inject constructor(
                 urlImage = modelDb.urlImageCat
             )
         }
-    }
 
     private suspend fun loadAllImage(result: List<CatBreed>) {
         val jobs = mutableListOf<Job>()
@@ -86,8 +83,6 @@ class WallCatGatewayImpl @Inject constructor(
         } catch (exp: Exception) {
             exp.printStackTrace()
         }
-        return suspendCoroutine { continuation ->
-            continuation.resume(result.firstOrNull()?.url)
-        }
+        return result.firstOrNull()?.url
     }
 }

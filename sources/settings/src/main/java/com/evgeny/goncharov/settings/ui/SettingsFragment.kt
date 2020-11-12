@@ -10,12 +10,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.utils.Language
-import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
@@ -37,15 +34,6 @@ class SettingsFragment : BaseFragment() {
 
     /** ВьюМодель экрана настроек */
     private lateinit var viewModel: SettingsViewModel
-
-    /** Отдает выбранную тему */
-    private lateinit var themeLiveData: LiveData<ThemeModel>
-
-    /** Отдает выбранный язык */
-    private lateinit var languageLiveData: LiveData<Language>
-
-    /** Отдает ui  события */
-    private lateinit var uiEventLiveData: LiveData<SettingUiEvents>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,26 +71,27 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        themeLiveData = viewModel.getThemeLiveData()
-        languageLiveData = viewModel.getLanguageLiveData()
-        uiEventLiveData = viewModel.getUiEvents()
-        themeLiveData.observe(this, Observer { model ->
-            model?.let {
-                setThemeModel(model)
-            }
-        })
-        languageLiveData.observe(this, Observer { lang ->
-            lang?.let {
-                setLanguageApp(lang)
-            }
-        })
-        uiEventLiveData.observe(this, Observer { event ->
-            when (event) {
-                SettingUiEvents.ChooseLanguageApp,
-                SettingUiEvents.ChooseThemeApp
-                -> activity?.recreate()
-            }
-        })
+        viewModel.themeLiveDataModel.observe(this, ::initTheme)
+        viewModel.languageLiveData.observe(this, ::initLanguage)
+        viewModel.uiLiveDataEvent.observe(this, ::updateUiEvent)
+    }
+
+    private fun updateUiEvent(event: SettingUiEvents?) {
+        when (event) {
+            SettingUiEvents.ChooseLanguageApp, SettingUiEvents.ChooseThemeApp -> activity?.recreate()
+        }
+    }
+
+    private fun initTheme(model: ThemeModel?) {
+        model?.let {
+            setThemeModel(model)
+        }
+    }
+
+    private fun initLanguage(lang: Language?) {
+        lang?.let {
+            setLanguageApp(lang)
+        }
     }
 
     private fun setThemeModel(value: ThemeModel) {
@@ -236,8 +225,8 @@ class SettingsFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         SettingsComponent.component = null
-        (themeLiveData as SingleLiveEvent).call()
-        (languageLiveData as SingleLiveEvent).call()
-        (uiEventLiveData as SingleLiveEvent).call()
+        viewModel.themeLiveDataModel.call()
+        viewModel.languageLiveData.call()
+        viewModel.uiLiveDataEvent.call()
     }
 }
