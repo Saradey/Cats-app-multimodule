@@ -19,13 +19,13 @@ class SettingsViewModel : ViewModel() {
     private lateinit var interactor: SettingsInteractor
 
     /** Отдает какая тема установлена */
-    private val themeLiveDataModel = SingleLiveEvent<ThemeModel>()
+    val themeLiveDataModel = SingleLiveEvent<ThemeModel?>()
 
     /** Отдает какой язык установлен */
-    private val languageLiveData = SingleLiveEvent<Language>()
+    val languageLiveData = SingleLiveEvent<Language?>()
 
     /** Отдает ui эвенты */
-    private val uiLiveDataEvent = SingleLiveEvent<SettingUiEvents>()
+    val uiLiveDataEvent = SingleLiveEvent<SettingUiEvents?>()
 
     /**
      * Иницилизация зависимостей
@@ -35,8 +35,6 @@ class SettingsViewModel : ViewModel() {
             interactor = provideInteractor()
         }
     }
-
-    fun getThemeLiveData() = themeLiveDataModel
 
     /**
      * Проиницилизировать тему во View
@@ -53,8 +51,8 @@ class SettingsViewModel : ViewModel() {
     fun getThemeValue() = interactor.getThemeValue()
 
     /**
-     *
-     * @param item
+     * Если выбрали тему
+     * @param item индекс темы
      */
     fun setChooseThemeIndex(item: Int) {
         when (item) {
@@ -64,8 +62,6 @@ class SettingsViewModel : ViewModel() {
         uiLiveDataEvent.value = SettingUiEvents.ChooseThemeApp
     }
 
-    fun getLanguageLiveData() = languageLiveData
-
     /**
      * Проиницилизировать язык в вью
      */
@@ -73,8 +69,6 @@ class SettingsViewModel : ViewModel() {
         val lan = interactor.getAppLanguage()
         languageLiveData.value = lan
     }
-
-    fun getUiEvents() = uiLiveDataEvent
 
     fun getThemeNow() = interactor.getTheme()
 
