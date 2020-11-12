@@ -3,7 +3,6 @@ package com.evgeny.goncharov.searchcats.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
@@ -72,9 +71,7 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.liveDataCatsCatch.observe(this, Observer {
-            setCatsCatched(it)
-        })
+        viewModel.liveDataCatsCatch.observe(this, ::setCatsCatched)
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
     }
 
