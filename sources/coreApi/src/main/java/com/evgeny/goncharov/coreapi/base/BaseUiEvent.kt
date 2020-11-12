@@ -25,4 +25,9 @@ sealed class BaseUiEvent {
      * Показать контент
      */
     object EventShowContent : BaseUiEvent()
+
+    /**
+     * Спрятать контент
+     */
+    object EventHideContent : BaseUiEvent()
 }

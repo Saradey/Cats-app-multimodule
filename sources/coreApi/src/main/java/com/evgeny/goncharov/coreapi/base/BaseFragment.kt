@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
-import com.evgeny.goncharov.coreapi.ui.StubController
+import com.evgeny.goncharov.coreapi.ui.UiStateController
 import com.evgeny.goncharov.coreapi.ui.events.BaseUiEvents
 
 /**
@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
     protected lateinit var themeManager: ThemeManager
 
     /** Контроллер за состоянием экранов */
-    private var stubController = StubController()
+    private var stubController = UiStateController()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,28 +47,28 @@ abstract class BaseFragment : Fragment() {
     /**
      * Показать прогресс
      */
-    protected fun showProgress() {
+    open protected fun showProgress() {
         stubController.initUiState(BaseUiEvents.ShowProgress)
     }
 
     /**
      * Спрятать прогресс
      */
-    protected fun hideProgress() {
+    open protected fun hideProgress() {
         stubController.initUiState(BaseUiEvents.HideProgress)
     }
 
     /**
      * Показать заглушку ошибки
      */
-    protected fun showSomethingWrong() {
+    open protected fun showSomethingWrong() {
         stubController.initUiState(BaseUiEvents.ShowSomethingWrong)
     }
 
     /**
      * Спрятать заглушку ошибки
      */
-    private fun hideSomethingWrong() {
+    open protected fun hideSomethingWrong() {
         stubController.initUiState(BaseUiEvents.HideSomethingWrong)
     }
 
@@ -83,11 +83,17 @@ abstract class BaseFragment : Fragment() {
             BaseUiEvent.EventHideProgress -> hideProgress()
             BaseUiEvent.EventHideSomethingWrong -> hideSomethingWrong()
             BaseUiEvent.EventShowContent -> showContent()
+            BaseUiEvent.EventHideContent -> hideContent()
         }
     }
 
     /**
      * Метод для переопределния, показать контент
      */
-    open fun showContent() {}
+    protected open fun showContent() {}
+
+    /**
+     * Метод для переопределния, спрятать контент
+     */
+    protected open fun hideContent() {}
 }

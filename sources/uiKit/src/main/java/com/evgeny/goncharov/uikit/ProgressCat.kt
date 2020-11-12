@@ -50,8 +50,10 @@ class ProgressCat : ConstraintLayout {
 
     /** Запускаем анимацию */
     fun startAnimation() {
-        animationCatFrame.start()
-        animatorRotatePlanet.start()
+        if (!animationCatFrame.isRunning && !animatorRotatePlanet.isRunning) {
+            animationCatFrame.start()
+            animatorRotatePlanet.start()
+        }
     }
 
     /** Стопаем анимацию */
