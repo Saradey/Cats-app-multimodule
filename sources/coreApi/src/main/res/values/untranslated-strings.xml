@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
+    <string name="sort_mine_title">Сортировка котиков</string>
+    <string name="sort_by_name">По алфовиту</string>
+    <string name="sort_by_life_span">По долголетию</string>
+    <string name="sort_by_wight">По весу</string>
+    <string-array name="sorts_titles">
+        <item>По алфовиту</item>
+        <item>По долголетию</item>
+        <item>По весу</item>
+    </string-array>
 </resources>

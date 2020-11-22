@@ -7,17 +7,19 @@ import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
- * Дилоговое окно выбора языка
+ * Диалоговое окно выбора типа сортировки
  */
-class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
+class DialogChooseSortType : BaseSettingsFragmentDialog() {
 
     companion object {
+        /** Индекс сортировки по алфовиту в диалоговом окне */
+        const val INDEX_SORT_NAME = 0
 
-        /** Индекс русского языка в списке выбора */
-        const val INDEX_CHOOSE_RU = 0
+        /** Индекс сортировки по долголетию в диалоговом окне */
+        const val INDEX_SORT_LIFE_SPAN = 1
 
-        /** Индекс английского языка в списке выбора */
-        const val INDEX_CHOOSE_EN = 1
+        /** Индекс сортировки по весу в диалоговом окне */
+        const val INDEX_SORT_WIGHT = 2
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -25,17 +27,17 @@ class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
             requireContext(),
             getDialogTheme()
         )
-        builderDialog.setTitle(R.string.language_app_title)
+        builderDialog.setTitle(R.string.theme_title_settings)
             .setPositiveButton(
                 R.string.title_cancel_dialog_common
             ) { _, _ ->
                 dismiss()
             }
             .setSingleChoiceItems(
-                resources.getStringArray(R.array.language_titles),
-                vm.getSelectLanguage()
+                resources.getStringArray(R.array.sorts_titles),
+                vm.getSortValue()
             ) { _, item ->
-                vm.chooseLanguage(item)
+                vm.setChooseSort(item)
                 dismiss()
             }
         return builderDialog.create()

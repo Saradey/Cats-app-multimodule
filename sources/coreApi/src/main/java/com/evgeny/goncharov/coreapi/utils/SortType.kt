@@ -3,20 +3,20 @@ package com.evgeny.goncharov.coreapi.utils
 /**
  * Тип сортировки для стены котов
  */
-sealed class SortedType {
+sealed class SortType {
 
     /**
      * Сортировка по алфовиту
      */
-    object SortedName : SortedType()
+    object SortName : SortType()
 
     /**
      * Сортировка по жизненному циклу
      */
-    object SortedLifeSpan : SortedType()
+    object SortLifeSpan : SortType()
 
     /**
      * Сортировка по весу
      */
-    object SortedWeight : SortedType()
+    object SortWeight : SortType()
 }

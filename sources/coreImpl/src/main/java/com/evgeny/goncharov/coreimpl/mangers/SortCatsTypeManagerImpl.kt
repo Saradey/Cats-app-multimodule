@@ -2,7 +2,7 @@ package com.evgeny.goncharov.coreimpl.mangers
 
 import android.content.Context
 import com.evgeny.goncharov.coreapi.managers.SortCatsManager
-import com.evgeny.goncharov.coreapi.utils.SortedType
+import com.evgeny.goncharov.coreapi.utils.SortType
 import javax.inject.Inject
 
 /**
@@ -31,22 +31,22 @@ class SortCatsTypeManagerImpl @Inject constructor(
         private const val SORT_WIGHT = "SORTED_WIGHT"
     }
 
-    override fun getSortedType(): SortedType {
+    override fun getSortedType(): SortType {
         val shared = appContext.getSharedPreferences(SHARED_SORT, Context.MODE_PRIVATE)
         return when (shared.getString(SHARED_KEY_SORT, SORT_NAME)) {
-            SORT_NAME -> SortedType.SortedName
-            SORT_LIFESPAN -> SortedType.SortedLifeSpan
-            else -> SortedType.SortedWeight
+            SORT_NAME -> SortType.SortName
+            SORT_LIFESPAN -> SortType.SortLifeSpan
+            else -> SortType.SortWeight
         }
     }
 
-    override fun setSortedType(type: SortedType) {
+    override fun setSortedType(type: SortType) {
         val shared = appContext.getSharedPreferences(SHARED_SORT, Context.MODE_PRIVATE)
         val edit = shared.edit()
         when (type) {
-            SortedType.SortedName -> edit.putString(SHARED_KEY_SORT, SORT_NAME)
-            SortedType.SortedLifeSpan -> edit.putString(SHARED_KEY_SORT, SORT_LIFESPAN)
-            SortedType.SortedWeight -> edit.putString(SHARED_KEY_SORT, SORT_WIGHT)
+            SortType.SortName -> edit.putString(SHARED_KEY_SORT, SORT_NAME)
+            SortType.SortLifeSpan -> edit.putString(SHARED_KEY_SORT, SORT_LIFESPAN)
+            SortType.SortWeight -> edit.putString(SHARED_KEY_SORT, SORT_WIGHT)
         }
         edit.apply()
     }

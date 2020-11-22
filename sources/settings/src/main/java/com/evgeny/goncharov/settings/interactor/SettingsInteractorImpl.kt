@@ -1,6 +1,7 @@
 package com.evgeny.goncharov.settings.interactor
 
 import com.evgeny.goncharov.coreapi.utils.Language
+import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.gateway.SettingsGateway
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_EN
@@ -75,4 +76,8 @@ class SettingsInteractorImpl @Inject constructor(
     }
 
     override fun getChooseLanguageIndex() = chooseLanguageIndex
+
+    override fun getSortType(): SortType = gateway.getSortType()
+
+    override fun setChooseSort(sortName: SortType) = gateway.setChooseSort(sortName)
 }

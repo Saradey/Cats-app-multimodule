@@ -1,6 +1,7 @@
 package com.evgeny.goncharov.settings.gateway
 
 import com.evgeny.goncharov.coreapi.utils.Language
+import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.models.ThemeModel
 
 /**
@@ -34,4 +35,14 @@ interface SettingsGateway {
      * @param lang сменяемый язык
      */
     fun chooseLanguage(lang: Language)
+
+    /**
+     * Получить тип выбранной сортировки
+     */
+    fun getSortType(): SortType
+
+    /**
+     * Делегируем тип выбранной сортировки менеджеру сортировок
+     */
+    fun setChooseSort(sortName: SortType)
 }
