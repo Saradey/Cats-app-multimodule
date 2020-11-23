@@ -14,7 +14,7 @@ interface WallCatInteractor {
 
     /**
      * Пангинация для стены котов
-     * @param key
+     * @param nextCount
      */
-    suspend fun loadNexPage(nextCount: Int): List<CatBreedView>
+    suspend fun loadNextPage(nextCount: Int): List<CatBreedView>
 }

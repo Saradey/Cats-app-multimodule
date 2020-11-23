@@ -28,7 +28,7 @@ class SortCatsTypeManagerImpl @Inject constructor(
         private const val SORT_LIFESPAN = "SORTED_LIFESPAN"
 
         /** Сортировка по весу */
-        private const val SORT_WIGHT = "SORTED_WIGHT"
+        private const val SORT_WEIGHT = "SORT_WEIGHT"
     }
 
     override fun getSortedType(): SortType {
@@ -46,7 +46,7 @@ class SortCatsTypeManagerImpl @Inject constructor(
         when (type) {
             SortType.SortName -> edit.putString(SHARED_KEY_SORT, SORT_NAME)
             SortType.SortLifeSpan -> edit.putString(SHARED_KEY_SORT, SORT_LIFESPAN)
-            SortType.SortWeight -> edit.putString(SHARED_KEY_SORT, SORT_WIGHT)
+            SortType.SortWeight -> edit.putString(SHARED_KEY_SORT, SORT_WEIGHT)
         }
         edit.apply()
     }

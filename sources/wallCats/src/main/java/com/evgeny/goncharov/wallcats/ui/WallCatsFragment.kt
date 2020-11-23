@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
@@ -36,6 +37,7 @@ class WallCatsFragment : BaseFragment(),
 
         fun getInstance() = WallCatsFragment()
 
+        /** Загружаемая страница котят */
         private const val PAGE_WALL_CATS_SIZE = 15
     }
 
@@ -94,7 +96,7 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initLiveData() {
-        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
+        viewModel.liveDataUiEvents.observe(this, Observer { changeUiState(it) })
     }
 
     override fun clickCatUrlBreed(urlImage: String?) {
