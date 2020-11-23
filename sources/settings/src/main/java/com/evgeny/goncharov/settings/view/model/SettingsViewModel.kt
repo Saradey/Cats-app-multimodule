@@ -24,10 +24,10 @@ class SettingsViewModel : ViewModel() {
     private lateinit var interactor: SettingsInteractor
 
     /** Отдает какая тема установлена */
-    val themeLiveDataModel = SingleLiveEvent<ThemeModel?>()
+    val themeLiveDataModel = MutableLiveData<ThemeModel?>()
 
     /** Отдает какой язык установлен */
-    val languageLiveData = SingleLiveEvent<Language?>()
+    val languageLiveData = MutableLiveData<Language?>()
 
     /** Отдает ui эвенты */
     val uiLiveDataEvent = SingleLiveEvent<SettingUiEvents?>()

@@ -265,8 +265,6 @@ class SettingsFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         SettingsComponent.component = null
-        viewModel.themeLiveDataModel.call()
-        viewModel.languageLiveData.call()
         viewModel.uiLiveDataEvent.call()
     }
 }
