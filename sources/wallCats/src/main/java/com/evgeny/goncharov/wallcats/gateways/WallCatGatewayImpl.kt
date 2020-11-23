@@ -32,7 +32,7 @@ class WallCatGatewayImpl @Inject constructor(
     companion object {
 
         /** Паттерн для вытаскивания числа из строки */
-        private const val PATTERN_MAP_STRING_TO_INT = "[0-9]+"
+        private const val PATTERN_MAP_STRING_TO_INT = "- \\d"
     }
 
     /** Скоуп для загрузки картинок и ожидание пока все не загрузится */
@@ -70,7 +70,8 @@ class WallCatGatewayImpl @Inject constructor(
     }
 
     private fun mapStringToInt(value: String?) =
-        Regex(PATTERN_MAP_STRING_TO_INT).find(value.orEmpty())?.value?.toInt()
+        Regex(PATTERN_MAP_STRING_TO_INT).find(value.orEmpty())?.value?.replace("- ", "")
+            ?.toInt()
 
     private suspend fun loadAllImage(result: List<CatBreed>) {
         val jobs = mutableListOf<Job>()

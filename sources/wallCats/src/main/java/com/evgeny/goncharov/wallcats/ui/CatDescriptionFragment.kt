@@ -61,7 +61,7 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_cat_description
+    override fun getLayoutId() = R.layout.fragment_cat_description
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initDaggerGraph()

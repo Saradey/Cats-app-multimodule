@@ -25,9 +25,7 @@ class SettingsGatewayImpl @Inject constructor(
 
     override fun getThemeModeAppNow() = ThemeModel(themeManager.getThemeNow())
 
-    override fun saveChooseTheme(themeValue: Int) {
-        themeManager.setThemeNow(themeValue)
-    }
+    override fun saveChooseTheme(themeValue: Int) = themeManager.setThemeNow(themeValue)
 
     override fun getAppLanguage() = when (languageManager.getAppLanguage()) {
         RU_CODE -> Language.RU
@@ -43,7 +41,7 @@ class SettingsGatewayImpl @Inject constructor(
         languageManager.chooseLanguage(lang.code)
     }
 
-    override fun getSortType(): SortType = sortCatsManager.getSortedType()
+    override fun getSortType() = sortCatsManager.getSortedType()
 
     override fun setChooseSort(sortName: SortType) = sortCatsManager.setSortedType(sortName)
 }

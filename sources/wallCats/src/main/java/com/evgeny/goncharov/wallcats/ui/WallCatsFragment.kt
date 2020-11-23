@@ -81,7 +81,7 @@ class WallCatsFragment : BaseFragment(),
             }
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_wall_cats
+    override fun getLayoutId() = R.layout.fragment_wall_cats
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initDaggerGraph()

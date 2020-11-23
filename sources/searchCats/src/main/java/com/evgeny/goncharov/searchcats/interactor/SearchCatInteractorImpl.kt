@@ -2,7 +2,6 @@ package com.evgeny.goncharov.searchcats.interactor
 
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import com.evgeny.goncharov.searchcats.gateway.SearchCatGateway
-import com.evgeny.goncharov.searchcats.model.CatCatch
 import javax.inject.Inject
 
 /**
@@ -13,7 +12,7 @@ class SearchCatInteractorImpl @Inject constructor(
     private val gateway: SearchCatGateway
 ) : SearchCatInteractor {
 
-    override suspend fun setInputTextSearchView(text: String): List<CatCatch> = try {
+    override suspend fun setInputTextSearchView(text: String) = try {
         gateway.loadFromInternet(GetChooseCatRequest(text).createRequest())
     } catch (exp: Exception) {
         exp.printStackTrace()

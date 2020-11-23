@@ -122,25 +122,15 @@ class SearchCatFragment : BaseFragment() {
         }
     }
 
-    private fun setCatsCatched(models: List<CatCatch>?) {
-        adapter.submitList(models ?: emptyList())
-    }
+    private fun setCatsCatched(models: List<CatCatch>?) = adapter.submitList(models ?: emptyList())
 
-    override fun showContent() {
-        crvContainerCats.setVisibilityBool(true)
-    }
+    override fun showContent() = crvContainerCats.setVisibilityBool(true)
 
-    override fun showSomethingWrong() {
-        txvCatsStubNotFound.setVisibilityBool(true)
-    }
+    override fun showSomethingWrong() = txvCatsStubNotFound.setVisibilityBool(true)
 
-    override fun hideSomethingWrong() {
-        txvCatsStubNotFound.setVisibilityBool(false)
-    }
+    override fun hideSomethingWrong() = txvCatsStubNotFound.setVisibilityBool(false)
 
-    override fun hideContent() {
-        crvContainerCats.setVisibilityBool(false)
-    }
+    override fun hideContent() = crvContainerCats.setVisibilityBool(false)
 
     override fun onDestroy() {
         super.onDestroy()

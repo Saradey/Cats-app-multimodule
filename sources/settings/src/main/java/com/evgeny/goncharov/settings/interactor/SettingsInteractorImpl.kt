@@ -77,7 +77,7 @@ class SettingsInteractorImpl @Inject constructor(
 
     override fun getChooseLanguageIndex() = chooseLanguageIndex
 
-    override fun getSortType(): SortType = gateway.getSortType()
+    override fun getSortType() = gateway.getSortType()
 
     override fun setChooseSort(sortName: SortType) = gateway.setChooseSort(sortName)
 }

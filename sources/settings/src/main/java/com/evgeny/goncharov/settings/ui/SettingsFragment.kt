@@ -39,7 +39,7 @@ class SettingsFragment : BaseFragment() {
     /** ВьюМодель экрана настроек */
     private lateinit var viewModel: SettingsViewModel
 
-    override fun getLayoutId(): Int = R.layout.fragment_settings
+    override fun getLayoutId() = R.layout.fragment_settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
