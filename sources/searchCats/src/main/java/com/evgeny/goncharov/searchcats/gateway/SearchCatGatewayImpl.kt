@@ -21,16 +21,15 @@ class SearchCatGatewayImpl @Inject constructor(
     private val dao: CatsWallDao
 ) : SearchCatGateway {
 
-    override suspend fun loadFromDatabase(text: String): List<CatCatch> =
-        withContext(Dispatchers.IO) {
-            if (text.isEmpty()) {
-                emptyList()
-            } else {
-                mapModelsFromDatabase(dao.getCatLike("%$text%")?.sortedBy {
-                    it.name
-                } ?: emptyList())
-            }
+    override suspend fun loadFromDatabase(text: String) = withContext(Dispatchers.IO) {
+        if (text.isEmpty()) {
+            emptyList()
+        } else {
+            mapModelsFromDatabase(dao.getCatLike("%$text%")?.sortedBy {
+                it.name
+            } ?: emptyList())
         }
+    }
 
     private fun mapModelsFromDatabase(list: List<CatBreed>) = list.map {
         CatCatch(

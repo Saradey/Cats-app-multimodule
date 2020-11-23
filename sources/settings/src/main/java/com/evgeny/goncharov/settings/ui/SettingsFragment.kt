@@ -10,9 +10,12 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
+import androidx.lifecycle.Observer
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
 import com.evgeny.goncharov.coreapi.utils.Language
+import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
@@ -20,6 +23,7 @@ import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import kotlinx.android.synthetic.main.fragment_settings.toolbar
 import kotlinx.android.synthetic.main.fragment_settings.txvLanguageApp
+import kotlinx.android.synthetic.main.fragment_settings.txvSortParameter
 import kotlinx.android.synthetic.main.fragment_settings.txvThemeApp
 
 /**
@@ -35,6 +39,8 @@ class SettingsFragment : BaseFragment() {
     /** ВьюМодель экрана настроек */
     private lateinit var viewModel: SettingsViewModel
 
+    override fun getLayoutId() = R.layout.fragment_settings
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDaggerGraph()
@@ -45,14 +51,13 @@ class SettingsFragment : BaseFragment() {
     private fun initDaggerGraph() {
         SettingsComponent.init(
             this,
-            (requireActivity() as WithFacade).getFacade()
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithFacade).getFacade() as AndroidComponentsProvider
         ).apply {
             viewModel = provideSettingsViewModel()
             themeManager = provideThemeManager()
         }
     }
-
-    override fun getLayoutId(): Int = R.layout.fragment_settings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initUi()
@@ -62,23 +67,51 @@ class SettingsFragment : BaseFragment() {
         initToolbar()
         initClickThemeApp()
         initClickLanguageChoose()
+        initClickSortType()
     }
 
     private fun init() {
         initLiveData()
         viewModel.initThemeToView()
         viewModel.initLanguageToView()
+        viewModel.initSortType()
     }
 
     private fun initLiveData() {
-        viewModel.themeLiveDataModel.observe(this, ::initTheme)
-        viewModel.languageLiveData.observe(this, ::initLanguage)
-        viewModel.uiLiveDataEvent.observe(this, ::updateUiEvent)
+        viewModel.themeLiveDataModel.observe(this, Observer { initTheme(it) })
+        viewModel.languageLiveData.observe(this, Observer { initLanguage(it) })
+        viewModel.uiLiveDataEvent.observe(this, Observer { updateUiEvent(it) })
+        viewModel.sortTypeLiveData.observe(this, Observer { initSorTypeTextView(it) })
+    }
+
+    private fun initSorTypeTextView(type: SortType) {
+        when (type) {
+            SortType.SortName -> initSort(R.string.sort_by_name)
+            SortType.SortLifeSpan -> initSort(R.string.sort_by_life_span)
+            SortType.SortWeight -> initSort(R.string.sort_by_wight)
+        }
+    }
+
+    private fun initSort(@StringRes sortTitle: Int) {
+        when (viewModel.themeLiveDataModel.value?.themeValue) {
+            R.style.AppThemeNight -> initThemeSort(sortTitle, R.drawable.ic_sort_light)
+            R.style.AppThemeDay -> initThemeSort(sortTitle, R.drawable.ic_sort_night)
+        }
+    }
+
+    private fun initThemeSort(@StringRes sortSubTitle: Int, @DrawableRes idDrawable: Int) {
+        initSpannableTextView(
+            title = R.string.sort_mine_title,
+            subTitle = sortSubTitle,
+            drawStart = idDrawable,
+            textView = txvSortParameter
+        )
     }
 
     private fun updateUiEvent(event: SettingUiEvents?) {
         when (event) {
-            SettingUiEvents.ChooseLanguageApp, SettingUiEvents.ChooseThemeApp -> activity?.recreate()
+            SettingUiEvents.ChooseLanguageApp,
+            SettingUiEvents.ChooseThemeApp -> activity?.recreate()
         }
     }
 
@@ -222,11 +255,16 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
+    private fun initClickSortType() {
+        txvSortParameter.setOnClickListener {
+            val dialog = DialogChooseSortType()
+            dialog.show(requireFragmentManager(), DialogChooseSortType::class.java.name)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         SettingsComponent.component = null
-        viewModel.themeLiveDataModel.call()
-        viewModel.languageLiveData.call()
         viewModel.uiLiveDataEvent.call()
     }
 }

@@ -24,40 +24,36 @@ class CatDescriptionGatewayImpl @Inject constructor(
     private val daoWallCat: CatsWallDao
 ) : CatDescriptionGateway {
 
-    override suspend fun loadChooseCatFromInternet(catId: String): CatDescription? =
-        withContext(Dispatchers.IO) {
-            val model = api.getCatDescriptionAsync(
-                GetChooseCatRequest(catId).createRequest()
-            ).await().firstOrNull()
-            model?.let {
-                dao.insert(model)
-            } ?: let {
-                throw ChooseCateNullPointerException()
-            }
-            mapModel(model)
+    override suspend fun loadChooseCatFromInternet(catId: String) = withContext(Dispatchers.IO) {
+        val model = api.getCatDescriptionAsync(
+            GetChooseCatRequest(catId).createRequest()
+        ).await().firstOrNull()
+        model?.let {
+            dao.insert(model)
+        } ?: let {
+            throw ChooseCateNullPointerException()
         }
+        mapModel(model)
+    }
 
-    override suspend fun loadChooseCatFromDatabase(catId: String): CatDescription? =
-        withContext(Dispatchers.IO) {
-            val model = dao.selectModelFromId(catId)
-            mapModel(model)
-        }
+    override suspend fun loadChooseCatFromDatabase(catId: String) = withContext(Dispatchers.IO) {
+        val model = dao.selectModelFromId(catId)
+        mapModel(model)
+    }
 
-    private fun mapModel(model: ChooseCatBreed?): CatDescription? {
-        return if (model != null) {
-            CatDescription(
-                name = model.name ?: "-",
-                urlImage = getUrlImageFromDataBase(model.id) ?: "null",
-                origin = model.origin ?: "-",
-                lifeSpan = model.lifeSpan ?: "-",
-                weight = model.weight?.metric ?: "-",
-                temperament = model.temperament ?: "-",
-                description = model.description ?: "-",
-                urlWiki = model.wikipediaUrl ?: "-"
-            )
-        } else {
-            null
-        }
+    private fun mapModel(model: ChooseCatBreed?) = if (model != null) {
+        CatDescription(
+            name = model.name ?: "-",
+            urlImage = getUrlImageFromDataBase(model.id) ?: "null",
+            origin = model.origin ?: "-",
+            lifeSpan = model.lifeSpan ?: "-",
+            weight = model.weight?.metric ?: "-",
+            temperament = model.temperament ?: "-",
+            description = model.description ?: "-",
+            urlWiki = model.wikipediaUrl ?: "-"
+        )
+    } else {
+        null
     }
 
     private fun getUrlImageFromDataBase(id: String?) =

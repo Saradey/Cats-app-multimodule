@@ -2,6 +2,7 @@ package com.evgeny.goncharov.settings.interactor
 
 import androidx.annotation.StyleRes
 import com.evgeny.goncharov.coreapi.utils.Language
+import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.models.ThemeModel
 
 /**
@@ -52,7 +53,18 @@ interface SettingsInteractor {
     fun chooseLanguage(itemIndex: Int)
 
     /**
-     *
+     * Получить индекс выбранного языка
      */
     fun getChooseLanguageIndex(): Int
+
+    /**
+     * Получить тип выбранной сортировки
+     */
+    fun getSortType(): SortType
+
+    /**
+     * Передаем выбранное значение сортировки котов в репозиторий
+     * @param sortName выбранный тип сортировки
+     */
+    fun setChooseSort(sortName: SortType)
 }

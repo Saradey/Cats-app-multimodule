@@ -54,7 +54,7 @@ class WallCatsViewModel : ViewModel() {
      * @param nextCount индекс следующей порции
      */
     suspend fun loadNextCats(nextCount: Int): List<CatBreedView> {
-        val result = interactor.loadNexPage(nextCount)
+        val result = interactor.loadNextPage(nextCount)
         return suspendCoroutine { continuation ->
             continuation.resume(result)
         }

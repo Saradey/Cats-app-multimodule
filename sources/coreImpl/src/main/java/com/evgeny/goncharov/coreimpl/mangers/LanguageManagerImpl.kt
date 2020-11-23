@@ -3,6 +3,7 @@ package com.evgeny.goncharov.coreimpl.mangers
 import android.content.Context
 import com.evgeny.goncharov.coreapi.RU_CODE
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
+import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.utils.Language
 import java.util.Locale
 import javax.inject.Inject
@@ -12,7 +13,7 @@ import javax.inject.Inject
  * @property context ссылка на application
  */
 class LanguageManagerImpl @Inject constructor(
-    private val context: Context
+    @AppContext private val context: Context
 ) : LanguageManager {
 
     companion object {

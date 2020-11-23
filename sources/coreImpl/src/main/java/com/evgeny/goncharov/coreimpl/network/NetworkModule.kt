@@ -5,6 +5,7 @@ import com.evgeny.goncharov.coreapi.BASE_URL
 import com.evgeny.goncharov.coreapi.CONNECTION_TIMEOUT
 import com.evgeny.goncharov.coreapi.READ_TIMEOUT
 import com.evgeny.goncharov.coreapi.WRITE_TIMEOUT
+import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
 import com.evgeny.goncharov.coreapi.scope.AppScope
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -37,7 +38,7 @@ object NetworkModule {
     @JvmStatic
     fun provideHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        context: Context,
+        @AppContext context: Context,
         buildVariants: Boolean
     ): OkHttpClient = OkHttpClient.Builder()
         .apply {

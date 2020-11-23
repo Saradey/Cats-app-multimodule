@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.wallcats.gateways
 
+import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 
@@ -18,4 +19,9 @@ interface WallCatGateway {
      * Загрузка котов из базы данных
      */
     suspend fun loadWallCatFromDatabase(): List<CatBreedView>
+
+    /**
+     * Получить тип сортировки
+     */
+    fun getSortType() : SortType
 }

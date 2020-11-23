@@ -41,9 +41,7 @@ class CatDescriptionViewModel : ViewModel() {
      * Делегирование id кота слою бизнес логики
      * @param catId
      */
-    fun setCatId(catId: String) {
-        interactor.setCatId(catId)
-    }
+    fun setCatId(catId: String) = interactor.setCatId(catId)
 
     /**
      * Загрузить выбранного кота для отображения в View

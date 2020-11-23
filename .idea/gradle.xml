@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/sources/core" />
             <option value="$PROJECT_DIR$/sources/coreApi" />
             <option value="$PROJECT_DIR$/sources/coreImpl" />
+            <option value="$PROJECT_DIR$/sources/domain" />
             <option value="$PROJECT_DIR$/sources/main" />
             <option value="$PROJECT_DIR$/sources/searchCats" />
             <option value="$PROJECT_DIR$/sources/settings" />
@@ -26,6 +27,7 @@
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>

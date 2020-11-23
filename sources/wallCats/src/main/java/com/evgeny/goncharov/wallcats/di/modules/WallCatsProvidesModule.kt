@@ -1,8 +1,12 @@
 package com.evgeny.goncharov.wallcats.di.modules
 
+import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
+import com.evgeny.goncharov.coreapi.qualifier.ActivityContext
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
+import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.rest.ApiBreeds
 import com.evgeny.goncharov.wallcats.ui.WallCatsFragment
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
@@ -31,4 +35,9 @@ object WallCatsProvidesModule {
     @FragmentScope
     fun provideApiBreeds(retrofit: Retrofit):
             ApiBreeds = retrofit.create(ApiBreeds::class.java)
+
+    @Provides
+    @JvmStatic
+    fun provideSortViewModel(@ActivityContext contextActivity: Context) =
+        ViewModelProviders.of(contextActivity as FragmentActivity).get(SortTypeViewModel::class.java)
 }

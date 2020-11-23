@@ -3,6 +3,7 @@ package com.evgeny.goncharov.coreimpl.mangers
 import android.content.Context
 import androidx.annotation.StyleRes
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
+import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreimpl.R
 import javax.inject.Inject
 
@@ -11,7 +12,7 @@ import javax.inject.Inject
  * @property context сслка на application
  */
 class ThemeManagerImpl @Inject constructor(
-    private val context: Context
+    @AppContext private val context: Context
 ) : ThemeManager {
 
     companion object {

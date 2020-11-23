@@ -31,4 +31,13 @@
         <item>Русский</item>
         <item>English</item>
     </string-array>
+    <string name="sort_mine_title">Sorting cats</string>
+    <string name="sort_by_name">By name</string>
+    <string name="sort_by_life_span">By longevity</string>
+    <string name="sort_by_wight">By weight</string>
+    <string-array name="sorts_titles">
+        <item>By name</item>
+        <item>By longevity</item>
+        <item>By weight</item>
+    </string-array>
 </resources>
