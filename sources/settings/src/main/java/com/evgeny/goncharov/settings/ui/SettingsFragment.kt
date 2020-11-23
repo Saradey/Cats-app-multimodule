@@ -13,6 +13,7 @@ import androidx.core.text.set
 import androidx.lifecycle.Observer
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.R
@@ -50,7 +51,8 @@ class SettingsFragment : BaseFragment() {
     private fun initDaggerGraph() {
         SettingsComponent.init(
             this,
-            (requireActivity() as WithFacade).getFacade()
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithFacade).getFacade() as AndroidComponentsProvider
         ).apply {
             viewModel = provideSettingsViewModel()
             themeManager = provideThemeManager()

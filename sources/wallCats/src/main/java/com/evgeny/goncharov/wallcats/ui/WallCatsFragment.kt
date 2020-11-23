@@ -14,6 +14,7 @@ import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
+import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
@@ -62,6 +63,9 @@ class WallCatsFragment : BaseFragment(),
     /** Для управления холдерами списка стены котов */
     private lateinit var adapter: CatBreedsPagedAdapter
 
+    /** Получаем события о том что нужно обновить стену котов */
+    private lateinit var vmSort: SortTypeViewModel
+
     private fun initDaggerGraph() {
         WallCatsComponent.getByLazy(
             (requireActivity() as WithFacade).getFacade(),
@@ -73,6 +77,7 @@ class WallCatsFragment : BaseFragment(),
                 searchMediator = provideSearchCatsMediator()
                 settingsMediator = provideSettingMediator()
                 themeManager = provideThemeManager()
+                vmSort = provideSortViewModel()
             }
     }
 
@@ -97,6 +102,13 @@ class WallCatsFragment : BaseFragment(),
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, Observer { changeUiState(it) })
+        vmSort.updateChooseSotType.observe(this, Observer { updateWallCats(it) })
+    }
+
+    private fun updateWallCats(isUpdate: Boolean?) {
+        if (isUpdate == true) {
+            initPagedAdapterAndRecycle()
+        }
     }
 
     override fun clickCatUrlBreed(urlImage: String?) {
@@ -162,5 +174,6 @@ class WallCatsFragment : BaseFragment(),
     override fun onDestroy() {
         super.onDestroy()
         viewModel.liveDataUiEvents.call()
+        vmSort.updateChooseSotType.call()
     }
 }

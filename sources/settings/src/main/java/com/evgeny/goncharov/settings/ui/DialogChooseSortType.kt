@@ -2,8 +2,10 @@ package com.evgeny.goncharov.settings.ui
 
 import android.app.Dialog
 import android.os.Bundle
+import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
+import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -12,6 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class DialogChooseSortType : BaseSettingsFragmentDialog() {
 
     companion object {
+
         /** Индекс сортировки по алфовиту в диалоговом окне */
         const val INDEX_SORT_NAME = 0
 
@@ -20,6 +23,15 @@ class DialogChooseSortType : BaseSettingsFragmentDialog() {
 
         /** Индекс сортировки по весу в диалоговом окне */
         const val INDEX_SORT_WIGHT = 2
+    }
+
+    private lateinit var sortViewModel: SortTypeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        SettingsComponent.component?.apply {
+            sortViewModel = provideSortViewModel()
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -38,6 +50,7 @@ class DialogChooseSortType : BaseSettingsFragmentDialog() {
                 vm.getSortValue()
             ) { _, item ->
                 vm.setChooseSort(item)
+                sortViewModel.updateChooseSotType.value = true
                 dismiss()
             }
         return builderDialog.create()

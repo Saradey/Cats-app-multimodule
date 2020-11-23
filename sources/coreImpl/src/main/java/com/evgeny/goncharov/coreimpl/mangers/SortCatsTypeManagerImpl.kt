@@ -2,6 +2,7 @@ package com.evgeny.goncharov.coreimpl.mangers
 
 import android.content.Context
 import com.evgeny.goncharov.coreapi.managers.SortCatsManager
+import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.utils.SortType
 import javax.inject.Inject
 
@@ -10,7 +11,7 @@ import javax.inject.Inject
  * @property appContext контект для получения шарады
  */
 class SortCatsTypeManagerImpl @Inject constructor(
-    private val appContext: Context
+    @AppContext private val appContext: Context
 ) : SortCatsManager {
 
     companion object {
