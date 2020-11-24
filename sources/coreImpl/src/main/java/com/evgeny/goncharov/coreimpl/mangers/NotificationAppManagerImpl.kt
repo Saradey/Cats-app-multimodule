@@ -37,6 +37,12 @@ class NotificationAppManagerImpl @Inject constructor(
 
         /** Имя параметра в шараде имени класса MainActivity */
         private const val PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME = "PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME"
+
+        /** Имя шарады нотификации */
+        private const val NOTIFICATION_IS_ON_SHARED_NAME = "NOTIFICATION_IS_ON_SHARED_NAME"
+
+        /** Имя значение нотификации включено/выключено */
+        private const val NOTIFICATION_IS_ON_VALUE_NAME = "NOTIFICATION_IS_ON_VALUE_NAME"
     }
 
     override fun startNotificationUserLastSeenDaysAgo() {
@@ -72,6 +78,18 @@ class NotificationAppManagerImpl @Inject constructor(
         val shared = appContext.getSharedPreferences(PENDING_INTENT_MAIN_ACTIVITY_SHARED_NAME, Context.MODE_PRIVATE)
         val edit = shared.edit()
         edit.putString(PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME, clazz.name)
+        edit.apply()
+    }
+
+    override fun onOrOffNotification(): Boolean {
+        val shared = appContext.getSharedPreferences(NOTIFICATION_IS_ON_SHARED_NAME, Context.MODE_PRIVATE)
+        return shared.getBoolean(NOTIFICATION_IS_ON_VALUE_NAME, true)
+    }
+
+    override fun setOnOrOfNotification(isOn: Boolean) {
+        val shared = appContext.getSharedPreferences(NOTIFICATION_IS_ON_SHARED_NAME, Context.MODE_PRIVATE)
+        val edit = shared.edit()
+        edit.putBoolean(NOTIFICATION_IS_ON_VALUE_NAME, isOn)
         edit.apply()
     }
 }

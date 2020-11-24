@@ -15,4 +15,14 @@ interface NotificationAppManager {
      * @param clazz тип MainActivity
      */
     fun setClassMainActivityToSharedPref(clazz: Class<*>)
+
+    /**
+     * Проверка включены нотификации в приложении или нет
+     */
+    fun onOrOffNotification(): Boolean
+
+    /**
+     * Обновили значение нотификации включили/выключили
+     */
+    fun setOnOrOfNotification(isOn: Boolean)
 }

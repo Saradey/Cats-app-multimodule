@@ -44,4 +44,11 @@
     <string name="notification_content_user_last_seen">It seems you haven\'t been in for a long time :(</string>
     <string name="notification_chanel_name">Meow cats</string>
     <string name="notification_chanel_title">Kittens will notify you if you haven\'t visited for a long time</string>
+    <string name="notification_settings_title">Notifications</string>
+    <string name="notification_settings_ison">On</string>
+    <string name="notification_settings_isoff">Off</string>
+    <string-array name="notification_titles">
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
 </resources>

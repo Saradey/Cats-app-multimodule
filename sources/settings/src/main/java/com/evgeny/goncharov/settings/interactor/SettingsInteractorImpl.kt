@@ -29,6 +29,12 @@ class SettingsInteractorImpl @Inject constructor(
 
         /** Индекс английского языка в окне */
         const val INDEX_ENGLISH_DIALOG = 1
+
+        /** Индекс нотифкации: включено */
+        const val INDEX_NOTIFICATION_ON = 0
+
+        /** Индекс нотифкации: выключено */
+        const val INDEX_NOTIFICATION_OFF = 1
     }
 
     /** Ресурс темы установленной на данный момент в приложении */
@@ -67,7 +73,7 @@ class SettingsInteractorImpl @Inject constructor(
 
     override fun getSelectLanguage() = gateway.getSelectLanguage()
 
-    override fun chooseLanguage(itemIndex: Int) {
+    override fun chosenLanguage(itemIndex: Int) {
         chooseLanguageIndex = itemIndex
         when (itemIndex) {
             INDEX_CHOOSE_RU -> gateway.chooseLanguage(Language.RU)
@@ -80,4 +86,13 @@ class SettingsInteractorImpl @Inject constructor(
     override fun getSortType() = gateway.getSortType()
 
     override fun setChooseSort(sortName: SortType) = gateway.setChooseSort(sortName)
+
+    override fun initNotification() = gateway.getStatusNotification()
+
+    override fun chosenNotification(item: Int) {
+        when (item) {
+            INDEX_NOTIFICATION_ON -> gateway.chosenNotification(true)
+            INDEX_NOTIFICATION_OFF -> gateway.chosenNotification(false)
+        }
+    }
 }

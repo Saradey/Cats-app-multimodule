@@ -7,17 +7,17 @@ import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
- * Дилоговое окно выбора языка
+ * Диалоговое окно выбора включить или выключить нотификацию
  */
-class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
+class DialogChooseOnOrOfNotification : BaseSettingsFragmentDialog() {
 
     companion object {
 
-        /** Индекс русского языка в списке выбора */
-        const val INDEX_CHOOSE_RU = 0
+        /** Индекс нотификации включены */
+        const val INDEX_CHOOSE_ON = 0
 
-        /** Индекс английского языка в списке выбора */
-        const val INDEX_CHOOSE_EN = 1
+        /** Индекс нотификации выключены */
+        const val INDEX_CHOOSE_OFF = 1
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -25,17 +25,17 @@ class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
             requireContext(),
             getDialogTheme()
         )
-        builderDialog.setTitle(R.string.language_app_title)
+        builderDialog.setTitle(R.string.notification_settings_title)
             .setPositiveButton(
                 R.string.title_cancel_dialog_common
             ) { _, _ ->
                 dismiss()
             }
             .setSingleChoiceItems(
-                resources.getStringArray(R.array.language_titles),
-                vm.getSelectLanguage()
+                resources.getStringArray(R.array.notification_titles),
+                vm.getSelectNotification()
             ) { _, item ->
-                vm.chosenLanguage(item)
+                vm.chosenNotification(item)
                 dismiss()
             }
         return builderDialog.create()

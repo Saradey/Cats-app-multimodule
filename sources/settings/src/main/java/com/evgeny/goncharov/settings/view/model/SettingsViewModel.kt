@@ -11,6 +11,8 @@ import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.interactor.SettingsInteractor
 import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
 import com.evgeny.goncharov.settings.models.ThemeModel
+import com.evgeny.goncharov.settings.ui.DialogChooseOnOrOfNotification.Companion.INDEX_CHOOSE_OFF
+import com.evgeny.goncharov.settings.ui.DialogChooseOnOrOfNotification.Companion.INDEX_CHOOSE_ON
 import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SORT_LIFE_SPAN
 import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SORT_NAME
 import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SORT_WIGHT
@@ -34,6 +36,9 @@ class SettingsViewModel : ViewModel() {
 
     /** Отдает какая сортировка установлена */
     val sortTypeLiveData = MutableLiveData<SortType>()
+
+    /** Отдает, включено уведомление или нет */
+    val notificationLiveData = MutableLiveData<Boolean>()
 
     /**
      * Иницилизация зависимостей
@@ -62,7 +67,7 @@ class SettingsViewModel : ViewModel() {
      * Если выбрали тему
      * @param item индекс темы
      */
-    fun setChooseThemeIndex(item: Int) {
+    fun chosenThemeIndex(item: Int) {
         when (item) {
             SettingsInteractorImpl.INDEX_NIGHT_DIALOG -> interactor.onNight()
             else -> interactor.onLight()
@@ -94,9 +99,9 @@ class SettingsViewModel : ViewModel() {
      * Выбрали язык
      * @param itemIndex индек выбранного поля
      */
-    fun chooseLanguage(itemIndex: Int) {
+    fun chosenLanguage(itemIndex: Int) {
         if (interactor.getChooseLanguageIndex() != itemIndex) {
-            interactor.chooseLanguage(itemIndex)
+            interactor.chosenLanguage(itemIndex)
             uiLiveDataEvent.value = SettingUiEvents.ChooseLanguageApp
         }
     }
@@ -114,7 +119,7 @@ class SettingsViewModel : ViewModel() {
      * Сетнуть значения выбранной сортировки в слой бизнес логики
      * @param item выбранный индекс
      */
-    fun setChooseSort(item: Int) {
+    fun chosenSort(item: Int) {
         when (item) {
             INDEX_SORT_NAME -> interactor.setChooseSort(SortType.SortName)
             INDEX_SORT_LIFE_SPAN -> interactor.setChooseSort(SortType.SortLifeSpan)
@@ -122,4 +127,25 @@ class SettingsViewModel : ViewModel() {
         }
         initSortType()
     }
+
+    /**
+     * Иницилизация нотификации для View компонента
+     */
+    fun initNotificationToView() {
+        notificationLiveData.value = interactor.initNotification()
+    }
+
+    /**
+     * Выбрали нотификацию
+     * @param item индекс выбранного значения
+     */
+    fun chosenNotification(item: Int) {
+        interactor.chosenNotification(item)
+        initNotificationToView()
+    }
+
+    /**
+     * Получить индекс установленной нотификации включено/выключено
+     */
+    fun getSelectNotification() = if (notificationLiveData.value == true) INDEX_CHOOSE_ON else INDEX_CHOOSE_OFF
 }
