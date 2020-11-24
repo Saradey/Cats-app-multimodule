@@ -75,4 +75,5 @@ dependencies {
     implementation retrofit2
     implementation lifecycleExtensions
     implementation material
+    implementation workManager
 }

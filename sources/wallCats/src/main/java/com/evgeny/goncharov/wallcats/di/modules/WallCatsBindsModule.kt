@@ -5,6 +5,8 @@ import com.evgeny.goncharov.wallcats.gateways.WallCatGateway
 import com.evgeny.goncharov.wallcats.gateways.WallCatGatewayImpl
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractorImpl
+import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
+import com.evgeny.goncharov.wallcats.managers.WorkScheduleManagerImpl
 import dagger.Binds
 import dagger.Module
 
@@ -16,9 +18,12 @@ interface WallCatsBindsModule {
 
     @Binds
     @FragmentScope
-    fun bindWallCatInteractor(interactor: WallCatInteractorImpl): WallCatInteractor
+    fun WallCatInteractorImpl.bindWallCatInteractor(): WallCatInteractor
 
     @Binds
     @FragmentScope
-    fun bindWallCatGateway(gateway: WallCatGatewayImpl): WallCatGateway
+    fun WallCatGatewayImpl.bindWallCatGateway(): WallCatGateway
+
+    @Binds
+    fun WorkScheduleManagerImpl.bindWorkScheduleManager(): WorkScheduleManager
 }
