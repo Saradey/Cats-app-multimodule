@@ -22,7 +22,7 @@ class WorkScheduleManagerImpl @Inject constructor(
     companion object {
 
         /** Интервал с которой необходимо запускать ворк менеджер, в часах */
-        private const val INTERVAL_WORK_WORKER_CHECK_OUT_USER = 15L
+        private const val INTERVAL_WORK_WORKER_CHECK_OUT_USER = 24L
     }
 
     override fun cancelWorksCheckOutUser() {
@@ -35,11 +35,11 @@ class WorkScheduleManagerImpl @Inject constructor(
                 PeriodicWorkRequest.Builder(
                     WorksCheckOutUser::class.java,
                     INTERVAL_WORK_WORKER_CHECK_OUT_USER,
-                    TimeUnit.MINUTES
+                    TimeUnit.HOURS
                 ).addTag(WorksCheckOutUser::class.java.name)
                     .setInitialDelay(
                         INTERVAL_WORK_WORKER_CHECK_OUT_USER,
-                        TimeUnit.MINUTES
+                        TimeUnit.HOURS
                     )
                     .build()
             WorkManager.getInstance(activityContext)
