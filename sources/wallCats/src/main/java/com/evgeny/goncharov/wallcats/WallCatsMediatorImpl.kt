@@ -16,7 +16,7 @@ class WallCatsMediatorImpl @Inject constructor() : WallCatsMediator {
         val fragment = WallCatsFragment.getInstance()
         supportFragmentManager.beginTransaction()
             .replace(R.id.frmRootField, fragment, WallCatsFragment::class.java.name)
-            .commit()
+            .commitNowAllowingStateLoss()
     }
 
     override fun goToTheScreenCatDescription(id: String, supportFragmentManager: FragmentManager) {

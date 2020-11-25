@@ -82,6 +82,8 @@ class SplashScreenFragment : Fragment() {
     }
 
     private fun goToTheNextFragment() {
-        wallCatsMediator.goToTheWallCatsFragment(requireActivity().supportFragmentManager)
+        activity?.let {
+            wallCatsMediator.goToTheWallCatsFragment(it.supportFragmentManager)
+        }
     }
 }
