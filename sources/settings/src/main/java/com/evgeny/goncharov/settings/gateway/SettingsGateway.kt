@@ -45,4 +45,15 @@ interface SettingsGateway {
      * Делегируем тип выбранной сортировки менеджеру сортировок
      */
     fun setChooseSort(sortName: SortType)
+
+    /**
+     * Получить значение нотификации приложения включено/выключено
+     */
+    fun getStatusNotification(): Boolean
+
+    /**
+     * Сетнуть значение нотификации приложения включено/выключено
+     * @param isOn значение нотификации
+     */
+    fun chosenNotification(isOn: Boolean)
 }

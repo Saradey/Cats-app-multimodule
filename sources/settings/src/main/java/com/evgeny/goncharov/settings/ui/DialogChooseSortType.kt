@@ -49,7 +49,7 @@ class DialogChooseSortType : BaseSettingsFragmentDialog() {
                 resources.getStringArray(R.array.sorts_titles),
                 vm.getSortValue()
             ) { _, item ->
-                vm.setChooseSort(item)
+                vm.chosenSort(item)
                 sortViewModel.updateChooseSotType.value = true
                 dismiss()
             }

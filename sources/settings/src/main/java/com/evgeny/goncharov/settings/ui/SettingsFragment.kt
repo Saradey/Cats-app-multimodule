@@ -23,6 +23,7 @@ import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import kotlinx.android.synthetic.main.fragment_settings.toolbar
 import kotlinx.android.synthetic.main.fragment_settings.txvLanguageApp
+import kotlinx.android.synthetic.main.fragment_settings.txvNotification
 import kotlinx.android.synthetic.main.fragment_settings.txvSortParameter
 import kotlinx.android.synthetic.main.fragment_settings.txvThemeApp
 
@@ -68,6 +69,7 @@ class SettingsFragment : BaseFragment() {
         initClickThemeApp()
         initClickLanguageChoose()
         initClickSortType()
+        initClickNotification()
     }
 
     private fun init() {
@@ -75,6 +77,7 @@ class SettingsFragment : BaseFragment() {
         viewModel.initThemeToView()
         viewModel.initLanguageToView()
         viewModel.initSortType()
+        viewModel.initNotificationToView()
     }
 
     private fun initLiveData() {
@@ -82,6 +85,30 @@ class SettingsFragment : BaseFragment() {
         viewModel.languageLiveData.observe(this, Observer { initLanguage(it) })
         viewModel.uiLiveDataEvent.observe(this, Observer { updateUiEvent(it) })
         viewModel.sortTypeLiveData.observe(this, Observer { initSorTypeTextView(it) })
+        viewModel.notificationLiveData.observe(this, Observer { initNotificationView(it) })
+    }
+
+    private fun initNotificationView(isOn: Boolean) {
+        when {
+            isOn -> initNotificationView(R.string.notification_settings_ison)
+            !isOn -> initNotificationView(R.string.notification_settings_isoff)
+        }
+    }
+
+    private fun initNotificationView(@StringRes subTitle: Int) {
+        when (viewModel.themeLiveDataModel.value?.themeValue) {
+            R.style.AppThemeNight -> setNotificationView(subTitle, R.drawable.ic_notification_day)
+            R.style.AppThemeDay -> setNotificationView(subTitle, R.drawable.ic_notification_night)
+        }
+    }
+
+    private fun setNotificationView(@StringRes subTitle: Int, @DrawableRes drawId: Int) {
+        initSpannableTextView(
+            title = R.string.notification_settings_title,
+            subTitle = subTitle,
+            drawStart = drawId,
+            textView = txvNotification
+        )
     }
 
     private fun initSorTypeTextView(type: SortType) {
@@ -259,6 +286,13 @@ class SettingsFragment : BaseFragment() {
         txvSortParameter.setOnClickListener {
             val dialog = DialogChooseSortType()
             dialog.show(requireFragmentManager(), DialogChooseSortType::class.java.name)
+        }
+    }
+
+    private fun initClickNotification() {
+        txvNotification.setOnClickListener {
+            val dialog = DialogChooseOnOrOfNotification()
+            dialog.show(requireFragmentManager(), DialogChooseOnOrOfNotification::class.java.name)
         }
     }
 

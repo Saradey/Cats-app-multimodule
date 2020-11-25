@@ -34,4 +34,15 @@
         <item>По долголетию</item>
         <item>По весу</item>
     </string-array>
+    <string name="notification_title_user_last_seen">Котики соскучились по тебе</string>
+    <string name="notification_content_user_last_seen">Кажется вы долго не заходили :(</string>
+    <string name="notification_chanel_name">Мяукание котят</string>
+    <string name="notification_chanel_title">Котята будут оповещать вас если вы долго не заходили</string>
+    <string name="notification_settings_title">Уведомления</string>
+    <string name="notification_settings_ison">Включено</string>
+    <string name="notification_settings_isoff">Выключено</string>
+    <string-array name="notification_titles">
+        <item>Включено</item>
+        <item>Выключено</item>
+    </string-array>
 </resources>

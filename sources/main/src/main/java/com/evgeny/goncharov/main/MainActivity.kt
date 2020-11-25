@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
+import com.evgeny.goncharov.coreapi.managers.NotificationAppManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
 import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
     /** Для запусука сплен скрина */
     private lateinit var splashScreenMediator: SplashScreenMediator
 
+    /** Менеджео отвечающий за нотификацию в проекте, для сохранения имени класса MainActivity */
+    private lateinit var notificationManager: NotificationAppManager
+
     /** Логика нажатия на бекпрессед */
     private val routerManager = MainRouter(this)
 
@@ -38,6 +42,7 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        notificationManager.setClassMainActivityToSharedPref(this::class.java)
         setTheme(themeManager.getThemeNow())
         setContentView(R.layout.activity_main)
         savedInstanceState ?: splashScreenMediator.showSplashScreen(supportFragmentManager)
@@ -51,6 +56,7 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
             themeManager = provideThemeManager()
             languageManager = provideLanguageManager()
             splashScreenMediator = provideSplashScreenMediator()
+            notificationManager = provideNotificationManager()
         }
     }
 

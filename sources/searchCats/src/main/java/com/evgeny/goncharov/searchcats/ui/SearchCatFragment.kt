@@ -84,6 +84,7 @@ class SearchCatFragment : BaseFragment() {
         adapter = CatsCatchAdapter(::chooseCat)
         rcvCathedCats.layoutManager = LinearLayoutManager(context)
         rcvCathedCats.adapter = adapter
+        rcvCathedCats.itemAnimator = null
     }
 
     private fun initToolbar() {

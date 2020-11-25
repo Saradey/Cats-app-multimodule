@@ -17,6 +17,7 @@ import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
 import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
+import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
 import com.evgeny.goncharov.wallcats.ui.adapters.DiffUtilsCatBreeds
@@ -66,6 +67,9 @@ class WallCatsFragment : BaseFragment(),
     /** Получаем события о том что нужно обновить стену котов */
     private lateinit var vmSort: SortTypeViewModel
 
+    /** Шедулер для запуска запланированных задач */
+    private lateinit var workSchedulerManager: WorkScheduleManager
+
     private fun initDaggerGraph() {
         WallCatsComponent.getByLazy(
             (requireActivity() as WithFacade).getFacade(),
@@ -78,6 +82,7 @@ class WallCatsFragment : BaseFragment(),
                 settingsMediator = provideSettingMediator()
                 themeManager = provideThemeManager()
                 vmSort = provideSortViewModel()
+                workSchedulerManager = provideWorkScheduleManager()
             }
     }
 
@@ -87,6 +92,7 @@ class WallCatsFragment : BaseFragment(),
         initDaggerGraph()
         savedInstanceState ?: viewModel.initInjection()
         init()
+        workSchedulerManager.cancelWorksCheckOutUser()
     }
 
     private fun init() {
@@ -175,5 +181,6 @@ class WallCatsFragment : BaseFragment(),
         super.onDestroy()
         viewModel.liveDataUiEvents.call()
         vmSort.updateChooseSotType.call()
+        workSchedulerManager.startWorksCheckOutUser()
     }
 }

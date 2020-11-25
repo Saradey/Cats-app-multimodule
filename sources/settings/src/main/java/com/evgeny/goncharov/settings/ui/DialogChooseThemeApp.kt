@@ -26,7 +26,7 @@ class DialogChooseThemeApp : BaseSettingsFragmentDialog() {
                 resources.getStringArray(R.array.themes_titles),
                 vm.getThemeValue()
             ) { _, item ->
-                vm.setChooseThemeIndex(item)
+                vm.chosenThemeIndex(item)
                 dismiss()
             }
         return builderDialog.create()

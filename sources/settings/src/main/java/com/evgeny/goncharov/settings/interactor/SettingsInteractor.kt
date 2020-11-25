@@ -50,7 +50,7 @@ interface SettingsInteractor {
      * Выбрали язык
      * @param itemIndex индекс выбранного языка
      */
-    fun chooseLanguage(itemIndex: Int)
+    fun chosenLanguage(itemIndex: Int)
 
     /**
      * Получить индекс выбранного языка
@@ -67,4 +67,15 @@ interface SettingsInteractor {
      * @param sortName выбранный тип сортировки
      */
     fun setChooseSort(sortName: SortType)
+
+    /**
+     * Получить значение нотификации приложения включено/выключено
+     */
+    fun initNotification(): Boolean
+
+    /**
+     * Сетнуть значение нотификации приложения включено/выключено
+     * @param item индекс выбранного значения
+     */
+    fun chosenNotification(item: Int)
 }
