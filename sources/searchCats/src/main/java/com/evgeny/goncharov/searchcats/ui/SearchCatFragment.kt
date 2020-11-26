@@ -68,6 +68,7 @@ class SearchCatFragment : BaseFragment() {
         initAdapterAndRecycle()
         initToolbar()
         initSearchView()
+        hideKeyboard()
     }
 
     private fun initLiveData() {

@@ -89,4 +89,9 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
     override fun getProviderAndroidComponent(): AndroidComponentsProvider {
         return MainActivityComponent.component!!
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MainActivityComponent.component = null
+    }
 }

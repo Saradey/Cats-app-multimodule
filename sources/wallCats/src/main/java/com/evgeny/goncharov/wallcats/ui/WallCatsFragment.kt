@@ -182,5 +182,6 @@ class WallCatsFragment : BaseFragment(),
         viewModel.liveDataUiEvents.call()
         vmSort.updateChooseSotType.call()
         workSchedulerManager.startWorksCheckOutUser()
+        WallCatsComponent.component = null
     }
 }

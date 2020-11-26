@@ -21,7 +21,6 @@ import retrofit2.Retrofit
 object WallCatsProvidesModule {
 
     @Provides
-    @JvmStatic
     @FragmentScope
     fun provideWallCatsViewModel(fragmentManager: FragmentManager) =
         ViewModelProviders.of(
