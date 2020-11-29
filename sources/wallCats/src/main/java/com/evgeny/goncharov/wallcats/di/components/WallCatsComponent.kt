@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.wallcats.di.components
 
-import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
+import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.providers.MediatorsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
@@ -16,7 +16,7 @@ import dagger.Component
  */
 @FragmentScope
 @Component(
-    dependencies = [ProviderFacade::class, AndroidComponentsProvider::class],
+    dependencies = [ProviderFacade::class, ActivityContextProvider::class],
     modules = [
         WallCatsBindsModule::class,
         WallCatsProvidesModule::class,
@@ -33,7 +33,7 @@ interface WallCatsComponent : CatDescriptionProvider,
 
         fun getByLazy(
             provide: ProviderFacade,
-            provideAndroidComponent: AndroidComponentsProvider
+            provideAndroidComponent: ActivityContextProvider
         ): WallCatsComponent {
             return component ?: DaggerWallCatsComponent.factory()
                 .plus(provide, provideAndroidComponent)
@@ -48,7 +48,7 @@ interface WallCatsComponent : CatDescriptionProvider,
 
         fun plus(
             provide: ProviderFacade,
-            provideAndroidComponent: AndroidComponentsProvider
+            provideAndroidComponent: ActivityContextProvider
         ): WallCatsComponent
     }
 }

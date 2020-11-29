@@ -11,7 +11,7 @@ import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.managers.NotificationAppManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
-import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
+import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.main.di.MainActivityComponent
 import java.util.Locale
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
         routerManager.onBackPressed()
     }
 
-    override fun getProviderAndroidComponent(): AndroidComponentsProvider {
+    override fun getProviderAndroidComponent(): ActivityContextProvider {
         return MainActivityComponent.component!!
     }
 

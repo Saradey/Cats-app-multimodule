@@ -13,7 +13,7 @@ import androidx.core.text.set
 import androidx.lifecycle.Observer
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
-import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
+import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.R
@@ -53,7 +53,7 @@ class SettingsFragment : BaseFragment() {
         SettingsComponent.init(
             this,
             (requireActivity() as WithFacade).getFacade(),
-            (requireActivity() as WithFacade).getFacade() as AndroidComponentsProvider
+            (requireActivity() as WithFacade).getFacade() as ActivityContextProvider
         ).apply {
             viewModel = provideSettingsViewModel()
             themeManager = provideThemeManager()

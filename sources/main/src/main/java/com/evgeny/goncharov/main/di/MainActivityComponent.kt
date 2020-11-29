@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.main.di
 
-import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
+import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.providers.MainRouterProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.ActivityScope
@@ -13,7 +13,7 @@ import dagger.Component
  */
 @ActivityScope
 @Component(dependencies = [ProviderFacade::class], modules = [MainActivityProvideModule::class])
-interface MainActivityComponent : ProviderFacade, AndroidComponentsProvider, MainRouterProvider {
+interface MainActivityComponent : ProviderFacade, ActivityContextProvider, MainRouterProvider {
 
     companion object {
 
