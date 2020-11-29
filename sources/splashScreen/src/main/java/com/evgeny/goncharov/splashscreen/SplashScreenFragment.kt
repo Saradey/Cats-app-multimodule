@@ -61,7 +61,7 @@ class SplashScreenFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash_screen, container, false)
         init(view)
-        mainRouter.slashScreenIsInit(true)
+        mainRouter.splashScreenIsInit(true)
         return view
     }
 
@@ -97,6 +97,6 @@ class SplashScreenFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mainRouter.slashScreenIsInit(false)
+        mainRouter.splashScreenIsInit(false)
     }
 }

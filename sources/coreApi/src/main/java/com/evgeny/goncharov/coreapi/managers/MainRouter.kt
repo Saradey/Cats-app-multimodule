@@ -11,5 +11,5 @@ interface MainRouter {
      * Для установки флага, запущен сплеш скрин или нет
      * @param isInit true сплеш скрин запущен false не запущен
      */
-    fun slashScreenIsInit(isInit: Boolean)
+    fun splashScreenIsInit(isInit: Boolean)
 }

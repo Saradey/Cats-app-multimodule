@@ -60,7 +60,7 @@ class MainRouterImpl @Inject constructor(
         ).show()
     }
 
-    override fun slashScreenIsInit(isInit: Boolean) {
+    override fun splashScreenIsInit(isInit: Boolean) {
         slashScreenIsInit = isInit
     }
 }
