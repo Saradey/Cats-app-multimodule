@@ -5,7 +5,6 @@ import com.evgeny.goncharov.coreapi.providers.MediatorsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.wallcats.di.modules.CatDescriptionBindsModule
-import com.evgeny.goncharov.wallcats.di.modules.CatDescriptionProvidesModule
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsBindsModule
 import com.evgeny.goncharov.wallcats.di.modules.WallCatsProvidesModule
 import com.evgeny.goncharov.wallcats.di.provides.CatDescriptionProvider
@@ -21,8 +20,7 @@ import dagger.Component
     modules = [
         WallCatsBindsModule::class,
         WallCatsProvidesModule::class,
-        CatDescriptionBindsModule::class,
-        CatDescriptionProvidesModule::class
+        CatDescriptionBindsModule::class
     ]
 )
 interface WallCatsComponent : CatDescriptionProvider,
