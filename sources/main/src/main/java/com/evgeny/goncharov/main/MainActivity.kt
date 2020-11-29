@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
         notificationManager.setClassMainActivityToSharedPref(this::class.java)
         setTheme(themeManager.getThemeNow())
         setContentView(R.layout.activity_main)
-        savedInstanceState ?: splashScreenMediator.showSplashScreen(supportFragmentManager)
+        savedInstanceState?.run {
+            routerManager.slashScreenIsInit(false)
+        } ?: splashScreenMediator.showSplashScreen(supportFragmentManager)
     }
 
     /**
