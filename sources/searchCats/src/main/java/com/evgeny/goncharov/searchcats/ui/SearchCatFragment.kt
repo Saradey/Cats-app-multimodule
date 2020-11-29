@@ -3,6 +3,7 @@ package com.evgeny.goncharov.searchcats.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
@@ -43,8 +44,6 @@ class SearchCatFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDaggerGraph()
-        savedInstanceState ?: viewModel.initInject()
-        initLiveData()
     }
 
     private fun initDaggerGraph() {
@@ -52,7 +51,6 @@ class SearchCatFragment : BaseFragment() {
             this,
             (requireActivity() as WithFacade).getFacade()
         ).apply {
-            viewModel = provideSearchCatViewModel()
             wallCatsMediator = provideWallCatsMediator()
             themeManager = provideThemeManager()
         }
@@ -61,6 +59,9 @@ class SearchCatFragment : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_search_cat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(SearchCatViewModel::class.java)
+        savedInstanceState ?: viewModel.initInject()
+        initLiveData()
         initUi()
     }
 
