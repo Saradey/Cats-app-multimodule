@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.splashscreen
 
+import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -62,6 +63,7 @@ class SplashScreenFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_splash_screen, container, false)
         init(view)
         mainRouter.splashScreenIsInit(true)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         return view
     }
 
@@ -98,5 +100,6 @@ class SplashScreenFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         mainRouter.splashScreenIsInit(false)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
     }
 }
