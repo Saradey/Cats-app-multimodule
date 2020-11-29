@@ -19,4 +19,11 @@ interface WallCatsMediator {
      * @param supportFragmentManager для совершения транзакции фрагментов
      */
     fun goToTheScreenCatDescription(id: String, supportFragmentManager: FragmentManager)
+
+    /**
+     * Переход на экран описание кота реплейсим корневой макет
+     * @param id кота
+     * @param supportFragmentManager для совершения транзакции фрагментов
+     */
+    fun goToTheScreenCatDescriptionReplace(id: String, supportFragmentManager: FragmentManager)
 }

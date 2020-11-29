@@ -31,4 +31,12 @@ class WallCatsMediatorImpl @Inject constructor() : WallCatsMediator {
             .addToBackStack(CatDescriptionFragment::class.java.name)
             .commit()
     }
+
+    override fun goToTheScreenCatDescriptionReplace(id: String, supportFragmentManager: FragmentManager) {
+        val fragment = CatDescriptionFragment.getInstance(id)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frmRootField, fragment, CatDescriptionFragment::class.java.name)
+            .addToBackStack(CatDescriptionFragment::class.java.name)
+            .commit()
+    }
 }

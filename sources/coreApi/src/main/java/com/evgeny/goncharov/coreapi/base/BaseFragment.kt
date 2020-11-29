@@ -47,28 +47,28 @@ abstract class BaseFragment : Fragment() {
     /**
      * Показать прогресс
      */
-    open protected fun showProgress() {
+    protected open fun showProgress() {
         stubController.initUiState(BaseUiEvents.ShowProgress)
     }
 
     /**
      * Спрятать прогресс
      */
-    open protected fun hideProgress() {
+    protected open fun hideProgress() {
         stubController.initUiState(BaseUiEvents.HideProgress)
     }
 
     /**
      * Показать заглушку ошибки
      */
-    open protected fun showSomethingWrong() {
+    protected open fun showSomethingWrong() {
         stubController.initUiState(BaseUiEvents.ShowSomethingWrong)
     }
 
     /**
      * Спрятать заглушку ошибки
      */
-    open protected fun hideSomethingWrong() {
+    protected open fun hideSomethingWrong() {
         stubController.initUiState(BaseUiEvents.HideSomethingWrong)
     }
 

@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
+import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.managers.NotificationAppManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
 import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.main.di.MainActivityComponent
-import com.evgeny.goncharov.main.managers.MainRouter
 import java.util.Locale
 
 /**
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
     private lateinit var notificationManager: NotificationAppManager
 
     /** Логика нажатия на бекпрессед */
-    private val routerManager = MainRouter(this)
+    private lateinit var routerManager: MainRouter
 
     init {
         initDaggerGraph()
@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
             languageManager = provideLanguageManager()
             splashScreenMediator = provideSplashScreenMediator()
             notificationManager = provideNotificationManager()
+            routerManager = provideMainRouter()
         }
     }
 

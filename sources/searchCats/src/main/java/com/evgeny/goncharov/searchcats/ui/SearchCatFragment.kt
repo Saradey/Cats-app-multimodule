@@ -68,7 +68,6 @@ class SearchCatFragment : BaseFragment() {
         initAdapterAndRecycle()
         initToolbar()
         initSearchView()
-        hideKeyboard()
     }
 
     private fun initLiveData() {
@@ -78,7 +77,7 @@ class SearchCatFragment : BaseFragment() {
 
     /** Выбрали кота, делаем переход в на экран описание кота */
     private fun chooseCat(id: String) {
-        wallCatsMediator.goToTheScreenCatDescription(id, fragmentManager!!)
+        wallCatsMediator.goToTheScreenCatDescriptionReplace(id, requireFragmentManager())
     }
 
     private fun initAdapterAndRecycle() {
