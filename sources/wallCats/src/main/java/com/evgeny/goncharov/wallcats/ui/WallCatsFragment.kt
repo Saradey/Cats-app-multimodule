@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
@@ -76,7 +77,6 @@ class WallCatsFragment : BaseFragment(),
             (requireActivity() as WithProviders).getProviderAndroidComponent()
         )
             .apply {
-                viewModel = provideWallCatsViewModel()
                 wallCatsMediator = provideWallCatsMediator()
                 searchMediator = provideSearchCatsMediator()
                 settingsMediator = provideSettingMediator()
@@ -88,8 +88,13 @@ class WallCatsFragment : BaseFragment(),
 
     override fun getLayoutId() = R.layout.fragment_wall_cats
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initDaggerGraph()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(WallCatsViewModel::class.java)
         savedInstanceState ?: viewModel.initInjection()
         init()
         workSchedulerManager.cancelWorksCheckOutUser()
@@ -179,7 +184,7 @@ class WallCatsFragment : BaseFragment(),
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.liveDataUiEvents.call()
+        if (this::viewModel.isInitialized) viewModel.liveDataUiEvents.call()
         vmSort.updateChooseSotType.call()
         workSchedulerManager.startWorksCheckOutUser()
         WallCatsComponent.component = null
