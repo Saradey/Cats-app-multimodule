@@ -61,4 +61,9 @@ class ProgressCat : ConstraintLayout {
         animationCatFrame.stop()
         animatorRotatePlanet.cancel()
     }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        stopAnimation()
+    }
 }

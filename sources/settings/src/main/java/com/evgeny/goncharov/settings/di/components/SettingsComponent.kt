@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.settings.di.components
 
-import com.evgeny.goncharov.coreapi.providers.AndroidComponentsProvider
+import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.settings.di.modules.SettingsBindsModule
@@ -15,7 +15,7 @@ import dagger.Component
  */
 @FragmentScope
 @Component(
-    dependencies = [ManagerProvider::class, AndroidComponentsProvider::class],
+    dependencies = [ManagerProvider::class, ActivityContextProvider::class],
     modules = [SettingsBindsModule::class, SettingsProvidesModule::class]
 )
 interface SettingsComponent : SettingsProvides {
@@ -27,7 +27,7 @@ interface SettingsComponent : SettingsProvides {
         fun init(
             fragment: SettingsFragment,
             managerProvider: ManagerProvider,
-            androidComponentProvider: AndroidComponentsProvider
+            androidComponentProvider: ActivityContextProvider
         ): SettingsComponent {
             return DaggerSettingsComponent.factory()
                 .plus(fragment, managerProvider, androidComponentProvider)
@@ -43,7 +43,7 @@ interface SettingsComponent : SettingsProvides {
         fun plus(
             @BindsInstance fragment: SettingsFragment,
             provider: ManagerProvider,
-            providerAndroidComponent: AndroidComponentsProvider
+            providerAndroidComponent: ActivityContextProvider
         ): SettingsComponent
     }
 }

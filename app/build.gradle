@@ -65,6 +65,7 @@ dependencies {
     kapt daggerKapt
     implementation dagger
     implementation retrofit2
+    debugImplementation leakCanary
     implementation project(':sources:core')
     implementation project(':sources:searchCats')
     implementation project(':sources:settings')

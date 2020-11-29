@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.splashscreen
 
+import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +9,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
+import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
+import com.evgeny.goncharov.coreapi.providers.MainRouterProvider
 import kotlinx.android.synthetic.main.fragment_splash_screen.view.imvCat
 import kotlinx.android.synthetic.main.fragment_splash_screen.view.txvTitle
 import kotlinx.coroutines.CoroutineScope
@@ -36,14 +39,19 @@ class SplashScreenFragment : Fragment() {
     /** Для перехода на экран настроек */
     private lateinit var wallCatsMediator: WallCatsMediator
 
+    /** Для оповещения роутера что все еще открыт сплеш скрин */
+    private lateinit var mainRouter: MainRouter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerSplashScreenComponent
             .builder()
             .mediatorsProvider((requireActivity() as WithFacade).getFacade())
+            .mainRouterProvider((requireActivity() as WithFacade).getFacade() as MainRouterProvider)
             .build()
             .apply {
                 wallCatsMediator = provideWallCatsMediator()
+                mainRouter = provideMainRouter()
             }
     }
 
@@ -54,6 +62,8 @@ class SplashScreenFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash_screen, container, false)
         init(view)
+        mainRouter.splashScreenIsInit(true)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         return view
     }
 
@@ -85,5 +95,11 @@ class SplashScreenFragment : Fragment() {
         activity?.let {
             wallCatsMediator.goToTheWallCatsFragment(it.supportFragmentManager)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mainRouter.splashScreenIsInit(false)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
     }
 }

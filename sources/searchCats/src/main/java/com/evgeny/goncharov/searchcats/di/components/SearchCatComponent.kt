@@ -3,7 +3,6 @@ package com.evgeny.goncharov.searchcats.di.components
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
 import com.evgeny.goncharov.searchcats.di.modules.SearchCatBindsModule
-import com.evgeny.goncharov.searchcats.di.modules.SearchCatProvidesModule
 import com.evgeny.goncharov.searchcats.di.provides.SearchCatProvider
 import com.evgeny.goncharov.searchcats.ui.SearchCatFragment
 import dagger.BindsInstance
@@ -15,7 +14,7 @@ import dagger.Component
 @FragmentScope
 @Component(
     dependencies = [ProviderFacade::class],
-    modules = [SearchCatBindsModule::class, SearchCatProvidesModule::class]
+    modules = [SearchCatBindsModule::class]
 )
 interface SearchCatComponent : SearchCatProvider {
 

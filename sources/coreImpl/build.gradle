@@ -58,4 +58,6 @@ dependencies {
     releaseApi chuckrelease
     implementation retrofit2converterGson
     implementation coroutinesAdapter
+    implementation coroutinesCore
+    implementation coroutinesAndroid
 }
