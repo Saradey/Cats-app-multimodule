@@ -10,7 +10,7 @@ import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 interface WallCatGateway {
 
     /**
-     * Загрузка котов из  интернета
+     * Загрузка котов из интернета
      * @param request
      */
     suspend fun loadWallCatFromInternet(request: WallCatRequest): List<CatBreedView>

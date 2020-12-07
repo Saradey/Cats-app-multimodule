@@ -3,7 +3,7 @@ package com.evgeny.goncharov.wallcats.interactors
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 
 /**
- * Контракт бзнес логики экрана описание кота
+ * Контракт бизнес логики экрана описание кота
  */
 interface CatDescriptionInteractor {
 

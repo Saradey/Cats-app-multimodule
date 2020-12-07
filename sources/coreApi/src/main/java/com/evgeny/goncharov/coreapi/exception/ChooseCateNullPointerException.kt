@@ -7,6 +7,7 @@ class ChooseCateNullPointerException : Exception(ERROR_MESSAGE) {
 
     companion object {
 
+        /** Сообщение ошибки */
         const val ERROR_MESSAGE = "Cat choose is bad choose"
     }
 }

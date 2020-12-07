@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 /**
  * Реализация бизнес логики менеджера тем
- * @property context сслка на application
+ * @property context ссылка на application
  */
 class ThemeManagerImpl @Inject constructor(
     @AppContext private val context: Context

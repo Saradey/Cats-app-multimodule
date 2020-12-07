@@ -1,5 +1,8 @@
 package com.evgeny.goncharov.coreapi.base
 
+/**
+ * Базовый сценарий ui эвентов на экранах
+ */
 sealed class BaseUiEvent {
     /**
      * Показать прогресс

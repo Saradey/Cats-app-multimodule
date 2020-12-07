@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.searchcats.gateway
 
+import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import com.evgeny.goncharov.searchcats.model.CatCatch
 
 /**
@@ -10,6 +11,7 @@ interface SearchCatGateway {
     /**
      * Загрузка искомых котов через интернет
      * @param request параметры запроса
+     * @see GetChooseCatRequest модель запроса
      */
     suspend fun loadFromInternet(request: Map<String, String>): List<CatCatch>
 

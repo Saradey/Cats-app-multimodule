@@ -8,8 +8,14 @@ import com.evgeny.goncharov.coreapi.qualifier.AppContext
  */
 interface ContextProvider {
 
+    /**
+     * Провайдим контекст аппа
+     */
     @AppContext
     fun provideContext(): Context
 
+    /**
+     * Возвращает значение: true запущена debug сборка, false запущена релиз сборка
+     */
     fun provideBuildVariants(): Boolean
 }

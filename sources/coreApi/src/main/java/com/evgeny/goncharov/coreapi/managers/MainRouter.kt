@@ -1,5 +1,8 @@
 package com.evgeny.goncharov.coreapi.managers
 
+/**
+ * Контракт отвечающий за нажатие бекпрессед
+ */
 interface MainRouter {
 
     /**

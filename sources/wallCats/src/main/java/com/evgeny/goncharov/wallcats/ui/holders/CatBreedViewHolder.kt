@@ -7,11 +7,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
-import kotlinx.android.synthetic.main.holder_cat_breed.view.cnlContainerCat
-import kotlinx.android.synthetic.main.holder_cat_breed.view.imbWiki
-import kotlinx.android.synthetic.main.holder_cat_breed.view.imvShowCat
-import kotlinx.android.synthetic.main.holder_cat_breed.view.txvBreedDescription
-import kotlinx.android.synthetic.main.holder_cat_breed.view.txvBreedName
+import kotlinx.android.synthetic.main.holder_cat_breed.view.*
 
 /**
  * Холдер кота на экране стены котов
@@ -23,8 +19,7 @@ class CatBreedViewHolder(
     view: View,
     private val listener: CatBreedViewHolderListener,
     private val themeManager: ThemeManager
-) :
-    RecyclerView.ViewHolder(view) {
+) : RecyclerView.ViewHolder(view) {
 
     companion object {
 
