@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.catapp.modules
 
-import IS_DEBUG
+import IS_DEV
 import android.content.Context
 import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.scope.AppScope
@@ -16,7 +16,7 @@ object ConfigModule {
     @JvmStatic
     @Provides
     @AppScope
-    fun provideBuildVariantsType(): Boolean = IS_DEBUG
+    fun provideBuildVariantsType(): Boolean = IS_DEV
 
     @JvmStatic
     @Provides
