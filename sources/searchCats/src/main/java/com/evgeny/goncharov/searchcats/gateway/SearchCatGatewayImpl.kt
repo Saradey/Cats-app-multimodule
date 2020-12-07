@@ -8,8 +8,6 @@ import com.evgeny.goncharov.searchcats.model.CatCatch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 /**
  * Реализация логики источника данных искомых котов
@@ -33,25 +31,21 @@ class SearchCatGatewayImpl @Inject constructor(
 
     private fun mapModelsFromDatabase(list: List<CatBreed>) = list.map {
         CatCatch(
-            it.name ?: "-",
-            it.id
+            catName = it.name ?: "-",
+            catId = it.id
         )
     }
 
     override suspend fun loadFromInternet(request: Map<String, String>): List<CatCatch> {
         val response = api.getCatDescriptionAsync(request)
             .await()
-        return suspendCoroutine { continuation ->
-            continuation.resume(
-                mapModels(response)
-            )
-        }
+        return mapModels(response)
     }
 
     private fun mapModels(list: List<ChooseCatBreed>) = list.map {
         CatCatch(
-            it.name ?: "-",
-            it.id
+            catName = it.name ?: "-",
+            catId = it.id
         )
     }
 }
