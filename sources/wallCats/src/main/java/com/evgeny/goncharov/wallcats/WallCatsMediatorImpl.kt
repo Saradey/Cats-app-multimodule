@@ -21,18 +21,21 @@ class WallCatsMediatorImpl @Inject constructor() : WallCatsMediator {
 
     override fun goToTheScreenCatDescription(id: String, supportFragmentManager: FragmentManager) {
         val fragment = CatDescriptionFragment.getInstance(id)
-        supportFragmentManager.beginTransaction()
-            .hide(
-                supportFragmentManager.fragments.findLast {
-                    it is BaseFragment
-                }!!
-            )
-            .add(R.id.frmRootField, fragment, CatDescriptionFragment::class.java.name)
-            .addToBackStack(CatDescriptionFragment::class.java.name)
-            .commit()
+        supportFragmentManager.fragments.findLast {
+            it is BaseFragment
+        }?.let {
+            supportFragmentManager.beginTransaction()
+                .hide(it)
+                .add(R.id.frmRootField, fragment, CatDescriptionFragment::class.java.name)
+                .addToBackStack(CatDescriptionFragment::class.java.name)
+                .commit()
+        }
     }
 
-    override fun goToTheScreenCatDescriptionReplace(id: String, supportFragmentManager: FragmentManager) {
+    override fun goToTheScreenCatDescriptionReplace(
+        id: String,
+        supportFragmentManager: FragmentManager
+    ) {
         val fragment = CatDescriptionFragment.getInstance(id)
         supportFragmentManager.beginTransaction()
             .replace(R.id.frmRootField, fragment, CatDescriptionFragment::class.java.name)

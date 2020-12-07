@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Реализаия догики источника даных экрана описание кота
+ * Реализация логики источника данных экрана описание кота
  * @property api для загрузки искомого кота
  * @property dao для загрузки искомого кота из базы данных
  * @property daoWallCat для загрузки искомого кота из базы данных

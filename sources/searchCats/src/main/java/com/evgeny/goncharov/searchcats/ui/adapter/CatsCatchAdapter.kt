@@ -27,6 +27,9 @@ class CatsCatchAdapter constructor(
         holder.bind(getItem(position))
     }
 
+    /**
+     * Для оптимизации поиска
+     */
     class CatCatchItemCallback : DiffUtil.ItemCallback<CatCatch>() {
 
         override fun areItemsTheSame(oldItem: CatCatch, newItem: CatCatch): Boolean {

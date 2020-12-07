@@ -10,7 +10,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
-import androidx.lifecycle.Observer
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
@@ -21,11 +20,7 @@ import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
-import kotlinx.android.synthetic.main.fragment_settings.toolbar
-import kotlinx.android.synthetic.main.fragment_settings.txvLanguageApp
-import kotlinx.android.synthetic.main.fragment_settings.txvNotification
-import kotlinx.android.synthetic.main.fragment_settings.txvSortParameter
-import kotlinx.android.synthetic.main.fragment_settings.txvThemeApp
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * Экран настроек
@@ -81,11 +76,11 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.themeLiveDataModel.observe(this, Observer { initTheme(it) })
-        viewModel.languageLiveData.observe(this, Observer { initLanguage(it) })
-        viewModel.uiLiveDataEvent.observe(this, Observer { updateUiEvent(it) })
-        viewModel.sortTypeLiveData.observe(this, Observer { initSorTypeTextView(it) })
-        viewModel.notificationLiveData.observe(this, Observer { initNotificationView(it) })
+        viewModel.themeLiveDataModel.observe(this, ::initTheme)
+        viewModel.languageLiveData.observe(this, ::initLanguage)
+        viewModel.uiLiveDataEvent.observe(this, ::updateUiEvent)
+        viewModel.sortTypeLiveData.observe(this, ::initSorTypeTextView)
+        viewModel.notificationLiveData.observe(this, ::initNotificationView)
     }
 
     private fun initNotificationView(isOn: Boolean) {

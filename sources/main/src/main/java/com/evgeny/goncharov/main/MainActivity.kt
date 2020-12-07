@@ -14,7 +14,7 @@ import com.evgeny.goncharov.coreapi.mediators.SplashScreenMediator
 import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.providers.ProviderFacade
 import com.evgeny.goncharov.main.di.MainActivityComponent
-import java.util.Locale
+import java.util.*
 
 /**
  * Архитектура построена на single activity, единственная активити в проекте
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), WithFacade, WithProviders {
     /** Для запусука сплен скрина */
     private lateinit var splashScreenMediator: SplashScreenMediator
 
-    /** Менеджео отвечающий за нотификацию в проекте, для сохранения имени класса MainActivity */
+    /** Менеджер отвечающий за нотификацию в проекте, для сохранения имени класса MainActivity */
     private lateinit var notificationManager: NotificationAppManager
 
     /** Логика нажатия на бекпрессед */

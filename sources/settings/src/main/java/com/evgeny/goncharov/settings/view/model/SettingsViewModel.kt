@@ -147,5 +147,6 @@ class SettingsViewModel : ViewModel() {
     /**
      * Получить индекс установленной нотификации включено/выключено
      */
-    fun getSelectNotification() = if (notificationLiveData.value == true) INDEX_CHOOSE_ON else INDEX_CHOOSE_OFF
+    fun getSelectNotification() =
+        if (notificationLiveData.value == true) INDEX_CHOOSE_ON else INDEX_CHOOSE_OFF
 }

@@ -13,14 +13,14 @@ class SettingsMediatorImpl @Inject constructor() : SettingsMediator {
 
     override fun goToTheSettingsScreen(supportFragmentManager: FragmentManager) {
         val fragment = SettingsFragment.getInstance()
-        supportFragmentManager.beginTransaction()
-            .hide(
-                supportFragmentManager.fragments.findLast {
-                    it is BaseFragment
-                }!!
-            )
-            .add(R.id.frmRootField, fragment, SettingsFragment::class.java.name)
-            .addToBackStack(SettingsFragment::class.java.name)
-            .commit()
+        supportFragmentManager.fragments.findLast {
+            it is BaseFragment
+        }?.let {
+            supportFragmentManager.beginTransaction()
+                .hide(it)
+                .add(R.id.frmRootField, fragment, SettingsFragment::class.java.name)
+                .addToBackStack(SettingsFragment::class.java.name)
+                .commit()
+        }
     }
 }

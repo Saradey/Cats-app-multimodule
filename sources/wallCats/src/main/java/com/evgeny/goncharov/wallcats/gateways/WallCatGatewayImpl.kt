@@ -9,12 +9,7 @@ import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.model.response.CatBreedImage
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.rest.ApiBreeds
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 /**
@@ -77,9 +72,7 @@ class WallCatGatewayImpl @Inject constructor(
         val jobs = mutableListOf<Job>()
         result.forEach { response ->
             val job = coroutineScopeIo.launch {
-                response.urlImageCat = getUrlImage(
-                    GetImageRequest(response.id)
-                )
+                response.urlImageCat = getUrlImage(GetImageRequest(response.id))
             }
             jobs.add(job)
         }

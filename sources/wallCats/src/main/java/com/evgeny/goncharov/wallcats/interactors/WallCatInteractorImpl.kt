@@ -21,9 +21,7 @@ class WallCatInteractorImpl @Inject constructor(
         )
     } catch (e: Exception) {
         e.printStackTrace()
-        sortCats(
-            loadFromDatabase()
-        )
+        sortCats(loadFromDatabase())
     }
 
     override suspend fun loadNextPage(nextCount: Int) = sortCats(

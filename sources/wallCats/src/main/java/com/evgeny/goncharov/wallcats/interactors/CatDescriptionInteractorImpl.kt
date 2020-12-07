@@ -8,10 +8,10 @@ import javax.inject.Inject
 
 /**
  * Реализация бизнес логики экрана описание кота
- * @property repository источник данных экрана описание кота
+ * @property gateway источник данных экрана описание кота
  */
 class CatDescriptionInteractorImpl @Inject constructor(
-    private val repository: CatDescriptionGateway
+    private val gateway: CatDescriptionGateway
 ) : CatDescriptionInteractor {
 
     /** Id выбранного кота */
@@ -25,7 +25,7 @@ class CatDescriptionInteractorImpl @Inject constructor(
         withContext(Dispatchers.Main) {
             var cat: CatDescription? = null
             cat = try {
-                repository.loadChooseCatFromInternet(catId)
+                gateway.loadChooseCatFromInternet(catId)
             } catch (exception: Exception) {
                 exception.printStackTrace()
                 loadChooseCatFromDatabase()
@@ -34,9 +34,9 @@ class CatDescriptionInteractorImpl @Inject constructor(
         }
 
     private suspend fun loadChooseCatFromDatabase(): CatDescription? {
-        val model = repository.loadChooseCatFromDatabase(catId)
-        return model ?: kotlin.run {
-            repository.loadChooseCatFromDatabaseSpare(catId)
+        val model = gateway.loadChooseCatFromDatabase(catId)
+        return model ?: run {
+            gateway.loadChooseCatFromDatabaseSpare(catId)
         }
     }
 }

@@ -13,14 +13,14 @@ class SearchCatsMediatorImpl @Inject constructor() : SearchCatsMediator {
 
     override fun goToTheSearchScreen(supportFragmentManager: FragmentManager) {
         val fragment = SearchCatFragment.getInstance()
-        supportFragmentManager.beginTransaction()
-            .hide(
-                supportFragmentManager.fragments.find {
-                    it is BaseFragment
-                }!!
-            )
-            .add(R.id.frmRootField, fragment, SearchCatFragment::class.java.name)
-            .addToBackStack(SearchCatFragment::class.java.name)
-            .commit()
+        supportFragmentManager.fragments.find {
+            it is BaseFragment
+        }?.let {
+            supportFragmentManager.beginTransaction()
+                .hide(it)
+                .add(R.id.frmRootField, fragment, SearchCatFragment::class.java.name)
+                .addToBackStack(SearchCatFragment::class.java.name)
+                .commit()
+        }
     }
 }
