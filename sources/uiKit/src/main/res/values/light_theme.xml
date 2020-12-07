@@ -3,7 +3,7 @@
     <style name="AppThemeDay" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/color_background_white</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/color_light_black</item>
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

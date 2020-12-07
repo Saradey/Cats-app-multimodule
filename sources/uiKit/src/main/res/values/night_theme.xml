@@ -4,7 +4,7 @@
     <style name="AppThemeNight" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">?attr/color_card_background</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/white</item>
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
