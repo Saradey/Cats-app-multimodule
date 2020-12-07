@@ -13,7 +13,9 @@ class SearchCatInteractorImpl @Inject constructor(
 ) : SearchCatInteractor {
 
     override suspend fun setInputTextSearchView(text: String) = try {
-        gateway.loadFromInternet(GetChooseCatRequest(text).createRequest())
+        gateway.loadFromInternet(GetChooseCatRequest(text).createRequest()).filter {
+            it.catName.startsWith(text, true)
+        }
     } catch (exp: Exception) {
         exp.printStackTrace()
         gateway.loadFromDatabase(text)
