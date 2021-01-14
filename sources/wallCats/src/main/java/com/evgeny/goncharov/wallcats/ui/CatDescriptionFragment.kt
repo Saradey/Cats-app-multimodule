@@ -5,11 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
@@ -30,17 +31,20 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     /** Вьюмодель экрана описания кота */
-    private lateinit var viewModel: CatDescriptionViewModel
+    private val viewModel: CatDescriptionViewModel by lazy {
+        ViewModelProvider(requireActivity(), ViewModelProviderFactory({
+            CatDescriptionViewModel(WallCatsComponent.component?.provideDescriptionInteractor()!!)
+        })).get(CatDescriptionViewModel::class.java)
+    }
 
     /** id выбранного кота */
     private var catId: String? = null
 
     private fun loadOrInit(savedInstanceState: Bundle?) {
         savedInstanceState ?: run {
-            viewModel.initInjection()
             viewModel.setCatId(catId ?: "")
+            viewModel.loadChooseCat()
         }
-        viewModel.loadChooseCat()
     }
 
     private fun initDaggerGraph() {
@@ -55,7 +59,6 @@ class CatDescriptionFragment : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_cat_description
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(CatDescriptionViewModel::class.java)
         initDaggerGraph()
         loadOrInit(savedInstanceState)
         initLiveData()
