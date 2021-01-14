@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.wallcats.interactors
 
-import com.evgeny.goncharov.wallcats.gateways.CatDescriptionGateway
+import com.evgeny.goncharov.wallcats.repository.CatDescriptionRepository
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @property gateway источник данных экрана описание кота
  */
 class CatDescriptionInteractorImpl @Inject constructor(
-    private val gateway: CatDescriptionGateway
+    private val gateway: CatDescriptionRepository
 ) : CatDescriptionInteractor {
 
     /** Id выбранного кота */

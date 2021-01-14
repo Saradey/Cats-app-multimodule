@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.wallcats.gateways
+package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.coreapi.database.dao.CatDescriptionDAO
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
@@ -18,11 +18,11 @@ import javax.inject.Inject
  * @property dao для загрузки искомого кота из базы данных
  * @property daoWallCat для загрузки искомого кота из базы данных
  */
-class CatDescriptionGatewayImpl @Inject constructor(
+class CatDescriptionRepositoryImpl @Inject constructor(
     private val api: ApiCatSearch,
     private val dao: CatDescriptionDAO,
     private val daoWallCat: CatsWallDao
-) : CatDescriptionGateway {
+) : CatDescriptionRepository {
 
     override suspend fun loadChooseCatFromInternet(catId: String) = withContext(Dispatchers.IO) {
         val model = api.getCatDescriptionAsync(

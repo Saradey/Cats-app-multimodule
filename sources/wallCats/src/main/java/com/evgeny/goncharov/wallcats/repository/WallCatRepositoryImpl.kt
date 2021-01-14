@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.wallcats.gateways
+package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
 import com.evgeny.goncharov.coreapi.dto.database.CatBreed
@@ -18,11 +18,11 @@ import javax.inject.Inject
  * @property daoWallCat для загрузки котов из бд
  * @property sortManager менеджер который отдает тип сортировки
  */
-class WallCatGatewayImpl @Inject constructor(
+class WallCatRepositoryImpl @Inject constructor(
     private val api: ApiBreeds,
     private val daoWallCat: CatsWallDao,
     private val sortManager: SortCatsManager
-) : WallCatGateway {
+) : WallCatRepository {
 
     companion object {
 

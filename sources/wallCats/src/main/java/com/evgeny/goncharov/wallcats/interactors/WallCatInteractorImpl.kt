@@ -2,7 +2,7 @@ package com.evgeny.goncharov.wallcats.interactors
 
 import com.evgeny.goncharov.coreapi.LIMIT_PAGE_SIZE_CAT_WALL
 import com.evgeny.goncharov.coreapi.utils.SortType
-import com.evgeny.goncharov.wallcats.gateways.WallCatGateway
+import com.evgeny.goncharov.wallcats.repository.WallCatRepository
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
  * @property gateway источник даных экрана стены котов
  */
 class WallCatInteractorImpl @Inject constructor(
-    private val gateway: WallCatGateway
+    private val gateway: WallCatRepository
 ) : WallCatInteractor {
 
     override suspend fun loadWallCat() = try {

@@ -1,8 +1,8 @@
 package com.evgeny.goncharov.wallcats.di.modules
 
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
-import com.evgeny.goncharov.wallcats.gateways.WallCatGateway
-import com.evgeny.goncharov.wallcats.gateways.WallCatGatewayImpl
+import com.evgeny.goncharov.wallcats.repository.WallCatRepository
+import com.evgeny.goncharov.wallcats.repository.WallCatRepositoryImpl
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractorImpl
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
@@ -22,7 +22,7 @@ interface WallCatsBindsModule {
 
     @Binds
     @FragmentScope
-    fun WallCatGatewayImpl.bindWallCatGateway(): WallCatGateway
+    fun WallCatRepositoryImpl.bindWallCatGateway(): WallCatRepository
 
     @Binds
     fun WorkScheduleManagerImpl.bindWorkScheduleManager(): WorkScheduleManager
