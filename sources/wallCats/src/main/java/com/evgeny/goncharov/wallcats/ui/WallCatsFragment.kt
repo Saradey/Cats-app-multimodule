@@ -42,12 +42,19 @@ class WallCatsFragment : BaseFragment(),
         private const val PAGE_WALL_CATS_SIZE = 15
     }
 
+    private val component: WallCatsComponent by lazy {
+        WallCatsComponent.getByLazy(
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithProviders).getProviderAndroidComponent()
+        )
+    }
+
     /** Вьюмодель стены котов */
     private val viewModel: WallCatsViewModel by lazy {
         ViewModelProvider(
             requireActivity(), ViewModelProviderFactory({
                 WallCatsViewModel(
-                    WallCatsComponent.component?.provideInteractor()!!
+                    component.provideInteractor()
                 )
             })
         ).get(WallCatsViewModel::class.java)
@@ -78,18 +85,14 @@ class WallCatsFragment : BaseFragment(),
     private lateinit var workSchedulerManager: WorkScheduleManager
 
     private fun initDaggerGraph() {
-        WallCatsComponent.getByLazy(
-            (requireActivity() as WithFacade).getFacade(),
-            (requireActivity() as WithProviders).getProviderAndroidComponent()
-        )
-            .apply {
-                wallCatsMediator = provideWallCatsMediator()
-                searchMediator = provideSearchCatsMediator()
-                settingsMediator = provideSettingMediator()
-                themeManager = provideThemeManager()
-                vmSort = provideSortViewModel()
-                workSchedulerManager = provideWorkScheduleManager()
-            }
+        component.apply {
+            wallCatsMediator = provideWallCatsMediator()
+            searchMediator = provideSearchCatsMediator()
+            settingsMediator = provideSettingMediator()
+            themeManager = provideThemeManager()
+            vmSort = provideSortViewModel()
+            workSchedulerManager = provideWorkScheduleManager()
+        }
     }
 
     override fun getLayoutId() = R.layout.fragment_wall_cats

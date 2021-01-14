@@ -30,10 +30,20 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
+    /** Компонент фитчи стены котов */
+    private val component: WallCatsComponent by lazy {
+        WallCatsComponent.getByLazy(
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithProviders).getProviderAndroidComponent()
+        )
+    }
+
     /** Вьюмодель экрана описания кота */
     private val viewModel: CatDescriptionViewModel by lazy {
         ViewModelProvider(requireActivity(), ViewModelProviderFactory({
-            CatDescriptionViewModel(WallCatsComponent.component?.provideDescriptionInteractor()!!)
+            CatDescriptionViewModel(
+                component.provideDescriptionInteractor()
+            )
         })).get(CatDescriptionViewModel::class.java)
     }
 
@@ -48,12 +58,7 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     private fun initDaggerGraph() {
-        WallCatsComponent.getByLazy(
-            (requireActivity() as WithFacade).getFacade(),
-            (requireActivity() as WithProviders).getProviderAndroidComponent()
-        ).apply {
-            themeManager = provideThemeManager()
-        }
+        themeManager = component.provideThemeManager()
     }
 
     override fun getLayoutId() = R.layout.fragment_cat_description
@@ -71,6 +76,7 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
+        //TODO рефакторинг единый ui стейт
         viewModel.catDescriptionLiveData.observe(this, ::setCatDescription)
     }
 
