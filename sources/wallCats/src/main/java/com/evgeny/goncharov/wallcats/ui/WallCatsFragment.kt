@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
@@ -14,6 +14,7 @@ import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
+import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
@@ -42,7 +43,15 @@ class WallCatsFragment : BaseFragment(),
     }
 
     /** Вьюмодель стены котов */
-    private lateinit var viewModel: WallCatsViewModel
+    private val viewModel: WallCatsViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(), ViewModelProviderFactory({
+                WallCatsViewModel(
+                    WallCatsComponent.component?.provideInteractor()!!
+                )
+            })
+        ).get(WallCatsViewModel::class.java)
+    }
 
     /** Для перехода на экран описание кота */
     private lateinit var wallCatsMediator: WallCatsMediator
@@ -91,8 +100,6 @@ class WallCatsFragment : BaseFragment(),
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(WallCatsViewModel::class.java)
-        savedInstanceState ?: viewModel.initInjection()
         init()
         workSchedulerManager.cancelWorksCheckOutUser()
     }
@@ -110,7 +117,7 @@ class WallCatsFragment : BaseFragment(),
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-        vmSort.updateChooseSotType.observe(this, ::updateWallCats)
+        vmSort.updateChooseSortType.observe(this, ::updateWallCats)
     }
 
     private fun updateWallCats(isUpdate: Boolean?) {
@@ -181,8 +188,8 @@ class WallCatsFragment : BaseFragment(),
 
     override fun onDestroy() {
         super.onDestroy()
-        if (this::viewModel.isInitialized) viewModel.liveDataUiEvents.call()
-        vmSort.updateChooseSotType.call()
+        viewModel.liveDataUiEvents.call()
+        vmSort.updateChooseSortType.call()
         workSchedulerManager.startWorksCheckOutUser()
         WallCatsComponent.component = null
     }

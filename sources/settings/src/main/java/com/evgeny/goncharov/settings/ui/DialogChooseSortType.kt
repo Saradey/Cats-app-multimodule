@@ -50,7 +50,7 @@ class DialogChooseSortType : BaseSettingsFragmentDialog() {
                 vm.getSortValue()
             ) { _, item ->
                 vm.chosenSort(item)
-                sortViewModel.updateChooseSotType.value = true
+                sortViewModel.updateChooseSortType.value = true
                 dismiss()
             }
         return builderDialog.create()

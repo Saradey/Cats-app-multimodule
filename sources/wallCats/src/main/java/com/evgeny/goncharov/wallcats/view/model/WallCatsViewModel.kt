@@ -3,7 +3,6 @@ package com.evgeny.goncharov.wallcats.view.model
 import androidx.lifecycle.ViewModel
 import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
-import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import kotlin.coroutines.resume
@@ -11,23 +10,14 @@ import kotlin.coroutines.suspendCoroutine
 
 /**
  * Вьюмодель экрана стены котов
+ * @param interactor интерактор стены котов
  */
-class WallCatsViewModel : ViewModel() {
-
-    /** Интерактор стены котов */
-    private lateinit var interactor: WallCatInteractor
+class WallCatsViewModel(
+    private val interactor: WallCatInteractor
+) : ViewModel() {
 
     /** Отдает ui эвенты */
     val liveDataUiEvents = SingleLiveEvent<BaseUiEvent?>()
-
-    /**
-     * Иницилизация зависимостей
-     */
-    fun initInjection() {
-        WallCatsComponent.component?.let {
-            interactor = it.provideInteractor()
-        }
-    }
 
     /**
      * Иницилизация стены котов

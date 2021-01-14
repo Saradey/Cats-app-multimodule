@@ -8,11 +8,9 @@ import com.evgeny.goncharov.wallcats.model.view.CatBreedView
  */
 class DiffUtilsCatBreeds : DiffUtil.ItemCallback<CatBreedView>() {
 
-    override fun areItemsTheSame(oldItem: CatBreedView, newItem: CatBreedView): Boolean {
-        return oldItem.id == newItem.id
-    }
+    override fun areItemsTheSame(oldItem: CatBreedView, newItem: CatBreedView) =
+        oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: CatBreedView, newItem: CatBreedView): Boolean {
-        return oldItem == newItem
-    }
+    override fun areContentsTheSame(oldItem: CatBreedView, newItem: CatBreedView) =
+        oldItem == newItem
 }

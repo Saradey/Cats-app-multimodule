@@ -11,7 +11,7 @@ import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 class SortTypeViewModel : ViewModel() {
 
     /** Лайв дата которая оповещает о смени типа сортировки */
-    val updateChooseSotType = SingleLiveEvent<Boolean?>().apply {
+    val updateChooseSortType = SingleLiveEvent<Boolean?>().apply {
         value = false
     }
 }

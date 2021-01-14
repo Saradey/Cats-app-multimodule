@@ -15,16 +15,7 @@ import com.evgeny.goncharov.wallcats.R.string
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
-import kotlinx.android.synthetic.main.fragment_cat_description.grpAllContent
-import kotlinx.android.synthetic.main.fragment_cat_description.imvCat
-import kotlinx.android.synthetic.main.fragment_cat_description.mbtnWikiLink
-import kotlinx.android.synthetic.main.fragment_cat_description.toolbar
-import kotlinx.android.synthetic.main.fragment_cat_description.txvDescription
-import kotlinx.android.synthetic.main.fragment_cat_description.txvLifeSpan
-import kotlinx.android.synthetic.main.fragment_cat_description.txvNameCat
-import kotlinx.android.synthetic.main.fragment_cat_description.txvOrigin
-import kotlinx.android.synthetic.main.fragment_cat_description.txvTemperament
-import kotlinx.android.synthetic.main.fragment_cat_description.txvWeight
+import kotlinx.android.synthetic.main.fragment_cat_description.*
 
 /**
  * Экран описания кота
@@ -93,7 +84,7 @@ class CatDescriptionFragment : BaseFragment() {
             setNavigationOnClickListener {
                 requireFragmentManager().popBackStack()
             }
-            setTitle(R.string.description_cat_title_toolbar)
+            setTitle(string.description_cat_title_toolbar)
         }
     }
 
