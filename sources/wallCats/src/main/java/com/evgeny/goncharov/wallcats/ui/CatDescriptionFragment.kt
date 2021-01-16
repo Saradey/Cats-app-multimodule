@@ -4,12 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
@@ -22,13 +23,6 @@ import kotlinx.android.synthetic.main.fragment_cat_description.*
  * Экран описания кота
  */
 class CatDescriptionFragment : BaseFragment() {
-
-    companion object {
-
-        fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
-            setCatId(idCat ?: "")
-        }
-    }
 
     /** Компонент фитчи стены котов */
     private val component: WallCatsComponent by lazy {
@@ -53,8 +47,8 @@ class CatDescriptionFragment : BaseFragment() {
     private fun loadOrInit(savedInstanceState: Bundle?) {
         savedInstanceState ?: run {
             viewModel.setCatId(catId ?: "")
-            viewModel.loadChooseCat()
         }
+        viewModel.loadChooseCat()
     }
 
     private fun initDaggerGraph() {
@@ -76,8 +70,6 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-        //TODO рефакторинг единый ui стейт
-        viewModel.catDescriptionLiveData.observe(this, ::setCatDescription)
     }
 
     fun setCatId(catId: String) {
@@ -97,8 +89,8 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
-    private fun setCatDescription(model: CatDescription?) {
-        model?.let {
+    private fun setCatDescription(model: CatDescription) {
+        model.let {
             txvNameCat.text = resources.getString(string.name_cat_title, model.name)
             txvOrigin.text = resources.getString(string.origin_cat_title, model.origin)
             txvWeight.text = resources.getString(string.weight_cat_title, model.weight)
@@ -119,12 +111,30 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
-    override fun showContent() {
-        grpAllContent.isVisible = true
+    private fun changeUiState(event: BaseUiEvent<CatDescription>?) {
+        when (event) {
+            BaseUiEvent.EventShowProgress -> showProgress()
+            BaseUiEvent.EventHideProgress -> hideProgress()
+            is BaseUiEvent.Success -> {
+                grpAllContent.isGone = false
+                setCatDescription(event.data)
+            }
+            BaseUiEvent.EventSomethingWrong -> {
+                grpAllContent.isGone = true
+                showSomethingWrong()
+            }
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         viewModel.liveDataUiEvents.call()
+    }
+
+    companion object {
+
+        fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
+            setCatId(idCat ?: "")
+        }
     }
 }

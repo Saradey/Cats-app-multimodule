@@ -4,12 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
@@ -33,14 +35,6 @@ import java.util.concurrent.Executors
  */
 class WallCatsFragment : BaseFragment(),
     CatBreedViewHolder.CatBreedViewHolderListener {
-
-    companion object {
-
-        fun getInstance() = WallCatsFragment()
-
-        /** Загружаемая страница котят */
-        private const val PAGE_WALL_CATS_SIZE = 15
-    }
 
     private val component: WallCatsComponent by lazy {
         WallCatsComponent.getByLazy(
@@ -189,11 +183,39 @@ class WallCatsFragment : BaseFragment(),
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun changeUiState(event: BaseUiEvent<*>?) {
+        when (event) {
+            BaseUiEvent.EventShowProgress -> {
+                hideSomethingWrong()
+                showProgress()
+            }
+            BaseUiEvent.EventHideProgress -> {
+                hideProgress()
+            }
+            is BaseUiEvent.Success<*> -> {
+                cnlContentWallCats.isGone = false
+            }
+            BaseUiEvent.EventSomethingWrong -> {
+                cnlContentWallCats.isGone = true
+                hideProgress()
+                showSomethingWrong()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         viewModel.liveDataUiEvents.call()
         vmSort.updateChooseSortType.call()
         workSchedulerManager.startWorksCheckOutUser()
         WallCatsComponent.component = null
+    }
+
+    companion object {
+
+        fun getInstance() = WallCatsFragment()
+
+        /** Загружаемая страница котят */
+        private const val PAGE_WALL_CATS_SIZE = 15
     }
 }

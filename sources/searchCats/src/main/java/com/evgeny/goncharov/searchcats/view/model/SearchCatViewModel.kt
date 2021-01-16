@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class SearchCatViewModel : ViewModel() {
 
     /** LiveData отдает Ui эвенты */
-    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent?>()
+    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent<*>?>()
 
     /** LiveData отдает список искомых котов */
     val liveDataCatsCatch = MutableLiveData<List<CatCatch>>()
@@ -45,8 +45,8 @@ class SearchCatViewModel : ViewModel() {
      */
     fun setInputTextSearchView(text: String) {
         job?.cancel()
-        liveDataUiEvents.value = BaseUiEvent.EventHideSomethingWrong
-        liveDataUiEvents.value = BaseUiEvent.EventHideContent
+//        liveDataUiEvents.value = BaseUiEvent.EventHideSomethingWrong
+//        liveDataUiEvents.value = BaseUiEvent.EventHideContent
         liveDataUiEvents.value = BaseUiEvent.EventShowProgress
         job = viewModelScope.launch {
             val models = interactor.setInputTextSearchView(text)
@@ -59,7 +59,7 @@ class SearchCatViewModel : ViewModel() {
         if (models.isEmpty()) {
             liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong
         } else {
-            liveDataUiEvents.value = BaseUiEvent.EventShowContent
+//            liveDataUiEvents.value = BaseUiEvent.EventShowContent
             liveDataCatsCatch.postValue(models)
         }
     }

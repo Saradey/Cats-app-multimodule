@@ -17,13 +17,12 @@ class WallCatsViewModel(
 ) : ViewModel() {
 
     /** Отдает ui эвенты */
-    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent?>()
+    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent<*>>()
 
     /**
      * Иницилизация стены котов
      */
     suspend fun initWallCat(): List<CatBreedView> {
-        liveDataUiEvents.value = BaseUiEvent.EventHideSomethingWrong
         liveDataUiEvents.value = BaseUiEvent.EventShowProgress
         val result = interactor.loadWallCat()
         changeStateView(result)
@@ -36,6 +35,8 @@ class WallCatsViewModel(
     private fun changeStateView(listModels: List<CatBreedView>) {
         if (listModels.isEmpty()) {
             liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong
+        } else {
+            liveDataUiEvents.value = BaseUiEvent.Success(Any())
         }
     }
 

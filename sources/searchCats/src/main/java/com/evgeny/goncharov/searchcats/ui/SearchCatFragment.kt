@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.extension.setHintTextColor
 import com.evgeny.goncharov.coreapi.extension.setTextColor
 import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
@@ -16,11 +17,7 @@ import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
 import com.evgeny.goncharov.searchcats.model.CatCatch
 import com.evgeny.goncharov.searchcats.ui.adapter.CatsCatchAdapter
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
-import kotlinx.android.synthetic.main.fragment_search_cat.crvContainerCats
-import kotlinx.android.synthetic.main.fragment_search_cat.rcvCathedCats
-import kotlinx.android.synthetic.main.fragment_search_cat.srcSearchCat
-import kotlinx.android.synthetic.main.fragment_search_cat.toolbar
-import kotlinx.android.synthetic.main.fragment_search_cat.txvCatsStubNotFound
+import kotlinx.android.synthetic.main.fragment_search_cat.*
 
 /**
  * Фрагмент поиска котов
@@ -126,13 +123,18 @@ class SearchCatFragment : BaseFragment() {
 
     private fun setCatsCatched(models: List<CatCatch>?) = adapter.submitList(models ?: emptyList())
 
-    override fun showContent() = crvContainerCats.setVisibilityBool(true)
+//    override fun showContent() = crvContainerCats.setVisibilityBool(true)
 
     override fun showSomethingWrong() = txvCatsStubNotFound.setVisibilityBool(true)
 
     override fun hideSomethingWrong() = txvCatsStubNotFound.setVisibilityBool(false)
 
-    override fun hideContent() = crvContainerCats.setVisibilityBool(false)
+//    override fun hideContent() = crvContainerCats.setVisibilityBool(false)
+
+
+    private fun changeUiState(event: BaseUiEvent<*>?) {
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()

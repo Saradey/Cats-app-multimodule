@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.set
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
@@ -289,6 +290,10 @@ class SettingsFragment : BaseFragment() {
             val dialog = DialogChooseOnOrOfNotification()
             dialog.show(requireFragmentManager(), DialogChooseOnOrOfNotification::class.java.name)
         }
+    }
+
+    private fun changeUiState(event: BaseUiEvent<*>?) {
+
     }
 
     override fun onDestroy() {

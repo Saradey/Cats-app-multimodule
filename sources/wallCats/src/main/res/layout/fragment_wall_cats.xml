@@ -29,6 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/cnlContentWallCats"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
