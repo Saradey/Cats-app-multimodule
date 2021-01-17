@@ -34,7 +34,7 @@ class CatDescriptionFragment : BaseFragment() {
 
     /** Вьюмодель экрана описания кота */
     private val viewModel: CatDescriptionViewModel by lazy {
-        ViewModelProvider(requireActivity(), ViewModelProviderFactory {
+        ViewModelProvider(this, ViewModelProviderFactory {
             CatDescriptionViewModel(
                 component.provideDescriptionInteractor()
             )

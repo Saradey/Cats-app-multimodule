@@ -29,7 +29,7 @@ interface SettingsComponent : SettingsProvides {
             managerProvider: ManagerProvider,
             androidComponentProvider: ActivityContextProvider
         ): SettingsComponent {
-            return component ?: DaggerSettingsComponent.factory()
+            return DaggerSettingsComponent.factory()
                 .plus(fragment, managerProvider, androidComponentProvider)
                 .apply {
                     component = this

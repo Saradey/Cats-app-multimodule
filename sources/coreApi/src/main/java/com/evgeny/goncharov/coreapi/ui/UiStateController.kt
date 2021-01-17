@@ -3,8 +3,8 @@ package com.evgeny.goncharov.coreapi.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.isGone
 import com.evgeny.goncharov.coreapi.R
-import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.ui.events.BaseUiEvents
 import com.evgeny.goncharov.uikit.ProgressCat
 
@@ -52,20 +52,20 @@ class UiStateController {
     }
 
     private fun showProgress() {
-        groupProgress?.setVisibilityBool(true)
+        groupProgress?.isGone = false
         progress?.startAnimation()
     }
 
     private fun hideProgress() {
-        groupProgress?.setVisibilityBool(false)
+        groupProgress?.isGone = true
         progress?.stopAnimation()
     }
 
     private fun showSomethingWrong() {
-        groupSomethingWrong?.setVisibilityBool(true)
+        groupSomethingWrong?.isGone = false
     }
 
     private fun hideSomethingWrong() {
-        groupSomethingWrong?.setVisibilityBool(false)
+        groupSomethingWrong?.isGone = true
     }
 }

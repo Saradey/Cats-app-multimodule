@@ -46,7 +46,7 @@ class WallCatsFragment : BaseFragment(),
     /** Вьюмодель стены котов */
     private val viewModel: WallCatsViewModel by lazy {
         ViewModelProvider(
-            requireActivity(), ViewModelProviderFactory {
+            this, ViewModelProviderFactory {
                 WallCatsViewModel(
                     component.provideInteractor()
                 )
@@ -91,12 +91,8 @@ class WallCatsFragment : BaseFragment(),
 
     override fun getLayoutId() = R.layout.fragment_wall_cats
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initDaggerGraph()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initDaggerGraph()
         init()
         workSchedulerManager.cancelWorksCheckOutUser()
     }
@@ -203,8 +199,8 @@ class WallCatsFragment : BaseFragment(),
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         viewModel.liveDataUiEvents.call()
         vmSort.updateChooseSortType.call()
         workSchedulerManager.startWorksCheckOutUser()
