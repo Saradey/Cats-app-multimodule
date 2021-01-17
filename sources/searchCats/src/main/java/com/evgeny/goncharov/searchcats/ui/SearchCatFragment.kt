@@ -35,7 +35,7 @@ class SearchCatFragment : BaseFragment() {
         )
     }
 
-    /** ВьюМодель поиска котов */
+    /** Вьюмодель поиска котов */
     private val viewModel: SearchCatViewModel by lazy {
         ViewModelProvider(
             this, ViewModelProviderFactory {

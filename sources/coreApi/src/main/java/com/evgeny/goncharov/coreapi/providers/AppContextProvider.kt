@@ -6,7 +6,7 @@ import com.evgeny.goncharov.coreapi.qualifier.AppContext
 /**
  * Контракт провайдер, провайдит конфиг и контекст
  */
-interface ContextProvider {
+interface AppContextProvider {
 
     /**
      * Провайдим контекст аппа

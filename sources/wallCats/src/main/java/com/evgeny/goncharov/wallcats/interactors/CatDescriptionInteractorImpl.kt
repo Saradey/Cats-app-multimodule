@@ -1,17 +1,17 @@
 package com.evgeny.goncharov.wallcats.interactors
 
-import com.evgeny.goncharov.wallcats.repository.CatDescriptionRepository
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import com.evgeny.goncharov.wallcats.repository.CatDescriptionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
  * Реализация бизнес логики экрана описание кота
- * @property gateway источник данных экрана описание кота
+ * @property repository источник данных экрана описание кота
  */
 class CatDescriptionInteractorImpl @Inject constructor(
-    private val gateway: CatDescriptionRepository
+    private val repository: CatDescriptionRepository
 ) : CatDescriptionInteractor {
 
     /** Id выбранного кота */
@@ -25,7 +25,7 @@ class CatDescriptionInteractorImpl @Inject constructor(
         withContext(Dispatchers.Main) {
             var cat: CatDescription? = null
             cat = try {
-                gateway.loadChooseCatFromInternet(catId)
+                repository.loadChooseCatFromInternet(catId)
             } catch (exception: Exception) {
                 exception.printStackTrace()
                 loadChooseCatFromDatabase()
@@ -34,9 +34,9 @@ class CatDescriptionInteractorImpl @Inject constructor(
         }
 
     private suspend fun loadChooseCatFromDatabase(): CatDescription? {
-        val model = gateway.loadChooseCatFromDatabase(catId)
+        val model = repository.loadChooseCatFromDatabase(catId)
         return model ?: run {
-            gateway.loadChooseCatFromDatabaseSpare(catId)
+            repository.loadChooseCatFromDatabaseSpare(catId)
         }
     }
 }

@@ -5,7 +5,7 @@ import com.evgeny.goncharov.coreapi.RU_CODE
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
 import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.utils.Language
-import java.util.Locale
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -15,15 +15,6 @@ import javax.inject.Inject
 class LanguageManagerImpl @Inject constructor(
     @AppContext private val context: Context
 ) : LanguageManager {
-
-    companion object {
-
-        /** Шарада которая хранит значение языка */
-        private const val LANGUAGE_SHARED_PREF_CODE = "LANGUAGE_SHARED_PREF_CODE"
-
-        /** Значение по которому мы достаем язык */
-        private const val LANGUAGE_VALUE_PREF_CODE = "LANGUAGE_VALUE_PREF_CODE"
-    }
 
     override fun getAppLanguage(): String {
         val shared = context.getSharedPreferences(LANGUAGE_SHARED_PREF_CODE, Context.MODE_PRIVATE)
@@ -43,4 +34,13 @@ class LanguageManagerImpl @Inject constructor(
     }
 
     override fun getUserSelectedLanguageBlocking() = Locale(getAppLanguage())
+
+    companion object {
+
+        /** Шарада которая хранит значение языка */
+        private const val LANGUAGE_SHARED_PREF_CODE = "LANGUAGE_SHARED_PREF_CODE"
+
+        /** Значение по которому мы достаем язык */
+        private const val LANGUAGE_VALUE_PREF_CODE = "LANGUAGE_VALUE_PREF_CODE"
+    }
 }

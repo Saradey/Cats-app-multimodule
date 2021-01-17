@@ -9,7 +9,7 @@ interface SearchCatsMediator {
 
     /**
      * Переход на экран поиска котов
-     * @param manager для совершения транзакции фрагментов
+     * @param supportFragmentManager для совершения транзакции фрагментов
      */
     fun goToTheSearchScreen(supportFragmentManager: FragmentManager)
 }

@@ -20,14 +20,6 @@ import kotlinx.coroutines.*
  */
 class SplashScreenFragment : Fragment() {
 
-    companion object {
-
-        /** Задержка в миллисекундах */
-        private const val DELAY_SPLASH_SCREEN_MILLISECONDS = 2500L
-
-        fun getInstance() = SplashScreenFragment()
-    }
-
     /** Для осуществление задержки */
     private val mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
@@ -96,5 +88,13 @@ class SplashScreenFragment : Fragment() {
         super.onDestroyView()
         mainRouter.splashScreenIsInit(false)
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
+    }
+
+    companion object {
+
+        /** Задержка в миллисекундах */
+        private const val DELAY_SPLASH_SCREEN_MILLISECONDS = 2500L
+
+        fun getInstance() = SplashScreenFragment()
     }
 }

@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.searchcats.gateway
+package com.evgeny.goncharov.searchcats.repository
 
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import com.evgeny.goncharov.searchcats.model.CatCatch
@@ -6,7 +6,7 @@ import com.evgeny.goncharov.searchcats.model.CatCatch
 /**
  * Контракт, источника данных искомых котов
  */
-interface SearchCatGateway {
+interface SearchCatRepository {
 
     /**
      * Загрузка искомых котов через интернет

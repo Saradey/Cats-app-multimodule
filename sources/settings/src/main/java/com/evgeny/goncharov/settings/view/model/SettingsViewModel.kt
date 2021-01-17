@@ -17,7 +17,7 @@ import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SOR
 import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SORT_WIGHT
 
 /**
- * ВьюМодель экрана настроек
+ * Вьюмодель экрана настроек
  * @param interactor Интерактор экрана настроек
  */
 class SettingsViewModel(

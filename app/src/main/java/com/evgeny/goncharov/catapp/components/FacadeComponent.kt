@@ -3,7 +3,7 @@ package com.evgeny.goncharov.catapp.components
 import android.app.Application
 import com.evgeny.goncharov.catapp.modules.MediatorModuleBindings
 import com.evgeny.goncharov.core.CoreProviderFactory
-import com.evgeny.goncharov.coreapi.providers.ContextProvider
+import com.evgeny.goncharov.coreapi.providers.AppContextProvider
 import com.evgeny.goncharov.coreapi.providers.DatabaseProvider
 import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.providers.NetworkProvider
@@ -18,7 +18,7 @@ import dagger.Component
 @AppScope
 @Component(
     dependencies = [
-        ContextProvider::class,
+        AppContextProvider::class,
         DatabaseProvider::class,
         NetworkProvider::class,
         ManagerProvider::class
@@ -46,7 +46,7 @@ interface FacadeComponent : ProviderFacade {
     interface Factory {
 
         fun plus(
-            contextProvider: ContextProvider,
+            contextProvider: AppContextProvider,
             databaseProvider: DatabaseProvider,
             networkProvider: NetworkProvider,
             managersProvider: ManagerProvider

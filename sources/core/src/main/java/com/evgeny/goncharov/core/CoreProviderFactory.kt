@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.core
 
-import com.evgeny.goncharov.coreapi.providers.ContextProvider
+import com.evgeny.goncharov.coreapi.providers.AppContextProvider
 import com.evgeny.goncharov.coreapi.providers.DatabaseProvider
 import com.evgeny.goncharov.coreapi.providers.ManagerProvider
 import com.evgeny.goncharov.coreapi.providers.NetworkProvider
@@ -18,9 +18,9 @@ object CoreProviderFactory {
      * @param contextProvider AppComponent для провайда контекста
      * @return контракт для провайда баз данных
      */
-    fun createDatabaseComponent(contextProvider: ContextProvider): DatabaseProvider {
+    fun createDatabaseComponent(contextProvider: AppContextProvider): DatabaseProvider {
         return DaggerDatabaseComponent.builder()
-            .contextProvider(contextProvider)
+            .appContextProvider(contextProvider)
             .build()
     }
 
@@ -29,9 +29,9 @@ object CoreProviderFactory {
      * @param contextProvider AppComponent для провайда контекста
      * @return конракт для провайда api
      */
-    fun createNetworkComponent(contextProvider: ContextProvider): NetworkProvider {
+    fun createNetworkComponent(contextProvider: AppContextProvider): NetworkProvider {
         return DaggerNetworkComponent.builder()
-            .contextProvider(contextProvider)
+            .appContextProvider(contextProvider)
             .build()
     }
 
@@ -40,9 +40,9 @@ object CoreProviderFactory {
      * @param contextProvider AppComponent для провайда контекста
      * @return контракт для провайда менеджеров
      */
-    fun createManagerComponent(contextProvider: ContextProvider): ManagerProvider {
+    fun createManagerComponent(contextProvider: AppContextProvider): ManagerProvider {
         return DaggerManagersComponent.builder()
-            .contextProvider(contextProvider)
+            .appContextProvider(contextProvider)
             .build()
     }
 }

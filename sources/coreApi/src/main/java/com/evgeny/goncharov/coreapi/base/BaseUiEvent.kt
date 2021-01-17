@@ -23,7 +23,7 @@ sealed class BaseUiEvent<out T : Any> {
      * В случае успеха загрузки мы передаем данные в виде такой обертки
      * @param data данные
      */
-    data class Success<T : Any>(
+    data class Success<out T : Any>(
         val data: T
     ) : BaseUiEvent<T>()
 }

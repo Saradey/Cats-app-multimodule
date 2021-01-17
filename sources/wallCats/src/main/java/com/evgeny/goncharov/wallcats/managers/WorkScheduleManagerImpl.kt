@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
- * Реализация менеджера отвечающего за все воркменеджеры в проекте
+ * Реализация менеджера отвечающего воркменеджер оповещение если пользователь не заходит 24 часа
  * @param activityContext контекст приложения
  * @param notificationManager менеджер отвечающий за уведомления в проекте
  */
@@ -18,12 +18,6 @@ class WorkScheduleManagerImpl @Inject constructor(
     @ActivityContext private val activityContext: Context,
     private val notificationManager: NotificationAppManager
 ) : WorkScheduleManager {
-
-    companion object {
-
-        /** Интервал с которой необходимо запускать ворк менеджер, в часах */
-        private const val INTERVAL_WORK_WORKER_CHECK_OUT_USER = 24L
-    }
 
     override fun cancelWorksCheckOutUser() {
         WorkManager.getInstance(activityContext).cancelAllWorkByTag(WorksCheckOutUser::class.java.name)
@@ -45,5 +39,11 @@ class WorkScheduleManagerImpl @Inject constructor(
             WorkManager.getInstance(activityContext)
                 .enqueue(workerRequest)
         }
+    }
+
+    companion object {
+
+        /** Интервал с которой необходимо запускать ворк менеджер, в часах */
+        private const val INTERVAL_WORK_WORKER_CHECK_OUT_USER = 24L
     }
 }

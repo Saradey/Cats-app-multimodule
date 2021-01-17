@@ -21,11 +21,6 @@ class CatBreedViewHolder(
     private val themeManager: ThemeManager
 ) : RecyclerView.ViewHolder(view) {
 
-    companion object {
-
-        private const val SIZE_BITMAP_CATS = 100
-    }
-
     /**
      * Биндим данные со вью
      * @param item модель кота
@@ -71,5 +66,11 @@ class CatBreedViewHolder(
          * @param urlImage урл страницы кота в википедии
          */
         fun clickCatUrlBreed(urlImage: String?)
+    }
+
+    companion object {
+
+        /** Размер картинки кошек в пикселях */
+        private const val SIZE_BITMAP_CATS = 100
     }
 }

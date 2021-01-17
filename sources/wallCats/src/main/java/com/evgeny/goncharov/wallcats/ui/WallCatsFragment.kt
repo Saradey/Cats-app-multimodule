@@ -23,7 +23,6 @@ import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
-import com.evgeny.goncharov.wallcats.ui.adapters.DiffUtilsCatBreeds
 import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
@@ -47,9 +46,7 @@ class WallCatsFragment : BaseFragment(),
     private val viewModel: WallCatsViewModel by lazy {
         ViewModelProvider(
             this, ViewModelProviderFactory {
-                WallCatsViewModel(
-                    component.provideInteractor()
-                )
+                WallCatsViewModel(component.provideInteractor())
             }
         ).get(WallCatsViewModel::class.java)
     }
@@ -78,6 +75,14 @@ class WallCatsFragment : BaseFragment(),
     /** Шедулер для запуска запланированных задач */
     private lateinit var workSchedulerManager: WorkScheduleManager
 
+    override fun getLayoutId() = R.layout.fragment_wall_cats
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initDaggerGraph()
+        init()
+        workSchedulerManager.cancelWorksCheckOutUser()
+    }
+
     private fun initDaggerGraph() {
         component.apply {
             wallCatsMediator = provideWallCatsMediator()
@@ -87,14 +92,6 @@ class WallCatsFragment : BaseFragment(),
             vmSort = provideSortViewModel()
             workSchedulerManager = provideWorkScheduleManager()
         }
-    }
-
-    override fun getLayoutId() = R.layout.fragment_wall_cats
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initDaggerGraph()
-        init()
-        workSchedulerManager.cancelWorksCheckOutUser()
     }
 
     private fun init() {
@@ -141,7 +138,7 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initPagedAdapterAndRecycle() {
-        adapter = CatBreedsPagedAdapter(DiffUtilsCatBreeds(), this, themeManager)
+        adapter = CatBreedsPagedAdapter(this, themeManager)
         dataSource = PageKeyedDataSourceCatBreeds(viewModel)
         val pagedConfig = PagedList.Config.Builder()
             .setEnablePlaceholders(false)

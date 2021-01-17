@@ -10,11 +10,70 @@ import javax.inject.Inject
 
 /**
  * Реализация бизнес логики экрана настроек
- * @property gateway источник данных для экрана настроек
+ * @property repository источник данных для экрана настроек
  */
 class SettingsInteractorImpl @Inject constructor(
-    private val gateway: SettingsRepository
+    private val repository: SettingsRepository
 ) : SettingsInteractor {
+
+    /** Ресурс темы установленной на данный момент в приложении */
+    private var themeValue = repository.getThemeModeAppNow().themeValue
+
+    /** Индекс выбранного языка */
+    private var chooseLanguageIndex = initIndexLanguage()
+
+    private fun initIndexLanguage(): Int {
+        return when (repository.getAppLanguage()) {
+            Language.RU -> INDEX_RUSSIAN_DIALOG
+            Language.EN -> INDEX_ENGLISH_DIALOG
+        }
+    }
+
+    override fun getThemeNow() = repository.getThemeModeAppNow()
+
+    override fun onLight() {
+        themeValue = R.style.AppThemeDay
+        repository.saveChooseTheme(themeValue)
+    }
+
+    override fun onNight() {
+        themeValue = R.style.AppThemeNight
+        repository.saveChooseTheme(themeValue)
+    }
+
+    override fun getThemeValue() = when (themeValue) {
+        R.style.AppThemeNight -> INDEX_NIGHT_DIALOG
+        else -> INDEX_LIGHT_DIALOG
+    }
+
+    override fun getAppLanguage() = repository.getAppLanguage()
+
+    override fun getTheme() = themeValue
+
+    override fun getSelectLanguage() = repository.getSelectLanguage()
+
+    override fun chosenLanguage(itemIndex: Int) {
+        chooseLanguageIndex = itemIndex
+        when (itemIndex) {
+            INDEX_CHOOSE_RU -> repository.chooseLanguage(Language.RU)
+            INDEX_CHOOSE_EN -> repository.chooseLanguage(Language.EN)
+        }
+    }
+
+    override fun getChooseLanguageIndex() = chooseLanguageIndex
+
+    override fun getSortType() = repository.getSortType()
+
+    override fun setChooseSort(sortName: SortType) = repository.setChooseSort(sortName)
+
+    override fun initNotification() = repository.getStatusNotification()
+
+    override fun chosenNotification(item: Int) {
+        when (item) {
+            INDEX_NOTIFICATION_ON -> repository.chosenNotification(true)
+            INDEX_NOTIFICATION_OFF -> repository.chosenNotification(false)
+        }
+    }
 
     companion object {
 
@@ -35,64 +94,5 @@ class SettingsInteractorImpl @Inject constructor(
 
         /** Индекс нотифкации: выключено */
         const val INDEX_NOTIFICATION_OFF = 1
-    }
-
-    /** Ресурс темы установленной на данный момент в приложении */
-    private var themeValue = gateway.getThemeModeAppNow().themeValue
-
-    /** Индекс выбранного языка */
-    private var chooseLanguageIndex = initIndexLanguage()
-
-    private fun initIndexLanguage(): Int {
-        return when (gateway.getAppLanguage()) {
-            Language.RU -> INDEX_RUSSIAN_DIALOG
-            Language.EN -> INDEX_ENGLISH_DIALOG
-        }
-    }
-
-    override fun getThemeNow() = gateway.getThemeModeAppNow()
-
-    override fun onLight() {
-        themeValue = R.style.AppThemeDay
-        gateway.saveChooseTheme(themeValue)
-    }
-
-    override fun onNight() {
-        themeValue = R.style.AppThemeNight
-        gateway.saveChooseTheme(themeValue)
-    }
-
-    override fun getThemeValue() = when (themeValue) {
-        R.style.AppThemeNight -> INDEX_NIGHT_DIALOG
-        else -> INDEX_LIGHT_DIALOG
-    }
-
-    override fun getAppLanguage() = gateway.getAppLanguage()
-
-    override fun getTheme() = themeValue
-
-    override fun getSelectLanguage() = gateway.getSelectLanguage()
-
-    override fun chosenLanguage(itemIndex: Int) {
-        chooseLanguageIndex = itemIndex
-        when (itemIndex) {
-            INDEX_CHOOSE_RU -> gateway.chooseLanguage(Language.RU)
-            INDEX_CHOOSE_EN -> gateway.chooseLanguage(Language.EN)
-        }
-    }
-
-    override fun getChooseLanguageIndex() = chooseLanguageIndex
-
-    override fun getSortType() = gateway.getSortType()
-
-    override fun setChooseSort(sortName: SortType) = gateway.setChooseSort(sortName)
-
-    override fun initNotification() = gateway.getStatusNotification()
-
-    override fun chosenNotification(item: Int) {
-        when (item) {
-            INDEX_NOTIFICATION_ON -> gateway.chosenNotification(true)
-            INDEX_NOTIFICATION_OFF -> gateway.chosenNotification(false)
-        }
     }
 }

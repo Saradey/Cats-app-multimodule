@@ -44,6 +44,15 @@ class CatDescriptionFragment : BaseFragment() {
     /** id выбранного кота */
     private var catId: String? = null
 
+    override fun getLayoutId() = R.layout.fragment_cat_description
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initDaggerGraph()
+        loadOrInit(savedInstanceState)
+        initLiveData()
+        initUi()
+    }
+
     private fun loadOrInit(savedInstanceState: Bundle?) {
         savedInstanceState ?: run {
             viewModel.setCatId(catId ?: "")
@@ -53,15 +62,6 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun initDaggerGraph() {
         themeManager = component.provideThemeManager()
-    }
-
-    override fun getLayoutId() = R.layout.fragment_cat_description
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initDaggerGraph()
-        loadOrInit(savedInstanceState)
-        initLiveData()
-        initUi()
     }
 
     private fun initUi() {

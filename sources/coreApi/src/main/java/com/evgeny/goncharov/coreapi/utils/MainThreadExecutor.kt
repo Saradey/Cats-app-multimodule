@@ -5,7 +5,7 @@ import android.os.Looper
 import java.util.concurrent.Executor
 
 /**
- * Экзекбютер для выполнения тасок в мейн потоке
+ * Экзекьютер для выполнения тасок в мейн потоке
  */
 class MainThreadExecutor : Executor {
 

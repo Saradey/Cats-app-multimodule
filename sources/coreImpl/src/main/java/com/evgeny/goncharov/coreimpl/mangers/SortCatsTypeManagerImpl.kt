@@ -8,29 +8,11 @@ import javax.inject.Inject
 
 /**
  * Реализация менеджера предоставляющего тип сортировки
- * @property appContext контект для получения шарады
+ * @property appContext контекст для получения шарады
  */
 class SortCatsTypeManagerImpl @Inject constructor(
     @AppContext private val appContext: Context
 ) : SortCatsManager {
-
-    companion object {
-
-        /** Имя шарады */
-        private const val SHARED_SORT = "SHARED_SORTED"
-
-        /** Имя значения в шараде */
-        private const val SHARED_KEY_SORT = "SHARED_KEY_SORTED"
-
-        /** Сортировка по алфовиту */
-        private const val SORT_NAME = "SORTED_NAME"
-
-        /** Сортировка по жизненному циклу */
-        private const val SORT_LIFESPAN = "SORTED_LIFESPAN"
-
-        /** Сортировка по весу */
-        private const val SORT_WEIGHT = "SORT_WEIGHT"
-    }
 
     override fun getSortedType(): SortType {
         val shared = appContext.getSharedPreferences(SHARED_SORT, Context.MODE_PRIVATE)
@@ -50,5 +32,23 @@ class SortCatsTypeManagerImpl @Inject constructor(
             SortType.SortWeight -> edit.putString(SHARED_KEY_SORT, SORT_WEIGHT)
         }
         edit.apply()
+    }
+
+    companion object {
+
+        /** Имя шарады */
+        private const val SHARED_SORT = "SHARED_SORTED"
+
+        /** Имя значения в шараде */
+        private const val SHARED_KEY_SORT = "SHARED_KEY_SORTED"
+
+        /** Сортировка по алфовиту */
+        private const val SORT_NAME = "SORTED_NAME"
+
+        /** Сортировка по жизненному циклу */
+        private const val SORT_LIFESPAN = "SORTED_LIFESPAN"
+
+        /** Сортировка по весу */
+        private const val SORT_WEIGHT = "SORT_WEIGHT"
     }
 }
