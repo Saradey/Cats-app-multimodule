@@ -46,11 +46,11 @@ class WallCatsFragment : BaseFragment(),
     /** Вьюмодель стены котов */
     private val viewModel: WallCatsViewModel by lazy {
         ViewModelProvider(
-            requireActivity(), ViewModelProviderFactory({
+            requireActivity(), ViewModelProviderFactory {
                 WallCatsViewModel(
                     component.provideInteractor()
                 )
-            })
+            }
         ).get(WallCatsViewModel::class.java)
     }
 

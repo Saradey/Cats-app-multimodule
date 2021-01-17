@@ -5,9 +5,6 @@ package com.evgeny.goncharov.settings.events
  */
 sealed class SettingUiEvents {
 
-    /** Событие, мы сменили язык */
-    object ChooseLanguageApp : SettingUiEvents()
-
-    /** Событие, мы сменили тему */
-    object ChooseThemeApp : SettingUiEvents()
+    /** Событие оповещающие о том что нужно пересоздать активити */
+    object RecreateActivity : SettingUiEvents()
 }

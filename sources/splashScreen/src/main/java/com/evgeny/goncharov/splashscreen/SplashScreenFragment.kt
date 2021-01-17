@@ -12,13 +12,8 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.providers.MainRouterProvider
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.imvCat
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.txvTitle
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_splash_screen.view.*
+import kotlinx.coroutines.*
 
 /**
  * Сплешскрин

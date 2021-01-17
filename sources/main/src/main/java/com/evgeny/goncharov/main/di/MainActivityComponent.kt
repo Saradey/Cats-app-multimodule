@@ -12,7 +12,10 @@ import dagger.Component
  * Даггер граф уровня активити
  */
 @ActivityScope
-@Component(dependencies = [ProviderFacade::class], modules = [MainActivityProvideModule::class])
+@Component(
+    dependencies = [ProviderFacade::class],
+    modules = [MainActivityProvideModule::class]
+)
 interface MainActivityComponent : ProviderFacade, ActivityContextProvider, MainRouterProvider {
 
     companion object {

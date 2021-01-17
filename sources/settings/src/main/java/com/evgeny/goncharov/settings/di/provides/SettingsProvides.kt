@@ -7,11 +7,11 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 
 interface SettingsProvides {
 
-    fun provideSettingsViewModel(): SettingsViewModel
-
     fun provideInteractor(): SettingsInteractor
 
     fun provideThemeManager(): ThemeManager
 
     fun provideSortViewModel(): SortTypeViewModel
+
+    fun provideSettingsViewModel(): SettingsViewModel
 }

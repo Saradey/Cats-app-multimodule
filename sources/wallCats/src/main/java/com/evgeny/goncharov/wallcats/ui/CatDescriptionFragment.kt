@@ -34,11 +34,11 @@ class CatDescriptionFragment : BaseFragment() {
 
     /** Вьюмодель экрана описания кота */
     private val viewModel: CatDescriptionViewModel by lazy {
-        ViewModelProvider(requireActivity(), ViewModelProviderFactory({
+        ViewModelProvider(requireActivity(), ViewModelProviderFactory {
             CatDescriptionViewModel(
                 component.provideDescriptionInteractor()
             )
-        })).get(CatDescriptionViewModel::class.java)
+        }).get(CatDescriptionViewModel::class.java)
     }
 
     /** id выбранного кота */

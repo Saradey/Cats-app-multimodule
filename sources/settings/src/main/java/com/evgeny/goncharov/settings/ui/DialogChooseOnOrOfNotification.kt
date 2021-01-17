@@ -4,21 +4,13 @@ import android.app.Dialog
 import android.os.Bundle
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
+import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * Диалоговое окно выбора включить или выключить нотификацию
  */
 class DialogChooseOnOrOfNotification : BaseSettingsFragmentDialog() {
-
-    companion object {
-
-        /** Индекс нотификации включены */
-        const val INDEX_CHOOSE_ON = 0
-
-        /** Индекс нотификации выключены */
-        const val INDEX_CHOOSE_OFF = 1
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builderDialog = MaterialAlertDialogBuilder(
@@ -39,5 +31,17 @@ class DialogChooseOnOrOfNotification : BaseSettingsFragmentDialog() {
                 dismiss()
             }
         return builderDialog.create()
+    }
+
+    companion object {
+        /** Индекс нотификации включены */
+        const val INDEX_CHOOSE_ON = 0
+
+        /** Индекс нотификации выключены */
+        const val INDEX_CHOOSE_OFF = 1
+
+        fun getInstance(vm : SettingsViewModel) = DialogChooseOnOrOfNotification().apply {
+            this.vm = vm
+        }
     }
 }

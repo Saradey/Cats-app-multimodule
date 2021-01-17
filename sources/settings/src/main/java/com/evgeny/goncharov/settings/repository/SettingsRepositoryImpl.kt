@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.settings.gateway
+package com.evgeny.goncharov.settings.repository
 
 import com.evgeny.goncharov.coreapi.RU_CODE
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
@@ -19,12 +19,12 @@ import javax.inject.Inject
  * @property sortCatsManager менеджер предоставляющий тип сортировки стены котов
  * @property notificationManager менедджер который отвечает за нотификации в проекте
  */
-class SettingsGatewayImpl @Inject constructor(
+class SettingsRepositoryImpl @Inject constructor(
     private val themeManager: ThemeManager,
     private val languageManager: LanguageManager,
     private val sortCatsManager: SortCatsManager,
     private val notificationManager: NotificationAppManager
-) : SettingsGateway {
+) : SettingsRepository {
 
     override fun getThemeModeAppNow() = ThemeModel(themeManager.getThemeNow())
 

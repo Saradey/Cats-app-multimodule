@@ -10,12 +10,12 @@ import com.evgeny.goncharov.coreapi.managers.ThemeManager
 abstract class BaseFragmentDialog : DialogFragment() {
 
     /** Менеджер тем */
-    protected lateinit var themeManager: ThemeManager
+    protected var themeManager: ThemeManager? = null
 
     /**
      * Получить текущую тему
      */
-    fun getDialogTheme() = when (themeManager.getThemeNow()) {
+    fun getDialogTheme() = when (themeManager?.getThemeNow()) {
         R.style.AppThemeNight -> R.style.Costume_ThemeMaterialAlertDialog_Dark
         else -> R.style.Costume_ThemeMaterialAlertDialog_Light
     }

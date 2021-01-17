@@ -1,10 +1,10 @@
 package com.evgeny.goncharov.settings.di.modules
 
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
-import com.evgeny.goncharov.settings.gateway.SettingsGateway
-import com.evgeny.goncharov.settings.gateway.SettingsGatewayImpl
 import com.evgeny.goncharov.settings.interactor.SettingsInteractor
 import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
+import com.evgeny.goncharov.settings.repository.SettingsRepository
+import com.evgeny.goncharov.settings.repository.SettingsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
@@ -20,5 +20,5 @@ interface SettingsBindsModule {
 
     @Binds
     @FragmentScope
-    fun bindSettingsGateway(gateway: SettingsGatewayImpl): SettingsGateway
+    fun bindSettingsGateway(gateway: SettingsRepositoryImpl): SettingsRepository
 }

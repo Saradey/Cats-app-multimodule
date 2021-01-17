@@ -3,7 +3,7 @@ package com.evgeny.goncharov.settings.interactor
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.R
-import com.evgeny.goncharov.settings.gateway.SettingsGateway
+import com.evgeny.goncharov.settings.repository.SettingsRepository
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_EN
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_RU
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * @property gateway источник данных для экрана настроек
  */
 class SettingsInteractorImpl @Inject constructor(
-    private val gateway: SettingsGateway
+    private val gateway: SettingsRepository
 ) : SettingsInteractor {
 
     companion object {

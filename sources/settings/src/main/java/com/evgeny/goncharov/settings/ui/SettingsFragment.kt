@@ -10,12 +10,13 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
+import androidx.lifecycle.ViewModelProvider
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
-import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
+import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
@@ -28,36 +29,36 @@ import kotlinx.android.synthetic.main.fragment_settings.*
  */
 class SettingsFragment : BaseFragment() {
 
-    companion object {
-
-        fun getInstance() = SettingsFragment()
-    }
-
-    /** ВьюМодель экрана настроек */
-    private lateinit var viewModel: SettingsViewModel
-
-    override fun getLayoutId() = R.layout.fragment_settings
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initDaggerGraph()
-        savedInstanceState ?: viewModel.initInjection()
-        init()
-    }
-
-    private fun initDaggerGraph() {
+    /** Компонент фитчи настроек */
+    private val component by lazy {
         SettingsComponent.init(
             this,
             (requireActivity() as WithFacade).getFacade(),
             (requireActivity() as WithFacade).getFacade() as ActivityContextProvider
-        ).apply {
-            viewModel = provideSettingsViewModel()
-            themeManager = provideThemeManager()
-        }
+        )
     }
 
+    /** ВьюМодель экрана настроек */
+    private val viewModel: SettingsViewModel by lazy {
+        ViewModelProvider(
+            this, ViewModelProviderFactory {
+                SettingsViewModel(component.provideInteractor())
+            }
+        ).get(SettingsViewModel::class.java)
+    }
+
+    override fun getLayoutId() = R.layout.fragment_settings
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initDaggerGraph()
+        init()
         initUi()
+    }
+
+    private fun initDaggerGraph() {
+        component.apply {
+            themeManager = provideThemeManager()
+        }
     }
 
     private fun initUi() {
@@ -70,24 +71,21 @@ class SettingsFragment : BaseFragment() {
 
     private fun init() {
         initLiveData()
-        viewModel.initThemeToView()
-        viewModel.initLanguageToView()
-        viewModel.initSortType()
-        viewModel.initNotificationToView()
+        viewModel.initModelToView()
     }
 
     private fun initLiveData() {
         viewModel.themeLiveDataModel.observe(this, ::initTheme)
         viewModel.languageLiveData.observe(this, ::initLanguage)
-        viewModel.uiLiveDataEvent.observe(this, ::updateUiEvent)
-        viewModel.sortTypeLiveData.observe(this, ::initSorTypeTextView)
+        viewModel.uiLiveDataEvent.observe(this, ::changeUiState)
+        viewModel.sortTypeLiveData.observe(this, ::initSortTypeTextView)
         viewModel.notificationLiveData.observe(this, ::initNotificationView)
     }
 
     private fun initNotificationView(isOn: Boolean) {
-        when {
-            isOn -> initNotificationView(R.string.notification_settings_ison)
-            !isOn -> initNotificationView(R.string.notification_settings_isoff)
+        when (isOn) {
+            true -> initNotificationView(R.string.notification_settings_ison)
+            false -> initNotificationView(R.string.notification_settings_isoff)
         }
     }
 
@@ -107,7 +105,7 @@ class SettingsFragment : BaseFragment() {
         )
     }
 
-    private fun initSorTypeTextView(type: SortType) {
+    private fun initSortTypeTextView(type: SortType) {
         when (type) {
             SortType.SortName -> initSort(R.string.sort_by_name)
             SortType.SortLifeSpan -> initSort(R.string.sort_by_life_span)
@@ -129,13 +127,6 @@ class SettingsFragment : BaseFragment() {
             drawStart = idDrawable,
             textView = txvSortParameter
         )
-    }
-
-    private fun updateUiEvent(event: SettingUiEvents?) {
-        when (event) {
-            SettingUiEvents.ChooseLanguageApp,
-            SettingUiEvents.ChooseThemeApp -> activity?.recreate()
-        }
     }
 
     private fun initTheme(model: ThemeModel?) {
@@ -213,7 +204,7 @@ class SettingsFragment : BaseFragment() {
 
     private fun initClickThemeApp() {
         txvThemeApp.setOnClickListener {
-            val dialog = DialogChooseThemeApp()
+            val dialog = DialogChooseThemeApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseThemeApp::class.java.name)
         }
     }
@@ -273,32 +264,39 @@ class SettingsFragment : BaseFragment() {
 
     private fun initClickLanguageChoose() {
         txvLanguageApp.setOnClickListener {
-            val dialog = DialogChooseLanguageApp()
+            val dialog = DialogChooseLanguageApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseLanguageApp::class.java.name)
         }
     }
 
     private fun initClickSortType() {
         txvSortParameter.setOnClickListener {
-            val dialog = DialogChooseSortType()
+            val dialog = DialogChooseSortType.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseSortType::class.java.name)
         }
     }
 
     private fun initClickNotification() {
         txvNotification.setOnClickListener {
-            val dialog = DialogChooseOnOrOfNotification()
+            val dialog = DialogChooseOnOrOfNotification.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseOnOrOfNotification::class.java.name)
         }
     }
 
-    private fun changeUiState(event: BaseUiEvent<*>?) {
-
+    private fun changeUiState(event: SettingUiEvents?) {
+        when (event) {
+            SettingUiEvents.RecreateActivity -> activity?.recreate()
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         SettingsComponent.component = null
         viewModel.uiLiveDataEvent.call()
+    }
+
+    companion object {
+
+        fun getInstance() = SettingsFragment()
     }
 }
