@@ -3,34 +3,27 @@ package com.evgeny.goncharov.coreapi.base
 /**
  * Базовый сценарий ui эвентов на экранах
  */
-sealed class BaseUiEvent {
+sealed class BaseUiEvent<out T : Any> {
     /**
      * Показать прогресс
      */
-    object EventShowProgress : BaseUiEvent()
+    object EventShowProgress : BaseUiEvent<Nothing>()
 
     /**
      * Показать заглушку ошибки
      */
-    object EventSomethingWrong : BaseUiEvent()
+    object EventSomethingWrong : BaseUiEvent<Nothing>()
 
     /**
      * Спрятать прогресс
      */
-    object EventHideProgress : BaseUiEvent()
+    object EventHideProgress : BaseUiEvent<Nothing>()
 
     /**
-     * Спрятать заглушку ошибки
+     * В случае успеха загрузки мы передаем данные в виде такой обертки
+     * @param data данные
      */
-    object EventHideSomethingWrong : BaseUiEvent()
-
-    /**
-     * Показать контент
-     */
-    object EventShowContent : BaseUiEvent()
-
-    /**
-     * Спрятать контент
-     */
-    object EventHideContent : BaseUiEvent()
+    data class Success<out T : Any>(
+        val data: T
+    ) : BaseUiEvent<T>()
 }

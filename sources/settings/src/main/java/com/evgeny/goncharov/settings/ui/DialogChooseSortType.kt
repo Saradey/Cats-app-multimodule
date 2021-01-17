@@ -6,24 +6,13 @@ import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
+import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * Диалоговое окно выбора типа сортировки
  */
 class DialogChooseSortType : BaseSettingsFragmentDialog() {
-
-    companion object {
-
-        /** Индекс сортировки по алфовиту в диалоговом окне */
-        const val INDEX_SORT_NAME = 0
-
-        /** Индекс сортировки по долголетию в диалоговом окне */
-        const val INDEX_SORT_LIFE_SPAN = 1
-
-        /** Индекс сортировки по весу в диалоговом окне */
-        const val INDEX_SORT_WIGHT = 2
-    }
 
     private lateinit var sortViewModel: SortTypeViewModel
 
@@ -50,9 +39,24 @@ class DialogChooseSortType : BaseSettingsFragmentDialog() {
                 vm.getSortValue()
             ) { _, item ->
                 vm.chosenSort(item)
-                sortViewModel.updateChooseSotType.value = true
+                sortViewModel.updateChooseSortType.value = true
                 dismiss()
             }
         return builderDialog.create()
+    }
+
+    companion object {
+        /** Индекс сортировки по алфовиту в диалоговом окне */
+        const val INDEX_SORT_NAME = 0
+
+        /** Индекс сортировки по долголетию в диалоговом окне */
+        const val INDEX_SORT_LIFE_SPAN = 1
+
+        /** Индекс сортировки по весу в диалоговом окне */
+        const val INDEX_SORT_WIGHT = 2
+
+        fun getInstance(vm : SettingsViewModel) = DialogChooseSortType().apply {
+            this.vm = vm
+        }
     }
 }

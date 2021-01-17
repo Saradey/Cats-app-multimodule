@@ -4,21 +4,13 @@ import android.app.Dialog
 import android.os.Bundle
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
+import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * Дилоговое окно выбора языка
  */
 class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
-
-    companion object {
-
-        /** Индекс русского языка в списке выбора */
-        const val INDEX_CHOOSE_RU = 0
-
-        /** Индекс английского языка в списке выбора */
-        const val INDEX_CHOOSE_EN = 1
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builderDialog = MaterialAlertDialogBuilder(
@@ -39,5 +31,18 @@ class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
                 dismiss()
             }
         return builderDialog.create()
+    }
+
+    companion object {
+
+        /** Индекс русского языка в списке выбора */
+        const val INDEX_CHOOSE_RU = 0
+
+        /** Индекс английского языка в списке выбора */
+        const val INDEX_CHOOSE_EN = 1
+
+        fun getInstance(vm: SettingsViewModel) = DialogChooseLanguageApp().apply {
+            this.vm = vm
+        }
     }
 }

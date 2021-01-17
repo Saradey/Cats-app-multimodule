@@ -18,7 +18,6 @@ interface ApiCatSearch {
      * Запрос получить  список кошек по имени
      * @param request мапа параметров запроса
      * @see GetChooseCatRequest модель запроса которая формирует мапу
-     * @return результат запроса
      */
     @Headers(HEADERS_VALUE)
     @GET(BREEDS_SEARCH_URL)

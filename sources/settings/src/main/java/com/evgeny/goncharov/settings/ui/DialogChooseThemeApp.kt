@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
+import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -30,5 +31,11 @@ class DialogChooseThemeApp : BaseSettingsFragmentDialog() {
                 dismiss()
             }
         return builderDialog.create()
+    }
+
+    companion object {
+        fun getInstance(vm : SettingsViewModel) = DialogChooseThemeApp().apply {
+            this.vm = vm
+        }
     }
 }

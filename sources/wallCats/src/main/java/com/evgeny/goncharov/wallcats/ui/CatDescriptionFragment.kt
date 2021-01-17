@@ -4,71 +4,64 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
+import androidx.core.view.isGone
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
+import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
-import kotlinx.android.synthetic.main.fragment_cat_description.grpAllContent
-import kotlinx.android.synthetic.main.fragment_cat_description.imvCat
-import kotlinx.android.synthetic.main.fragment_cat_description.mbtnWikiLink
-import kotlinx.android.synthetic.main.fragment_cat_description.toolbar
-import kotlinx.android.synthetic.main.fragment_cat_description.txvDescription
-import kotlinx.android.synthetic.main.fragment_cat_description.txvLifeSpan
-import kotlinx.android.synthetic.main.fragment_cat_description.txvNameCat
-import kotlinx.android.synthetic.main.fragment_cat_description.txvOrigin
-import kotlinx.android.synthetic.main.fragment_cat_description.txvTemperament
-import kotlinx.android.synthetic.main.fragment_cat_description.txvWeight
+import kotlinx.android.synthetic.main.fragment_cat_description.*
 
 /**
  * Экран описания кота
  */
 class CatDescriptionFragment : BaseFragment() {
 
-    companion object {
-
-        fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
-            setCatId(idCat ?: "")
-        }
+    /** Компонент фитчи стены котов */
+    private val component: WallCatsComponent by lazy {
+        WallCatsComponent.getByLazy(
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithProviders).getProviderAndroidComponent()
+        )
     }
 
     /** Вьюмодель экрана описания кота */
-    private lateinit var viewModel: CatDescriptionViewModel
+    private val viewModel: CatDescriptionViewModel by lazy {
+        ViewModelProvider(this, ViewModelProviderFactory {
+            CatDescriptionViewModel(
+                component.provideDescriptionInteractor()
+            )
+        }).get(CatDescriptionViewModel::class.java)
+    }
 
     /** id выбранного кота */
     private var catId: String? = null
 
+    override fun getLayoutId() = R.layout.fragment_cat_description
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initDaggerGraph()
+        loadOrInit(savedInstanceState)
+        initLiveData()
+        initUi()
+    }
+
     private fun loadOrInit(savedInstanceState: Bundle?) {
         savedInstanceState ?: run {
-            viewModel.initInjection()
             viewModel.setCatId(catId ?: "")
         }
         viewModel.loadChooseCat()
     }
 
     private fun initDaggerGraph() {
-        WallCatsComponent.getByLazy(
-            (requireActivity() as WithFacade).getFacade(),
-            (requireActivity() as WithProviders).getProviderAndroidComponent()
-        ).apply {
-            themeManager = provideThemeManager()
-        }
-    }
-
-    override fun getLayoutId() = R.layout.fragment_cat_description
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(CatDescriptionViewModel::class.java)
-        initDaggerGraph()
-        loadOrInit(savedInstanceState)
-        initLiveData()
-        initUi()
+        themeManager = component.provideThemeManager()
     }
 
     private fun initUi() {
@@ -77,7 +70,6 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-        viewModel.catDescriptionLiveData.observe(this, ::setCatDescription)
     }
 
     fun setCatId(catId: String) {
@@ -93,12 +85,12 @@ class CatDescriptionFragment : BaseFragment() {
             setNavigationOnClickListener {
                 requireFragmentManager().popBackStack()
             }
-            setTitle(R.string.description_cat_title_toolbar)
+            setTitle(string.description_cat_title_toolbar)
         }
     }
 
-    private fun setCatDescription(model: CatDescription?) {
-        model?.let {
+    private fun setCatDescription(model: CatDescription) {
+        model.let {
             txvNameCat.text = resources.getString(string.name_cat_title, model.name)
             txvOrigin.text = resources.getString(string.origin_cat_title, model.origin)
             txvWeight.text = resources.getString(string.weight_cat_title, model.weight)
@@ -119,12 +111,30 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
-    override fun showContent() {
-        grpAllContent.isVisible = true
+    private fun changeUiState(event: BaseUiEvent<CatDescription>?) {
+        when (event) {
+            BaseUiEvent.EventShowProgress -> showProgress()
+            BaseUiEvent.EventHideProgress -> hideProgress()
+            is BaseUiEvent.Success -> {
+                grpAllContent.isGone = false
+                setCatDescription(event.data)
+            }
+            BaseUiEvent.EventSomethingWrong -> {
+                grpAllContent.isGone = true
+                showSomethingWrong()
+            }
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         viewModel.liveDataUiEvents.call()
+    }
+
+    companion object {
+
+        fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
+            setCatId(idCat ?: "")
+        }
     }
 }

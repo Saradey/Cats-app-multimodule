@@ -71,29 +71,4 @@ abstract class BaseFragment : Fragment() {
     protected open fun hideSomethingWrong() {
         stubController.initUiState(BaseUiEvents.HideSomethingWrong)
     }
-
-    /**
-     * Метод смены ui состояния
-     * @param event состояние ui
-     */
-    protected fun changeUiState(event: BaseUiEvent?) {
-        when (event) {
-            BaseUiEvent.EventShowProgress -> showProgress()
-            BaseUiEvent.EventSomethingWrong -> showSomethingWrong()
-            BaseUiEvent.EventHideProgress -> hideProgress()
-            BaseUiEvent.EventHideSomethingWrong -> hideSomethingWrong()
-            BaseUiEvent.EventShowContent -> showContent()
-            BaseUiEvent.EventHideContent -> hideContent()
-        }
-    }
-
-    /**
-     * Метод для переопределния, показать контент
-     */
-    protected open fun showContent() {}
-
-    /**
-     * Метод для переопределния, спрятать контент
-     */
-    protected open fun hideContent() {}
 }

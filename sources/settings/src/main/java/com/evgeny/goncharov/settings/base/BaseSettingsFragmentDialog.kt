@@ -7,15 +7,12 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 
 abstract class BaseSettingsFragmentDialog : BaseFragmentDialog() {
 
-    /** Вьюмодель для экрана настроек */
+    /** Компонент фитчи настроек */
     protected lateinit var vm: SettingsViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsComponent.component?.apply {
-            vm = provideSettingsViewModel()
-            themeManager = provideThemeManager()
-        }
+        themeManager = SettingsComponent.component?.provideThemeManager()
     }
-
 }

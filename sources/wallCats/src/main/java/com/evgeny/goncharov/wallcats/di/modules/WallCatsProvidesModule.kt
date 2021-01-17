@@ -12,7 +12,7 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 /**
- * Провайд модуль который провайдит вьюмодель и rest api для экрана стены котов
+ * Модуль который провайдит вьюмодель и rest api для экрана стены котов
  */
 @Module
 object WallCatsProvidesModule {

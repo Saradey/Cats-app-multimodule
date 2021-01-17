@@ -3,32 +3,46 @@ package com.evgeny.goncharov.searchcats.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProviders
+import androidx.core.view.isGone
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.extension.setHintTextColor
 import com.evgeny.goncharov.coreapi.extension.setTextColor
-import com.evgeny.goncharov.coreapi.extension.setVisibilityBool
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
+import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.searchcats.R
 import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
 import com.evgeny.goncharov.searchcats.model.CatCatch
 import com.evgeny.goncharov.searchcats.ui.adapter.CatsCatchAdapter
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
-import kotlinx.android.synthetic.main.fragment_search_cat.crvContainerCats
-import kotlinx.android.synthetic.main.fragment_search_cat.rcvCathedCats
-import kotlinx.android.synthetic.main.fragment_search_cat.srcSearchCat
-import kotlinx.android.synthetic.main.fragment_search_cat.toolbar
-import kotlinx.android.synthetic.main.fragment_search_cat.txvCatsStubNotFound
+import kotlinx.android.synthetic.main.fragment_search_cat.*
 
 /**
  * Фрагмент поиска котов
  */
 class SearchCatFragment : BaseFragment() {
 
-    /** ВьюМодель поиска котов */
-    private lateinit var viewModel: SearchCatViewModel
+    /**
+     * Компонент стены поиска котов
+     */
+    private val component: SearchCatComponent by lazy {
+        SearchCatComponent.init(
+            this,
+            (requireActivity() as WithFacade).getFacade()
+        )
+    }
+
+    /** Вьюмодель поиска котов */
+    private val viewModel: SearchCatViewModel by lazy {
+        ViewModelProvider(
+            this, ViewModelProviderFactory {
+                SearchCatViewModel(component.provideSearchCatInteractor())
+            }
+        ).get(SearchCatViewModel::class.java)
+    }
 
     /** Для запуска стены котов */
     private lateinit var wallCatsMediator: WallCatsMediator
@@ -36,33 +50,17 @@ class SearchCatFragment : BaseFragment() {
     /** Для управления список искомых котов */
     private lateinit var adapter: CatsCatchAdapter
 
-    companion object {
-
-        fun getInstance() = SearchCatFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initDaggerGraph()
-    }
-
-    private fun initDaggerGraph() {
-        SearchCatComponent.init(
-            this,
-            (requireActivity() as WithFacade).getFacade()
-        ).apply {
-            wallCatsMediator = provideWallCatsMediator()
-            themeManager = provideThemeManager()
-        }
-    }
-
     override fun getLayoutId() = R.layout.fragment_search_cat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(SearchCatViewModel::class.java)
-        savedInstanceState ?: viewModel.initInject()
+        initDaggerGraph()
         initLiveData()
         initUi()
+    }
+
+    private fun initDaggerGraph() {
+        themeManager = component.provideThemeManager()
+        wallCatsMediator = component.provideWallCatsMediator()
     }
 
     private fun initUi() {
@@ -72,7 +70,6 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.liveDataCatsCatch.observe(this, ::setCatsCatched)
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
     }
 
@@ -126,18 +123,47 @@ class SearchCatFragment : BaseFragment() {
 
     private fun setCatsCatched(models: List<CatCatch>?) = adapter.submitList(models ?: emptyList())
 
-    override fun showContent() = crvContainerCats.setVisibilityBool(true)
+    override fun showSomethingWrong() {
+        txvCatsStubNotFound.isGone = false
+    }
 
-    override fun showSomethingWrong() = txvCatsStubNotFound.setVisibilityBool(true)
+    override fun hideSomethingWrong() {
+        txvCatsStubNotFound.isGone = true
+    }
 
-    override fun hideSomethingWrong() = txvCatsStubNotFound.setVisibilityBool(false)
-
-    override fun hideContent() = crvContainerCats.setVisibilityBool(false)
+    private fun changeUiState(event: BaseUiEvent<List<CatCatch>>?) {
+        when (event) {
+            BaseUiEvent.EventShowProgress -> {
+                hideSomethingWrong()
+                showProgress()
+            }
+            BaseUiEvent.EventHideProgress -> {
+                hideProgress()
+            }
+            is BaseUiEvent.Success -> {
+                crvContainerCats.isGone = false
+                setCatsCatched(event.data)
+            }
+            BaseUiEvent.EventSomethingWrong -> {
+                crvContainerCats.isGone = true
+                showSomethingWrong()
+            }
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         SearchCatComponent.component = null
-        hideKeyboard()
         viewModel.liveDataUiEvents.call()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hideKeyboard()
+    }
+
+    companion object {
+
+        fun getInstance() = SearchCatFragment()
     }
 }

@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.settings.gateway
+package com.evgeny.goncharov.settings.repository
 
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
@@ -7,7 +7,7 @@ import com.evgeny.goncharov.settings.models.ThemeModel
 /**
  * Контракт источника данных на экране настроек
  */
-interface SettingsGateway {
+interface SettingsRepository {
 
     /**
      * Получить тему установленную на данный момент в приложении

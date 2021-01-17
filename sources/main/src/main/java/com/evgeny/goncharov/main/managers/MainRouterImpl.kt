@@ -14,15 +14,6 @@ class MainRouterImpl @Inject constructor(
     private val activity: AppCompatActivity
 ) : MainRouter {
 
-    companion object {
-
-        /** Константа обозначающая что в стеке остался один фрагмент */
-        private const val FIRST_FRAGMENT_TO_SHOW = 1
-
-        /** Задержка между нажатиями на онбекпрессед */
-        private const val DELAYED_TO_RESET_COUNTER = 2000L
-    }
-
     /** Количество нажатых бекпрессед */
     private var counterBackPressed = 0
 
@@ -62,5 +53,14 @@ class MainRouterImpl @Inject constructor(
 
     override fun splashScreenIsInit(isInit: Boolean) {
         slashScreenIsInit = isInit
+    }
+
+    companion object {
+
+        /** Константа обозначающая что в стеке остался один фрагмент */
+        private const val FIRST_FRAGMENT_TO_SHOW = 1
+
+        /** Задержка между нажатиями на онбекпрессед */
+        private const val DELAYED_TO_RESET_COUNTER = 2000L
     }
 }

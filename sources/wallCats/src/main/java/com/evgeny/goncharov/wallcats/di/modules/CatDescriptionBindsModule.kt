@@ -1,8 +1,8 @@
 package com.evgeny.goncharov.wallcats.di.modules
 
 import com.evgeny.goncharov.coreapi.scope.FragmentScope
-import com.evgeny.goncharov.wallcats.gateways.CatDescriptionGateway
-import com.evgeny.goncharov.wallcats.gateways.CatDescriptionGatewayImpl
+import com.evgeny.goncharov.wallcats.repository.CatDescriptionRepository
+import com.evgeny.goncharov.wallcats.repository.CatDescriptionRepositoryImpl
 import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractor
 import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractorImpl
 import dagger.Binds
@@ -20,5 +20,5 @@ interface CatDescriptionBindsModule {
 
     @Binds
     @FragmentScope
-    fun bindCatDescriptionGateway(gateway: CatDescriptionGatewayImpl): CatDescriptionGateway
+    fun bindCatDescriptionGateway(gateway: CatDescriptionRepositoryImpl): CatDescriptionRepository
 }

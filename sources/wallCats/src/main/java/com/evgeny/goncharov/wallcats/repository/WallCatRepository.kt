@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.wallcats.gateways
+package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
@@ -7,7 +7,7 @@ import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 /**
  * Контракт источника данных стены котов
  */
-interface WallCatGateway {
+interface WallCatRepository {
 
     /**
      * Загрузка котов из интернета

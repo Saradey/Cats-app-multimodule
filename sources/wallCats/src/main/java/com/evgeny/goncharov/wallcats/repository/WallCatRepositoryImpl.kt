@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.wallcats.gateways
+package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
 import com.evgeny.goncharov.coreapi.dto.database.CatBreed
@@ -18,26 +18,18 @@ import javax.inject.Inject
  * @property daoWallCat для загрузки котов из бд
  * @property sortManager менеджер который отдает тип сортировки
  */
-class WallCatGatewayImpl @Inject constructor(
+class WallCatRepositoryImpl @Inject constructor(
     private val api: ApiBreeds,
     private val daoWallCat: CatsWallDao,
     private val sortManager: SortCatsManager
-) : WallCatGateway {
-
-    companion object {
-
-        /** Паттерн для вытаскивания числа из строки */
-        private const val PATTERN_MAP_STRING_TO_INT = "- \\d"
-    }
+) : WallCatRepository {
 
     /** Скоуп для загрузки картинок и ожидание пока все не загрузится */
     private val coroutineScopeIo = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override suspend fun loadWallCatFromInternet(request: WallCatRequest) =
         withContext(Dispatchers.IO) {
-            val result = api.getBreedsAsync(
-                request.createRequest()
-            ).await()
+            val result = api.getBreedsAsync(request.createRequest()).await()
             loadAllImage(result)
             daoWallCat.insertWallCat(result)
             val resultMap = mapResponse(result)
@@ -84,9 +76,7 @@ class WallCatGatewayImpl @Inject constructor(
     private suspend fun getUrlImage(request: GetImageRequest): String? {
         var result = emptyList<CatBreedImage>()
         try {
-            result = api.getImageUrlAsync(
-                request.createRequest()
-            ).await()
+            result = api.getImageUrlAsync(request.createRequest()).await()
         } catch (exp: Exception) {
             exp.printStackTrace()
         }
@@ -94,4 +84,10 @@ class WallCatGatewayImpl @Inject constructor(
     }
 
     override fun getSortType(): SortType = sortManager.getSortedType()
+
+    companion object {
+
+        /** Паттерн для вытаскивания числа из строки */
+        private const val PATTERN_MAP_STRING_TO_INT = "- \\d"
+    }
 }

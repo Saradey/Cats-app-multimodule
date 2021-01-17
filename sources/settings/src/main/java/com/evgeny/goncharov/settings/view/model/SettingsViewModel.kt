@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.coreapi.utils.SortType
-import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.interactor.SettingsInteractor
 import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
@@ -18,12 +17,12 @@ import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SOR
 import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SORT_WIGHT
 
 /**
- * ВьюМодель экрана настроек
+ * Вьюмодель экрана настроек
+ * @param interactor Интерактор экрана настроек
  */
-class SettingsViewModel : ViewModel() {
-
-    /** Интерактор экрана настроек */
-    private lateinit var interactor: SettingsInteractor
+class SettingsViewModel(
+    private val interactor: SettingsInteractor
+) : ViewModel() {
 
     /** Отдает какая тема установлена */
     val themeLiveDataModel = MutableLiveData<ThemeModel?>()
@@ -40,19 +39,17 @@ class SettingsViewModel : ViewModel() {
     /** Отдает, включено уведомление или нет */
     val notificationLiveData = MutableLiveData<Boolean>()
 
-    /**
-     * Иницилизация зависимостей
-     */
-    fun initInjection() {
-        SettingsComponent.component?.apply {
-            interactor = provideInteractor()
-        }
+    fun initModelToView() {
+        initThemeToView()
+        initLanguageToView()
+        initSortType()
+        initNotificationToView()
     }
 
     /**
      * Проиницилизировать тему во View
      */
-    fun initThemeToView() {
+    private fun initThemeToView() {
         val theme = interactor.getThemeNow()
         themeLiveDataModel.value = theme
     }
@@ -72,13 +69,13 @@ class SettingsViewModel : ViewModel() {
             SettingsInteractorImpl.INDEX_NIGHT_DIALOG -> interactor.onNight()
             else -> interactor.onLight()
         }
-        uiLiveDataEvent.value = SettingUiEvents.ChooseThemeApp
+        uiLiveDataEvent.value = SettingUiEvents.RecreateActivity
     }
 
     /**
      * Проиницилизировать язык в вью
      */
-    fun initLanguageToView() {
+    private fun initLanguageToView() {
         val lan = interactor.getAppLanguage()
         languageLiveData.value = lan
     }
@@ -86,7 +83,7 @@ class SettingsViewModel : ViewModel() {
     /**
      * Иницилизировать тип сортировки во вью
      */
-    fun initSortType() {
+    private fun initSortType() {
         val sortType = interactor.getSortType()
         sortTypeLiveData.value = sortType
     }
@@ -102,7 +99,7 @@ class SettingsViewModel : ViewModel() {
     fun chosenLanguage(itemIndex: Int) {
         if (interactor.getChooseLanguageIndex() != itemIndex) {
             interactor.chosenLanguage(itemIndex)
-            uiLiveDataEvent.value = SettingUiEvents.ChooseLanguageApp
+            uiLiveDataEvent.value = SettingUiEvents.RecreateActivity
         }
     }
 
@@ -131,7 +128,7 @@ class SettingsViewModel : ViewModel() {
     /**
      * Иницилизация нотификации для View компонента
      */
-    fun initNotificationToView() {
+    private fun initNotificationToView() {
         notificationLiveData.value = interactor.initNotification()
     }
 

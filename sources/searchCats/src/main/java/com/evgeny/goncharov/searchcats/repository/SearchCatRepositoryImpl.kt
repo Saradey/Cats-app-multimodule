@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.searchcats.gateway
+package com.evgeny.goncharov.searchcats.repository
 
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
 import com.evgeny.goncharov.coreapi.dto.database.CatBreed
@@ -14,10 +14,10 @@ import javax.inject.Inject
  * @property api апи для запросов в сеть
  * @property dao дао для запросов в базу данных
  */
-class SearchCatGatewayImpl @Inject constructor(
+class SearchCatRepositoryImpl @Inject constructor(
     private val api: ApiCatSearch,
     private val dao: CatsWallDao
-) : SearchCatGateway {
+) : SearchCatRepository {
 
     override suspend fun loadFromDatabase(text: String) = withContext(Dispatchers.IO) {
         if (text.isEmpty()) {

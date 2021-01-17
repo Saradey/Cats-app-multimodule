@@ -14,7 +14,7 @@ interface SortCatsManager {
     fun getSortedType(): SortType
 
     /**
-     * Если пользователь выбрали тип сортировки сохраняем в шайреж
+     * Если пользователь выбрали тип сортировки сохраняем в шараду
      * @param type тип выбранной сортировки в настройках
      */
     fun setSortedType(type: SortType)

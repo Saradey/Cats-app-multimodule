@@ -12,26 +12,13 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.providers.MainRouterProvider
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.imvCat
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.txvTitle
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_splash_screen.view.*
+import kotlinx.coroutines.*
 
 /**
  * Сплешскрин
  */
 class SplashScreenFragment : Fragment() {
-
-    companion object {
-
-        /** Задержка в миллисекундах */
-        private const val DELAY_SPLASH_SCREEN_MILLISECONDS = 2500L
-
-        fun getInstance() = SplashScreenFragment()
-    }
 
     /** Для осуществление задержки */
     private val mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
@@ -101,5 +88,13 @@ class SplashScreenFragment : Fragment() {
         super.onDestroyView()
         mainRouter.splashScreenIsInit(false)
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
+    }
+
+    companion object {
+
+        /** Задержка в миллисекундах */
+        private const val DELAY_SPLASH_SCREEN_MILLISECONDS = 2500L
+
+        fun getInstance() = SplashScreenFragment()
     }
 }

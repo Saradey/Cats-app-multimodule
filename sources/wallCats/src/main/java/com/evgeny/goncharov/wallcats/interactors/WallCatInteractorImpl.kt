@@ -2,23 +2,21 @@ package com.evgeny.goncharov.wallcats.interactors
 
 import com.evgeny.goncharov.coreapi.LIMIT_PAGE_SIZE_CAT_WALL
 import com.evgeny.goncharov.coreapi.utils.SortType
-import com.evgeny.goncharov.wallcats.gateways.WallCatGateway
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.repository.WallCatRepository
 import javax.inject.Inject
 
 /**
- * Реализауия бизнес логики экрана стены котов
+ * Реализация бизнес логики экрана стены котов
  * @property gateway источник даных экрана стены котов
  */
 class WallCatInteractorImpl @Inject constructor(
-    private val gateway: WallCatGateway
+    private val gateway: WallCatRepository
 ) : WallCatInteractor {
 
     override suspend fun loadWallCat() = try {
-        sortCats(
-            loadFromInternet()
-        )
+        sortCats(loadFromInternet())
     } catch (e: Exception) {
         e.printStackTrace()
         sortCats(loadFromDatabase())

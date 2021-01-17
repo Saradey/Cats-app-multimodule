@@ -21,30 +21,6 @@ class NotificationAppManagerImpl @Inject constructor(
     @AppContext private val appContext: Context
 ) : NotificationAppManager {
 
-    companion object {
-
-        /** Id для channel если пользователь долго не заходил*/
-        private const val USER_LAST_SEEN_CHANEL_ID = "USER_LAST_SEEN_CHANEL_ID"
-
-        /** Id нотификации если пользователь долго не заходил */
-        private const val NOTIFY_ID_SER_LAST_SEEN = 21332
-
-        /** Id канала сли пользователь долго не заходил */
-        private const val CHANEL_ID_SER_LAST_SEEN = "2341"
-
-        /** Имя шарады из которой мы загружаем имя класса MainActivity */
-        private const val PENDING_INTENT_MAIN_ACTIVITY_SHARED_NAME = "PENDING_INTENT_MAIN_ACTIVITY_SHARED_NAME"
-
-        /** Имя параметра в шараде имени класса MainActivity */
-        private const val PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME = "PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME"
-
-        /** Имя шарады нотификации */
-        private const val NOTIFICATION_IS_ON_SHARED_NAME = "NOTIFICATION_IS_ON_SHARED_NAME"
-
-        /** Имя значение нотификации включено/выключено */
-        private const val NOTIFICATION_IS_ON_VALUE_NAME = "NOTIFICATION_IS_ON_VALUE_NAME"
-    }
-
     override fun startNotificationUserLastSeenDaysAgo() {
         val clazz = getClassMainActivityFromSharedPref()
         val intent = Intent(appContext, clazz)
@@ -91,5 +67,29 @@ class NotificationAppManagerImpl @Inject constructor(
         val edit = shared.edit()
         edit.putBoolean(NOTIFICATION_IS_ON_VALUE_NAME, isOn)
         edit.apply()
+    }
+
+    companion object {
+
+        /** Id для channel если пользователь долго не заходил*/
+        private const val USER_LAST_SEEN_CHANEL_ID = "USER_LAST_SEEN_CHANEL_ID"
+
+        /** Id нотификации если пользователь долго не заходил */
+        private const val NOTIFY_ID_SER_LAST_SEEN = 21332
+
+        /** Id канала сли пользователь долго не заходил */
+        private const val CHANEL_ID_SER_LAST_SEEN = "2341"
+
+        /** Имя шарады из которой мы загружаем имя класса MainActivity */
+        private const val PENDING_INTENT_MAIN_ACTIVITY_SHARED_NAME = "PENDING_INTENT_MAIN_ACTIVITY_SHARED_NAME"
+
+        /** Имя параметра в шараде имени класса MainActivity */
+        private const val PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME = "PENDING_INTENT_MAIN_ACTIVITY_VALUE_NAME"
+
+        /** Имя шарады нотификации */
+        private const val NOTIFICATION_IS_ON_SHARED_NAME = "NOTIFICATION_IS_ON_SHARED_NAME"
+
+        /** Имя значение нотификации включено/выключено */
+        private const val NOTIFICATION_IS_ON_VALUE_NAME = "NOTIFICATION_IS_ON_VALUE_NAME"
     }
 }

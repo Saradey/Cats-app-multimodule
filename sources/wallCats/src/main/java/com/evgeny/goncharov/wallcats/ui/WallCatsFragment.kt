@@ -4,23 +4,25 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
+import androidx.core.view.isGone
+import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
+import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
 import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
+import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
-import com.evgeny.goncharov.wallcats.ui.adapters.DiffUtilsCatBreeds
 import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
@@ -33,16 +35,21 @@ import java.util.concurrent.Executors
 class WallCatsFragment : BaseFragment(),
     CatBreedViewHolder.CatBreedViewHolderListener {
 
-    companion object {
-
-        fun getInstance() = WallCatsFragment()
-
-        /** Загружаемая страница котят */
-        private const val PAGE_WALL_CATS_SIZE = 15
+    private val component: WallCatsComponent by lazy {
+        WallCatsComponent.getByLazy(
+            (requireActivity() as WithFacade).getFacade(),
+            (requireActivity() as WithProviders).getProviderAndroidComponent()
+        )
     }
 
     /** Вьюмодель стены котов */
-    private lateinit var viewModel: WallCatsViewModel
+    private val viewModel: WallCatsViewModel by lazy {
+        ViewModelProvider(
+            this, ViewModelProviderFactory {
+                WallCatsViewModel(component.provideInteractor())
+            }
+        ).get(WallCatsViewModel::class.java)
+    }
 
     /** Для перехода на экран описание кота */
     private lateinit var wallCatsMediator: WallCatsMediator
@@ -68,33 +75,23 @@ class WallCatsFragment : BaseFragment(),
     /** Шедулер для запуска запланированных задач */
     private lateinit var workSchedulerManager: WorkScheduleManager
 
-    private fun initDaggerGraph() {
-        WallCatsComponent.getByLazy(
-            (requireActivity() as WithFacade).getFacade(),
-            (requireActivity() as WithProviders).getProviderAndroidComponent()
-        )
-            .apply {
-                wallCatsMediator = provideWallCatsMediator()
-                searchMediator = provideSearchCatsMediator()
-                settingsMediator = provideSettingMediator()
-                themeManager = provideThemeManager()
-                vmSort = provideSortViewModel()
-                workSchedulerManager = provideWorkScheduleManager()
-            }
-    }
-
     override fun getLayoutId() = R.layout.fragment_wall_cats
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initDaggerGraph()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(WallCatsViewModel::class.java)
-        savedInstanceState ?: viewModel.initInjection()
+        initDaggerGraph()
         init()
         workSchedulerManager.cancelWorksCheckOutUser()
+    }
+
+    private fun initDaggerGraph() {
+        component.apply {
+            wallCatsMediator = provideWallCatsMediator()
+            searchMediator = provideSearchCatsMediator()
+            settingsMediator = provideSettingMediator()
+            themeManager = provideThemeManager()
+            vmSort = provideSortViewModel()
+            workSchedulerManager = provideWorkScheduleManager()
+        }
     }
 
     private fun init() {
@@ -110,7 +107,7 @@ class WallCatsFragment : BaseFragment(),
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-        vmSort.updateChooseSotType.observe(this, ::updateWallCats)
+        vmSort.updateChooseSortType.observe(this, ::updateWallCats)
     }
 
     private fun updateWallCats(isUpdate: Boolean?) {
@@ -141,7 +138,7 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initPagedAdapterAndRecycle() {
-        adapter = CatBreedsPagedAdapter(DiffUtilsCatBreeds(), this, themeManager)
+        adapter = CatBreedsPagedAdapter(this, themeManager)
         dataSource = PageKeyedDataSourceCatBreeds(viewModel)
         val pagedConfig = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
@@ -179,11 +176,39 @@ class WallCatsFragment : BaseFragment(),
         }
     }
 
+    private fun changeUiState(event: BaseUiEvent<*>?) {
+        when (event) {
+            BaseUiEvent.EventShowProgress -> {
+                hideSomethingWrong()
+                showProgress()
+            }
+            BaseUiEvent.EventHideProgress -> {
+                hideProgress()
+            }
+            is BaseUiEvent.Success<*> -> {
+                cnlContentWallCats.isGone = false
+            }
+            BaseUiEvent.EventSomethingWrong -> {
+                cnlContentWallCats.isGone = true
+                hideProgress()
+                showSomethingWrong()
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        if (this::viewModel.isInitialized) viewModel.liveDataUiEvents.call()
-        vmSort.updateChooseSotType.call()
+        viewModel.liveDataUiEvents.call()
+        vmSort.updateChooseSortType.call()
         workSchedulerManager.startWorksCheckOutUser()
         WallCatsComponent.component = null
+    }
+
+    companion object {
+
+        fun getInstance() = WallCatsFragment()
+
+        /** Загружаемая страница котят */
+        private const val PAGE_WALL_CATS_SIZE = 15
     }
 }

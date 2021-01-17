@@ -15,21 +15,6 @@ class ThemeManagerImpl @Inject constructor(
     @AppContext private val context: Context
 ) : ThemeManager {
 
-    companion object {
-
-        /** Имя шарады */
-        const val SHARED_THEME_PREFERENCES_NAME = "SHARED_THEME_PREFERENCES_NAME"
-
-        /** Имя value темы сохраняемой в шараду */
-        const val MODE_NIGHT_NAME = "MODE_NIGHT_NAME"
-
-        /** Value дневной темы */
-        const val THEME_VALUE_DAY = "THEME_VALUE_DAY"
-
-        /** Value ночной темы */
-        const val THEME_VALUE_NIGHT = "THEME_VALUE_NIGHT"
-    }
-
     /**
      * Получить ресурс темы в зависимости от темы
      * @return
@@ -59,5 +44,20 @@ class ThemeManagerImpl @Inject constructor(
         val edit = shared.edit()
         edit.putString(MODE_NIGHT_NAME, themeValue)
         edit.apply()
+    }
+
+    companion object {
+
+        /** Имя шарады */
+        const val SHARED_THEME_PREFERENCES_NAME = "SHARED_THEME_PREFERENCES_NAME"
+
+        /** Имя value темы сохраняемой в шараду */
+        const val MODE_NIGHT_NAME = "MODE_NIGHT_NAME"
+
+        /** Value дневной темы */
+        const val THEME_VALUE_DAY = "THEME_VALUE_DAY"
+
+        /** Value ночной темы */
+        const val THEME_VALUE_NIGHT = "THEME_VALUE_NIGHT"
     }
 }

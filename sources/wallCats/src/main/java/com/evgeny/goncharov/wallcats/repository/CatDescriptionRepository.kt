@@ -1,11 +1,11 @@
-package com.evgeny.goncharov.wallcats.gateways
+package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.wallcats.model.view.CatDescription
 
 /**
  * Контракт источника данных экрана описание кота
  */
-interface CatDescriptionGateway {
+interface CatDescriptionRepository {
 
     /**
      * Загрузить кота через интернет
