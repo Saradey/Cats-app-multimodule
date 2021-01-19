@@ -30,7 +30,7 @@ class SplashScreenFragment : Fragment() {
     private lateinit var mainRouter: MainRouter
 
     /** Биндинг View на сплеш скрине */
-    private lateinit var bind: FragmentSplashScreenBinding
+    private lateinit var binder: FragmentSplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +50,10 @@ class SplashScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bind = FragmentSplashScreenBinding.inflate(inflater, container, false)
+        binder = FragmentSplashScreenBinding.inflate(inflater, container, false)
         mainRouter.splashScreenIsInit(true)
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        return bind.root
+        return binder.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class SplashScreenFragment : Fragment() {
 
     private fun initFountSplashScreenTitle() {
         val typeFace = Typeface.createFromAsset(activity?.assets, "19144.ttf")
-        bind.txvTitle.typeface = typeFace
+        binder.txvTitle.typeface = typeFace
     }
 
     private fun animationView() {
@@ -80,8 +80,8 @@ class SplashScreenFragment : Fragment() {
 
     private fun startAnimation() {
         val animationShow = AnimationUtils.loadAnimation(activity, R.anim.show_logo)
-        bind.imvCat.startAnimation(animationShow)
-        bind.txvTitle.startAnimation(animationShow)
+        binder.imvCat.startAnimation(animationShow)
+        binder.txvTitle.startAnimation(animationShow)
     }
 
     private fun goToTheNextFragment() {

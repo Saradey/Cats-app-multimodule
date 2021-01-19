@@ -32,7 +32,7 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 class SettingsFragment : BaseFragment() {
 
     /** Биндинг клас View для экрана настроек */
-    private lateinit var binding: FragmentSettingsBinding
+    private lateinit var binder: FragmentSettingsBinding
 
     /** Компонент фитчи настроек */
     private val component by lazy {
@@ -59,9 +59,9 @@ class SettingsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        addStubLayout(binding.root)
-        return binding.root
+        binder = FragmentSettingsBinding.inflate(inflater, container, false)
+        addStubLayout(binder.root)
+        return binder.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -116,7 +116,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.notification_settings_title,
             subTitle = subTitle,
             drawStart = drawId,
-            textView = binding.txvNotification
+            textView = binder.txvNotification
         )
     }
 
@@ -140,7 +140,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.sort_mine_title,
             subTitle = sortSubTitle,
             drawStart = idDrawable,
-            textView = binding.txvSortParameter
+            textView = binder.txvSortParameter
         )
     }
 
@@ -168,7 +168,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.theme_title_settings,
             subTitle = R.string.settings_night_title,
             drawStart = R.drawable.ic_theme_night,
-            textView = binding.txvThemeApp
+            textView = binder.txvThemeApp
         )
     }
 
@@ -177,7 +177,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.theme_title_settings,
             subTitle = R.string.settings_light_title,
             drawStart = R.drawable.ic_theme,
-            textView = binding.txvThemeApp
+            textView = binder.txvThemeApp
         )
     }
 
@@ -218,14 +218,14 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initClickThemeApp() {
-        binding.txvThemeApp.setOnClickListener {
+        binder.txvThemeApp.setOnClickListener {
             val dialog = DialogChooseThemeApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseThemeApp::class.java.name)
         }
     }
 
     private fun initToolbar() {
-        binding.toolbar.apply {
+        binder.toolbar.apply {
             when (themeManager.getThemeNow()) {
                 R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
                 R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
@@ -249,7 +249,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.language_app_title,
             subTitle = R.string.language_app_title_ru,
             drawStart = getIconTheme(),
-            textView = binding.txvLanguageApp
+            textView = binder.txvLanguageApp
         )
     }
 
@@ -263,7 +263,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.language_app_title,
             subTitle = R.string.language_app_title_en,
             drawStart = getIconTheme(),
-            textView = binding.txvLanguageApp
+            textView = binder.txvLanguageApp
         )
     }
 
@@ -278,21 +278,21 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initClickLanguageChoose() {
-        binding.txvLanguageApp.setOnClickListener {
+        binder.txvLanguageApp.setOnClickListener {
             val dialog = DialogChooseLanguageApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseLanguageApp::class.java.name)
         }
     }
 
     private fun initClickSortType() {
-        binding.txvSortParameter.setOnClickListener {
+        binder.txvSortParameter.setOnClickListener {
             val dialog = DialogChooseSortType.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseSortType::class.java.name)
         }
     }
 
     private fun initClickNotification() {
-        binding.txvNotification.setOnClickListener {
+        binder.txvNotification.setOnClickListener {
             val dialog = DialogChooseOnOrOfNotification.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseOnOrOfNotification::class.java.name)
         }

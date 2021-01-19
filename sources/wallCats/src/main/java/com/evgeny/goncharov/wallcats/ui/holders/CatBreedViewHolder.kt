@@ -22,16 +22,16 @@ class CatBreedViewHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     /** Биндинг View кошачего холдера */
-    private lateinit var binding: HolderCatBreedBinding
+    private lateinit var binder: HolderCatBreedBinding
 
     /**
      * Биндим данные со вью
      * @param item модель кота
      */
     fun bind(item: CatBreedView?) {
-        binding = HolderCatBreedBinding.bind(itemView)
+        binder = HolderCatBreedBinding.bind(itemView)
         item?.let {
-            binding.apply {
+            binder.apply {
                 txvBreedName.text = item.name
                 txvBreedDescription.text = item.description
                 Glide.with(itemView)

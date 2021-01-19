@@ -38,7 +38,7 @@ class WallCatsFragment : BaseFragment(),
     CatBreedViewHolder.CatBreedViewHolderListener {
 
     /** Биндинг View экрана стены котов */
-    lateinit var binding : FragmentWallCatsBinding
+    lateinit var binder : FragmentWallCatsBinding
 
     private val component: WallCatsComponent by lazy {
         WallCatsComponent.getByLazy(
@@ -87,9 +87,9 @@ class WallCatsFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWallCatsBinding.inflate(inflater, container, false)
-        addStubLayout(binding.root)
-        return binding.root
+        binder = FragmentWallCatsBinding.inflate(inflater, container, false)
+        addStubLayout(binder.root)
+        return binder.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -146,9 +146,9 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initSwipeRefreshLayout() {
-        binding.swrlContainer.setOnRefreshListener {
+        binder.swrlContainer.setOnRefreshListener {
             initPagedAdapterAndRecycle()
-            binding.swrlContainer.isRefreshing = false
+            binder.swrlContainer.isRefreshing = false
         }
     }
 
@@ -164,17 +164,17 @@ class WallCatsFragment : BaseFragment(),
             .setFetchExecutor(Executors.newCachedThreadPool())
             .build()
         adapter.submitList(pagedList)
-        binding.rcvCatBreeds.layoutManager = LinearLayoutManager(context)
-        binding.rcvCatBreeds.adapter = adapter
+        binder.rcvCatBreeds.layoutManager = LinearLayoutManager(context)
+        binder.rcvCatBreeds.adapter = adapter
     }
 
     private fun initToolbar() {
-        binding.toolbar.setTitle(R.string.wall_cat_toolbar_title)
+        binder.toolbar.setTitle(R.string.wall_cat_toolbar_title)
         when (themeManager.getThemeNow()) {
-            R.style.AppThemeDay -> binding.toolbar.inflateMenu(R.menu.menu_wall_cats_day)
-            R.style.AppThemeNight -> binding.toolbar.inflateMenu(R.menu.menu_wall_cats_night)
+            R.style.AppThemeDay -> binder.toolbar.inflateMenu(R.menu.menu_wall_cats_day)
+            R.style.AppThemeNight -> binder.toolbar.inflateMenu(R.menu.menu_wall_cats_night)
         }
-        binding.toolbar.setOnMenuItemClickListener { menu ->
+        binder.toolbar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
                 R.id.menuSearchCat -> {
                     searchMediator.goToTheSearchScreen(requireFragmentManager())
@@ -201,10 +201,10 @@ class WallCatsFragment : BaseFragment(),
                 hideProgress()
             }
             is BaseUiEvent.Success<*> -> {
-                binding.cnlContentWallCats.isGone = false
+                binder.cnlContentWallCats.isGone = false
             }
             BaseUiEvent.EventSomethingWrong -> {
-                binding.cnlContentWallCats.isGone = true
+                binder.cnlContentWallCats.isGone = true
                 hideProgress()
                 showSomethingWrong()
             }

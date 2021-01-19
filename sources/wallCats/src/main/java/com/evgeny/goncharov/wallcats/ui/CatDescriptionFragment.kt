@@ -27,7 +27,7 @@ import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
 class CatDescriptionFragment : BaseFragment() {
 
     /** Биндинг View экрана описания кота */
-    private lateinit var binding: FragmentCatDescriptionBinding
+    private lateinit var binder: FragmentCatDescriptionBinding
 
     /** Компонент фитчи стены котов */
     private val component: WallCatsComponent by lazy {
@@ -56,9 +56,9 @@ class CatDescriptionFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCatDescriptionBinding.inflate(inflater, container, false)
-        addStubLayout(binding.root)
-        return binding.root
+        binder = FragmentCatDescriptionBinding.inflate(inflater, container, false)
+        addStubLayout(binder.root)
+        return binder.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,7 +92,7 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     private fun initToolbar() {
-        binding.toolbar.apply {
+        binder.toolbar.apply {
             when (themeManager.getThemeNow()) {
                 R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
                 R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
@@ -106,7 +106,7 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun setCatDescription(model: CatDescription) {
         model.let {
-            binding.apply {
+            binder.apply {
                 txvNameCat.text = resources.getString(string.name_cat_title, model.name)
                 txvOrigin.text = resources.getString(string.origin_cat_title, model.origin)
                 txvWeight.text = resources.getString(string.weight_cat_title, model.weight)
@@ -133,11 +133,11 @@ class CatDescriptionFragment : BaseFragment() {
             BaseUiEvent.EventShowProgress -> showProgress()
             BaseUiEvent.EventHideProgress -> hideProgress()
             is BaseUiEvent.Success -> {
-                binding.grpAllContent.isGone = false
+                binder.grpAllContent.isGone = false
                 setCatDescription(event.data)
             }
             BaseUiEvent.EventSomethingWrong -> {
-                binding.grpAllContent.isGone = true
+                binder.grpAllContent.isGone = true
                 showSomethingWrong()
             }
         }
