@@ -1,11 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
-
+    buildToolsVersion "30.0.3"
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30
@@ -15,7 +13,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -34,6 +31,9 @@ android {
             applicationId defaultConfig.applicationId
             versionName defaultConfig.versionName
         }
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 

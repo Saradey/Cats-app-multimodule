@@ -6,8 +6,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.util.AttributeSet
 import android.view.animation.LinearInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.layout_progress_cat.view.imvCat
-import kotlinx.android.synthetic.main.layout_progress_cat.view.imvPlanet
+import com.evgeny.goncharov.uikit.databinding.LayoutProgressCatBinding
 
 /**
  * Макет содержащий в себе заглушку в случае ошибки и прогресс пока идет запрос в сеть
@@ -36,12 +35,15 @@ class ProgressCat : ConstraintLayout {
     /** Для анимации вращения планеты */
     private val animatorRotatePlanet = ValueAnimator.ofFloat(0f, RADIUS_ROTATE)
 
+    /** Биндер макета прогресса */
+    private val binder : LayoutProgressCatBinding =
+        LayoutProgressCatBinding.bind(inflate(context, R.layout.layout_progress_cat, this))
+
     init {
-        inflate(context, R.layout.layout_progress_cat, this)
-        animationCatFrame = imvCat.background as AnimationDrawable
+        animationCatFrame = binder.imvCat.background as AnimationDrawable
         animatorRotatePlanet.addUpdateListener {
             val value = it.animatedValue as Float
-            imvPlanet.rotation = value
+            binder.imvPlanet.rotation = value
         }
         animatorRotatePlanet.interpolator = LinearInterpolator()
         animatorRotatePlanet.duration = DEFAULT_ANIMATION_DURATION
