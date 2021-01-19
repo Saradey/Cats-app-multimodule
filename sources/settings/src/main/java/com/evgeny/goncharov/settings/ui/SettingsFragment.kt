@@ -3,7 +3,9 @@ package com.evgeny.goncharov.settings.ui
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -18,16 +20,18 @@ import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.settings.R
+import com.evgeny.goncharov.settings.databinding.FragmentSettingsBinding
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.models.ThemeModel
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * Экран настроек
  */
 class SettingsFragment : BaseFragment() {
+
+    private lateinit var binding: FragmentSettingsBinding
 
     /** Компонент фитчи настроек */
     private val component by lazy {
@@ -48,6 +52,16 @@ class SettingsFragment : BaseFragment() {
     }
 
     override fun getLayoutId() = R.layout.fragment_settings
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        addStubLayout(binding.root)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initDaggerGraph()
@@ -101,7 +115,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.notification_settings_title,
             subTitle = subTitle,
             drawStart = drawId,
-            textView = txvNotification
+            textView = binding.txvNotification
         )
     }
 
@@ -125,7 +139,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.sort_mine_title,
             subTitle = sortSubTitle,
             drawStart = idDrawable,
-            textView = txvSortParameter
+            textView = binding.txvSortParameter
         )
     }
 
@@ -153,7 +167,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.theme_title_settings,
             subTitle = R.string.settings_night_title,
             drawStart = R.drawable.ic_theme_night,
-            textView = txvThemeApp
+            textView = binding.txvThemeApp
         )
     }
 
@@ -162,7 +176,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.theme_title_settings,
             subTitle = R.string.settings_light_title,
             drawStart = R.drawable.ic_theme,
-            textView = txvThemeApp
+            textView = binding.txvThemeApp
         )
     }
 
@@ -203,14 +217,14 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initClickThemeApp() {
-        txvThemeApp.setOnClickListener {
+        binding.txvThemeApp.setOnClickListener {
             val dialog = DialogChooseThemeApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseThemeApp::class.java.name)
         }
     }
 
     private fun initToolbar() {
-        toolbar.apply {
+        binding.toolbar.apply {
             when (themeManager.getThemeNow()) {
                 R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
                 R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
@@ -234,7 +248,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.language_app_title,
             subTitle = R.string.language_app_title_ru,
             drawStart = getIconTheme(),
-            textView = txvLanguageApp
+            textView = binding.txvLanguageApp
         )
     }
 
@@ -248,7 +262,7 @@ class SettingsFragment : BaseFragment() {
             title = R.string.language_app_title,
             subTitle = R.string.language_app_title_en,
             drawStart = getIconTheme(),
-            textView = txvLanguageApp
+            textView = binding.txvLanguageApp
         )
     }
 
@@ -263,21 +277,21 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initClickLanguageChoose() {
-        txvLanguageApp.setOnClickListener {
+        binding.txvLanguageApp.setOnClickListener {
             val dialog = DialogChooseLanguageApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseLanguageApp::class.java.name)
         }
     }
 
     private fun initClickSortType() {
-        txvSortParameter.setOnClickListener {
+        binding.txvSortParameter.setOnClickListener {
             val dialog = DialogChooseSortType.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseSortType::class.java.name)
         }
     }
 
     private fun initClickNotification() {
-        txvNotification.setOnClickListener {
+        binding.txvNotification.setOnClickListener {
             val dialog = DialogChooseOnOrOfNotification.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseOnOrOfNotification::class.java.name)
         }
