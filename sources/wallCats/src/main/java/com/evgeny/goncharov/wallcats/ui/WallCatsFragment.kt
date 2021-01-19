@@ -3,7 +3,9 @@ package com.evgeny.goncharov.wallcats.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
@@ -19,6 +21,7 @@ import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.R
+import com.evgeny.goncharov.wallcats.databinding.FragmentWallCatsBinding
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
@@ -26,7 +29,6 @@ import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
 import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
-import kotlinx.android.synthetic.main.fragment_wall_cats.*
 import java.util.concurrent.Executors
 
 /**
@@ -34,6 +36,9 @@ import java.util.concurrent.Executors
  */
 class WallCatsFragment : BaseFragment(),
     CatBreedViewHolder.CatBreedViewHolderListener {
+
+    /** Биндинг View экрана стены котов */
+    lateinit var binding : FragmentWallCatsBinding
 
     private val component: WallCatsComponent by lazy {
         WallCatsComponent.getByLazy(
@@ -76,6 +81,16 @@ class WallCatsFragment : BaseFragment(),
     private lateinit var workSchedulerManager: WorkScheduleManager
 
     override fun getLayoutId() = R.layout.fragment_wall_cats
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentWallCatsBinding.inflate(inflater, container, false)
+        addStubLayout(binding.root)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initDaggerGraph()
@@ -131,9 +146,9 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initSwipeRefreshLayout() {
-        swrlContainer.setOnRefreshListener {
+        binding.swrlContainer.setOnRefreshListener {
             initPagedAdapterAndRecycle()
-            swrlContainer.isRefreshing = false
+            binding.swrlContainer.isRefreshing = false
         }
     }
 
@@ -149,17 +164,17 @@ class WallCatsFragment : BaseFragment(),
             .setFetchExecutor(Executors.newCachedThreadPool())
             .build()
         adapter.submitList(pagedList)
-        rcvCatBreeds.layoutManager = LinearLayoutManager(context)
-        rcvCatBreeds.adapter = adapter
+        binding.rcvCatBreeds.layoutManager = LinearLayoutManager(context)
+        binding.rcvCatBreeds.adapter = adapter
     }
 
     private fun initToolbar() {
-        toolbar.setTitle(R.string.wall_cat_toolbar_title)
+        binding.toolbar.setTitle(R.string.wall_cat_toolbar_title)
         when (themeManager.getThemeNow()) {
-            R.style.AppThemeDay -> toolbar.inflateMenu(R.menu.menu_wall_cats_day)
-            R.style.AppThemeNight -> toolbar.inflateMenu(R.menu.menu_wall_cats_night)
+            R.style.AppThemeDay -> binding.toolbar.inflateMenu(R.menu.menu_wall_cats_day)
+            R.style.AppThemeNight -> binding.toolbar.inflateMenu(R.menu.menu_wall_cats_night)
         }
-        toolbar.setOnMenuItemClickListener { menu ->
+        binding.toolbar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
                 R.id.menuSearchCat -> {
                     searchMediator.goToTheSearchScreen(requireFragmentManager())
@@ -186,10 +201,10 @@ class WallCatsFragment : BaseFragment(),
                 hideProgress()
             }
             is BaseUiEvent.Success<*> -> {
-                cnlContentWallCats.isGone = false
+                binding.cnlContentWallCats.isGone = false
             }
             BaseUiEvent.EventSomethingWrong -> {
-                cnlContentWallCats.isGone = true
+                binding.cnlContentWallCats.isGone = true
                 hideProgress()
                 showSomethingWrong()
             }

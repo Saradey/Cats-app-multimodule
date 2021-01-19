@@ -31,6 +31,7 @@ import com.evgeny.goncharov.settings.view.model.SettingsViewModel
  */
 class SettingsFragment : BaseFragment() {
 
+    /** Биндинг клас View для экрана настроек */
     private lateinit var binding: FragmentSettingsBinding
 
     /** Компонент фитчи настроек */
