@@ -22,12 +22,9 @@ abstract class BaseFragment : Fragment() {
     /** Контроллер за состоянием экранов */
     private var stubController = UiStateController()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(getLayoutId(), container, false).apply {
-        stubController.rootLayout = this as ViewGroup
+    /** Добавляем часто используемую заглушку */
+    protected fun addStubLayout(root : View) {
+        stubController.rootLayout = root as ViewGroup
     }
 
     /**

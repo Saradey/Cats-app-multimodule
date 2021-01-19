@@ -2,8 +2,8 @@ package com.evgeny.goncharov.searchcats.ui.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.evgeny.goncharov.searchcats.databinding.HolderCathedCatBinding
 import com.evgeny.goncharov.searchcats.model.CatCatch
-import kotlinx.android.synthetic.main.holder_cathed_cat.view.*
 
 /**
  * Холдер искомых котов в RecycleView
@@ -13,15 +13,19 @@ import kotlinx.android.synthetic.main.holder_cathed_cat.view.*
 class CatsCatchHolder(private val listener: (id: String) -> Unit, view: View) :
     RecyclerView.ViewHolder(view) {
 
+    /** Для бинда View в холдере поиска котов */
+    private lateinit var binder: HolderCathedCatBinding
+
     /**
      * Бинд данных для данного холдера
      * @param catCatch модель для бинда
      */
     fun bind(catCatch: CatCatch) {
-        itemView.apply {
+        binder = HolderCathedCatBinding.bind(itemView)
+        binder.apply {
             txvTitleName.text = catCatch.catName
             txvIdTitle.text = catCatch.catId
-            setOnClickListener {
+            binder.root.setOnClickListener {
                 listener(catCatch.catId)
             }
         }

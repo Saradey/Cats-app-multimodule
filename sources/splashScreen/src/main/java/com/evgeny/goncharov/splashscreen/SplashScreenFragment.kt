@@ -12,7 +12,7 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.providers.MainRouterProvider
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.*
+import com.evgeny.goncharov.splashscreen.databinding.FragmentSplashScreenBinding
 import kotlinx.coroutines.*
 
 /**
@@ -28,6 +28,9 @@ class SplashScreenFragment : Fragment() {
 
     /** Для оповещения роутера что все еще открыт сплеш скрин */
     private lateinit var mainRouter: MainRouter
+
+    /** Биндинг View на сплеш скрине */
+    private lateinit var binder: FragmentSplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,36 +49,39 @@ class SplashScreenFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_splash_screen, container, false)
-        init(view)
+    ): View {
+        binder = FragmentSplashScreenBinding.inflate(inflater, container, false)
         mainRouter.splashScreenIsInit(true)
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        return view
+        return binder.root
     }
 
-    private fun init(content: View) {
-        initFountSplashScreenTitle(content)
-        animationView(content)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUi()
     }
 
-    private fun initFountSplashScreenTitle(content: View) {
+    private fun initUi() {
+        initFountSplashScreenTitle()
+        animationView()
+    }
+
+    private fun initFountSplashScreenTitle() {
         val typeFace = Typeface.createFromAsset(activity?.assets, "19144.ttf")
-        content.txvTitle.typeface = typeFace
+        binder.txvTitle.typeface = typeFace
     }
 
-    private fun animationView(content: View) {
+    private fun animationView() {
         mainScope.launch {
-            startAnimation(content)
+            startAnimation()
             delay(DELAY_SPLASH_SCREEN_MILLISECONDS)
             goToTheNextFragment()
         }
     }
 
-    private fun startAnimation(content: View) {
+    private fun startAnimation() {
         val animationShow = AnimationUtils.loadAnimation(activity, R.anim.show_logo)
-        content.imvCat.startAnimation(animationShow)
-        content.txvTitle.startAnimation(animationShow)
+        binder.imvCat.startAnimation(animationShow)
+        binder.txvTitle.startAnimation(animationShow)
     }
 
     private fun goToTheNextFragment() {

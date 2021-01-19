@@ -1,7 +1,9 @@
 package com.evgeny.goncharov.searchcats.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
@@ -14,11 +16,11 @@ import com.evgeny.goncharov.coreapi.extension.setTextColor
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.searchcats.R
+import com.evgeny.goncharov.searchcats.databinding.FragmentSearchCatBinding
 import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
 import com.evgeny.goncharov.searchcats.model.CatCatch
 import com.evgeny.goncharov.searchcats.ui.adapter.CatsCatchAdapter
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
-import kotlinx.android.synthetic.main.fragment_search_cat.*
 
 /**
  * Фрагмент поиска котов
@@ -50,7 +52,20 @@ class SearchCatFragment : BaseFragment() {
     /** Для управления список искомых котов */
     private lateinit var adapter: CatsCatchAdapter
 
+    /** Для бинда View на экране поиска котов */
+    private lateinit var binder: FragmentSearchCatBinding
+
     override fun getLayoutId() = R.layout.fragment_search_cat
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binder = FragmentSearchCatBinding.inflate(inflater, container, false)
+        addStubLayout(binder.root)
+        return binder.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initDaggerGraph()
@@ -80,13 +95,15 @@ class SearchCatFragment : BaseFragment() {
 
     private fun initAdapterAndRecycle() {
         adapter = CatsCatchAdapter(::chooseCat)
-        rcvCathedCats.layoutManager = LinearLayoutManager(context)
-        rcvCathedCats.adapter = adapter
-        rcvCathedCats.itemAnimator = null
+        binder.apply {
+            rcvCathedCats.layoutManager = LinearLayoutManager(context)
+            rcvCathedCats.adapter = adapter
+            rcvCathedCats.itemAnimator = null
+        }
     }
 
     private fun initToolbar() {
-        toolbar.apply {
+        binder.toolbar.apply {
             when (themeManager.getThemeNow()) {
                 R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
                 R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
@@ -99,8 +116,8 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun initSearchView() {
-        srcSearchCat.onActionViewExpanded()
-        srcSearchCat.setOnQueryTextListener(
+        binder.srcSearchCat.onActionViewExpanded()
+        binder.srcSearchCat.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?) = true
                 override fun onQueryTextChange(newText: String?): Boolean {
@@ -109,7 +126,7 @@ class SearchCatFragment : BaseFragment() {
                 }
             }
         )
-        initEditTextSearchView(srcSearchCat)
+        initEditTextSearchView(binder.srcSearchCat)
     }
 
     private fun initEditTextSearchView(searchView: SearchView) {
@@ -124,11 +141,11 @@ class SearchCatFragment : BaseFragment() {
     private fun setCatsCatched(models: List<CatCatch>?) = adapter.submitList(models ?: emptyList())
 
     override fun showSomethingWrong() {
-        txvCatsStubNotFound.isGone = false
+        binder.txvCatsStubNotFound.isGone = false
     }
 
     override fun hideSomethingWrong() {
-        txvCatsStubNotFound.isGone = true
+        binder.txvCatsStubNotFound.isGone = true
     }
 
     private fun changeUiState(event: BaseUiEvent<List<CatCatch>>?) {
@@ -141,11 +158,11 @@ class SearchCatFragment : BaseFragment() {
                 hideProgress()
             }
             is BaseUiEvent.Success -> {
-                crvContainerCats.isGone = false
+                binder.crvContainerCats.isGone = false
                 setCatsCatched(event.data)
             }
             BaseUiEvent.EventSomethingWrong -> {
-                crvContainerCats.isGone = true
+                binder.crvContainerCats.isGone = true
                 showSomethingWrong()
             }
         }
