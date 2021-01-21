@@ -35,6 +35,24 @@ import java.util.concurrent.Executors
 class WallCatsFragment : BaseFragment(),
     CatBreedViewHolder.CatBreedViewHolderListener {
 
+    /** Для пангинации списка котов */
+    private lateinit var dataSource: PageKeyedDataSourceCatBreeds
+
+    /** Для осуществление пангинации */
+    private var mainThreadExecutor = MainThreadExecutor()
+
+    /** Для управления холдерами списка стены котов */
+    private lateinit var adapter: CatBreedsPagedAdapter
+
+    /** Получаем события о том что нужно обновить стену котов */
+    private lateinit var vmSort: SortTypeViewModel
+
+    /** Шедулер для запуска запланированных задач */
+    private lateinit var workSchedulerManager: WorkScheduleManager
+
+    /** Менеджер отвечающий за навигацию на экране стены котов */
+    private lateinit var navigationManager: NavigationWallCatsManager
+
     /** Биндинг View экрана стены котов */
     private lateinit var binder: FragmentWallCatsBinding
 
@@ -53,24 +71,6 @@ class WallCatsFragment : BaseFragment(),
             }
         ).get(WallCatsViewModel::class.java)
     }
-
-    /** Для пангинации списка котов */
-    private lateinit var dataSource: PageKeyedDataSourceCatBreeds
-
-    /** Для осуществление пангинации */
-    private var mainThreadExecutor = MainThreadExecutor()
-
-    /** Для управления холдерами списка стены котов */
-    private lateinit var adapter: CatBreedsPagedAdapter
-
-    /** Получаем события о том что нужно обновить стену котов */
-    private lateinit var vmSort: SortTypeViewModel
-
-    /** Шедулер для запуска запланированных задач */
-    private lateinit var workSchedulerManager: WorkScheduleManager
-
-    /** Менеджер отвечающий за навигацию на экране стены котов */
-    private lateinit var navigationManager: NavigationWallCatsManager
 
     override fun getLayoutId() = R.layout.fragment_wall_cats
 
