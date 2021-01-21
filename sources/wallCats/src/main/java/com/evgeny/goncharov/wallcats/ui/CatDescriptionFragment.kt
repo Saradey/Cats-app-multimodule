@@ -94,8 +94,18 @@ class CatDescriptionFragment : BaseFragment() {
     private fun initToolbar() {
         binder.toolbar.apply {
             when (themeManager.getThemeNow()) {
-                R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
-                R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
+                R.style.AppThemeDay -> {
+                    setNavigationIcon(R.drawable.ic_arrow_back_black)
+                    inflateMenu(R.menu.menu_share_cat_day)
+                }
+                R.style.AppThemeNight -> {
+                    setNavigationIcon(R.drawable.ic_arrow_back_black_night)
+                    inflateMenu(R.menu.menu_share_cat_night)
+                }
+            }
+            setOnMenuItemClickListener { _ ->
+
+                true
             }
             setNavigationOnClickListener {
                 requireFragmentManager().popBackStack()
