@@ -26,6 +26,9 @@ import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
  */
 class CatDescriptionFragment : BaseFragment() {
 
+    /** id выбранного кота */
+    private var catId: String? = null
+
     /** Биндинг View экрана описания кота */
     private lateinit var binder: FragmentCatDescriptionBinding
 
@@ -45,9 +48,6 @@ class CatDescriptionFragment : BaseFragment() {
             )
         }).get(CatDescriptionViewModel::class.java)
     }
-
-    /** id выбранного кота */
-    private var catId: String? = null
 
     override fun getLayoutId() = R.layout.fragment_cat_description
 

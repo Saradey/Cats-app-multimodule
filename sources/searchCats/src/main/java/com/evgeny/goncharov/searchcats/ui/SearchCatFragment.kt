@@ -27,6 +27,15 @@ import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
  */
 class SearchCatFragment : BaseFragment() {
 
+    /** Для запуска стены котов */
+    private lateinit var wallCatsMediator: WallCatsMediator
+
+    /** Для управления список искомых котов */
+    private lateinit var adapter: CatsCatchAdapter
+
+    /** Для бинда View на экране поиска котов */
+    private lateinit var binder: FragmentSearchCatBinding
+
     /**
      * Компонент стены поиска котов
      */
@@ -45,15 +54,6 @@ class SearchCatFragment : BaseFragment() {
             }
         ).get(SearchCatViewModel::class.java)
     }
-
-    /** Для запуска стены котов */
-    private lateinit var wallCatsMediator: WallCatsMediator
-
-    /** Для управления список искомых котов */
-    private lateinit var adapter: CatsCatchAdapter
-
-    /** Для бинда View на экране поиска котов */
-    private lateinit var binder: FragmentSearchCatBinding
 
     override fun getLayoutId() = R.layout.fragment_search_cat
 

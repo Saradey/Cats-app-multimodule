@@ -14,15 +14,13 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.base.BaseUiEvent
-import com.evgeny.goncharov.coreapi.mediators.SearchCatsMediator
-import com.evgeny.goncharov.coreapi.mediators.SettingsMediator
-import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.utils.MainThreadExecutor
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.databinding.FragmentWallCatsBinding
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
+import com.evgeny.goncharov.wallcats.managers.NavigationWallCatsManager
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
@@ -37,8 +35,26 @@ import java.util.concurrent.Executors
 class WallCatsFragment : BaseFragment(),
     CatBreedViewHolder.CatBreedViewHolderListener {
 
+    /** Для пангинации списка котов */
+    private lateinit var dataSource: PageKeyedDataSourceCatBreeds
+
+    /** Для осуществление пангинации */
+    private var mainThreadExecutor = MainThreadExecutor()
+
+    /** Для управления холдерами списка стены котов */
+    private lateinit var adapter: CatBreedsPagedAdapter
+
+    /** Получаем события о том что нужно обновить стену котов */
+    private lateinit var vmSort: SortTypeViewModel
+
+    /** Шедулер для запуска запланированных задач */
+    private lateinit var workSchedulerManager: WorkScheduleManager
+
+    /** Менеджер отвечающий за навигацию на экране стены котов */
+    private lateinit var navigationManager: NavigationWallCatsManager
+
     /** Биндинг View экрана стены котов */
-    lateinit var binder : FragmentWallCatsBinding
+    private lateinit var binder: FragmentWallCatsBinding
 
     private val component: WallCatsComponent by lazy {
         WallCatsComponent.getByLazy(
@@ -55,30 +71,6 @@ class WallCatsFragment : BaseFragment(),
             }
         ).get(WallCatsViewModel::class.java)
     }
-
-    /** Для перехода на экран описание кота */
-    private lateinit var wallCatsMediator: WallCatsMediator
-
-    /** Для перехода на экран поиска котов */
-    private lateinit var searchMediator: SearchCatsMediator
-
-    /** Для перехода на экран настроек */
-    private lateinit var settingsMediator: SettingsMediator
-
-    /** Для пангинации списка котов */
-    private lateinit var dataSource: PageKeyedDataSourceCatBreeds
-
-    /** Для осуществление пангинации */
-    private var mainThreadExecutor = MainThreadExecutor()
-
-    /** Для управления холдерами списка стены котов */
-    private lateinit var adapter: CatBreedsPagedAdapter
-
-    /** Получаем события о том что нужно обновить стену котов */
-    private lateinit var vmSort: SortTypeViewModel
-
-    /** Шедулер для запуска запланированных задач */
-    private lateinit var workSchedulerManager: WorkScheduleManager
 
     override fun getLayoutId() = R.layout.fragment_wall_cats
 
@@ -100,9 +92,7 @@ class WallCatsFragment : BaseFragment(),
 
     private fun initDaggerGraph() {
         component.apply {
-            wallCatsMediator = provideWallCatsMediator()
-            searchMediator = provideSearchCatsMediator()
-            settingsMediator = provideSettingMediator()
+            navigationManager = provideNavigationWallCatsManager()
             themeManager = provideThemeManager()
             vmSort = provideSortViewModel()
             workSchedulerManager = provideWorkScheduleManager()
@@ -141,7 +131,7 @@ class WallCatsFragment : BaseFragment(),
 
     override fun clickCatBreed(id: String?) {
         id?.let {
-            wallCatsMediator.goToTheScreenCatDescription(id, requireFragmentManager())
+            navigationManager.goToTheScreenCatDescription(id, requireFragmentManager())
         }
     }
 
@@ -177,11 +167,11 @@ class WallCatsFragment : BaseFragment(),
         binder.toolbar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
                 R.id.menuSearchCat -> {
-                    searchMediator.goToTheSearchScreen(requireFragmentManager())
+                    navigationManager.goToTheSearchScreen(requireFragmentManager())
                     true
                 }
                 R.id.menuSettings -> {
-                    settingsMediator.goToTheSettingsScreen(requireFragmentManager())
+                    navigationManager.goToTheSettingsScreen(requireFragmentManager())
                     true
                 }
                 else -> {
