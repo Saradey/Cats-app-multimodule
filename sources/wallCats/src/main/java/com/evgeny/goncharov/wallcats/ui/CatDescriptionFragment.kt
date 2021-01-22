@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
@@ -103,16 +104,33 @@ class CatDescriptionFragment : BaseFragment() {
                     inflateMenu(R.menu.menu_share_cat_night)
                 }
             }
-            setOnMenuItemClickListener { _ ->
-
-                true
-            }
+            setOnMenuItemClickListener(::onClickShareButton)
             setNavigationOnClickListener {
                 requireFragmentManager().popBackStack()
             }
             setTitle(string.description_cat_title_toolbar)
         }
     }
+
+    private fun onClickShareButton(menu: MenuItem): Boolean {
+        startActivity(createChooseIntent())
+        return true
+    }
+
+    private fun createChooseIntent() = Intent.createChooser(
+        Intent(Intent.ACTION_SEND)
+            .setType(TYPE_INTENT)
+            .putExtra(Intent.EXTRA_TEXT, buildExtraText()),
+        resources.getString(string.share_cat_title)
+    )
+
+    private fun buildExtraText(): String = StringBuilder()
+        .append(binder.txvNameCat.text)
+        .append("\n")
+        .append(binder.txvOrigin.text)
+        .append("\n")
+        .append(binder.txvDescription.text)
+        .toString()
 
     private fun setCatDescription(model: CatDescription) {
         model.let {
@@ -159,6 +177,8 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     companion object {
+
+        private const val TYPE_INTENT = "text/plain"
 
         fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
             setCatId(idCat ?: "")
