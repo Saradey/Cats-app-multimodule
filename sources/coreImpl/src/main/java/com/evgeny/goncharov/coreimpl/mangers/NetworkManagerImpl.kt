@@ -9,6 +9,10 @@ import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import javax.inject.Inject
 
+/**
+ * Реализация контракта менеджера предоставляющего информацию о сети
+ * @param context это application
+ */
 class NetworkManagerImpl @Inject constructor(
     @AppContext private val context: Context
 ) : NetworkManager {

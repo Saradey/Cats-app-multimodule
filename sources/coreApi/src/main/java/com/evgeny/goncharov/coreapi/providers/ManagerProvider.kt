@@ -27,5 +27,8 @@ interface ManagerProvider {
      */
     fun provideNotificationManager() : NotificationAppManager
 
+    /**
+     * Провайд менеджера предоставляющего информацию о сети
+     */
     fun provideNetworkManager() : NetworkManager
 }
