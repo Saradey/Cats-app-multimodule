@@ -12,6 +12,7 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * Вьюмодель экрана стены котов
  * @param interactor интерактор стены котов
+ * @param networkManager проверяет есть ли соединение с интернетом
  */
 class WallCatsViewModel(
     private val interactor: WallCatInteractor,

@@ -69,7 +69,7 @@ class WallCatsFragment : BaseFragment(),
             this, ViewModelProviderFactory {
                 WallCatsViewModel(
                     component.provideInteractor(),
-                    component.networkManager()
+                    component.provideNetworkManager()
                 )
             }
         ).get(WallCatsViewModel::class.java)

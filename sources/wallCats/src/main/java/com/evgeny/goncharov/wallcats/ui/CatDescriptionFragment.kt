@@ -45,7 +45,8 @@ class CatDescriptionFragment : BaseFragment() {
     private val viewModel: CatDescriptionViewModel by lazy {
         ViewModelProvider(this, ViewModelProviderFactory {
             CatDescriptionViewModel(
-                component.provideDescriptionInteractor()
+                component.provideDescriptionInteractor(),
+                component.provideNetworkManager()
             )
         }).get(CatDescriptionViewModel::class.java)
     }

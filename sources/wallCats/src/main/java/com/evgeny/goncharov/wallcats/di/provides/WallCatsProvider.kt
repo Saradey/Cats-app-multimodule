@@ -19,5 +19,5 @@ interface WallCatsProvider {
 
     fun provideNavigationWallCatsManager(): NavigationWallCatsManager
 
-    fun networkManager() : NetworkManager
+    fun provideNetworkManager() : NetworkManager
 }
