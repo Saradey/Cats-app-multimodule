@@ -1,9 +1,6 @@
 package com.evgeny.goncharov.coreapi.providers
 
-import com.evgeny.goncharov.coreapi.managers.LanguageManager
-import com.evgeny.goncharov.coreapi.managers.NotificationAppManager
-import com.evgeny.goncharov.coreapi.managers.SortCatsManager
-import com.evgeny.goncharov.coreapi.managers.ThemeManager
+import com.evgeny.goncharov.coreapi.managers.*
 
 /**
  * Контракт который провайдит менеджеры
@@ -29,4 +26,6 @@ interface ManagerProvider {
      * Провайд менеджера отвечающего за нотификации в приложении
      */
     fun provideNotificationManager() : NotificationAppManager
+
+    fun provideNetworkManager() : NetworkManager
 }

@@ -67,7 +67,10 @@ class WallCatsFragment : BaseFragment(),
     private val viewModel: WallCatsViewModel by lazy {
         ViewModelProvider(
             this, ViewModelProviderFactory {
-                WallCatsViewModel(component.provideInteractor())
+                WallCatsViewModel(
+                    component.provideInteractor(),
+                    component.networkManager()
+                )
             }
         ).get(WallCatsViewModel::class.java)
     }
@@ -188,6 +191,7 @@ class WallCatsFragment : BaseFragment(),
                 showProgress()
             }
             BaseUiEvent.EventHideProgress -> {
+                hideSomethingWrong()
                 hideProgress()
             }
             is BaseUiEvent.Success<*> -> {
