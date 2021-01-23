@@ -50,7 +50,10 @@ class SearchCatFragment : BaseFragment() {
     private val viewModel: SearchCatViewModel by lazy {
         ViewModelProvider(
             this, ViewModelProviderFactory {
-                SearchCatViewModel(component.provideSearchCatInteractor())
+                SearchCatViewModel(
+                    component.provideSearchCatInteractor(),
+                    component.provideNetworkManager()
+                )
             }
         ).get(SearchCatViewModel::class.java)
     }
@@ -155,6 +158,7 @@ class SearchCatFragment : BaseFragment() {
                 showProgress()
             }
             BaseUiEvent.EventHideProgress -> {
+                hideSomethingWrong()
                 hideProgress()
             }
             is BaseUiEvent.Success -> {

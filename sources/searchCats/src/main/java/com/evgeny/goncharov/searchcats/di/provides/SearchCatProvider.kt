@@ -1,5 +1,6 @@
 package com.evgeny.goncharov.searchcats.di.provides
 
+import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractor
@@ -14,4 +15,6 @@ interface SearchCatProvider {
     fun provideSearchCatInteractor(): SearchCatInteractor
 
     fun provideThemeManager(): ThemeManager
+
+    fun provideNetworkManager() : NetworkManager
 }

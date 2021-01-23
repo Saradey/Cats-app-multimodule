@@ -2,6 +2,7 @@ package com.evgeny.goncharov.wallcats.view.model
 
 import androidx.lifecycle.ViewModel
 import com.evgeny.goncharov.coreapi.base.BaseUiEvent
+import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
 import com.evgeny.goncharov.wallcats.model.view.CatBreedView
@@ -11,9 +12,11 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * Вьюмодель экрана стены котов
  * @param interactor интерактор стены котов
+ * @param networkManager проверяет есть ли соединение с интернетом
  */
 class WallCatsViewModel(
-    private val interactor: WallCatInteractor
+    private val interactor: WallCatInteractor,
+    private val networkManager: NetworkManager
 ) : ViewModel() {
 
     /** Отдает ui эвенты */
@@ -23,10 +26,11 @@ class WallCatsViewModel(
      * Иницилизация стены котов
      */
     suspend fun initWallCat(): List<CatBreedView> {
-        liveDataUiEvents.value = BaseUiEvent.EventShowProgress
+        if (networkManager.isConnect())
+            liveDataUiEvents.value = BaseUiEvent.EventShowProgress
         val result = interactor.loadWallCat()
-        changeStateView(result)
         liveDataUiEvents.value = BaseUiEvent.EventHideProgress
+        changeStateView(result)
         return suspendCoroutine { continuation ->
             continuation.resume(result)
         }

@@ -3,6 +3,7 @@ package com.evgeny.goncharov.searchcats.view.model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.evgeny.goncharov.coreapi.base.BaseUiEvent
+import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractor
 import com.evgeny.goncharov.searchcats.model.CatCatch
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
  * @param interactor интерактор поиска
  */
 class SearchCatViewModel(
-    private val interactor: SearchCatInteractor
+    private val interactor: SearchCatInteractor,
+    private val networkManager: NetworkManager
 ) : ViewModel() {
 
     /** LiveData отдает Ui эвенты */
@@ -32,10 +34,11 @@ class SearchCatViewModel(
     fun setInputTextSearchView(text: String) {
         job?.cancel()
         job = viewModelScope.launch {
-            liveDataUiEvents.value = BaseUiEvent.EventShowProgress
+            if (networkManager.isConnect())
+                liveDataUiEvents.value = BaseUiEvent.EventShowProgress
             val models = interactor.setInputTextSearchView(text)
-            validateData(models)
             liveDataUiEvents.value = BaseUiEvent.EventHideProgress
+            validateData(models)
         }
     }
 
