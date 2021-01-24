@@ -52,8 +52,6 @@ class SettingsFragment : BaseFragment() {
         ).get(SettingsViewModel::class.java)
     }
 
-    override fun getLayoutId() = R.layout.fragment_settings
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -28,11 +28,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * Возвращает id layout наследуемого фрагмента
-     */
-    protected abstract fun getLayoutId(): Int
-
-    /**
      * Спрятать клавиатуру
      */
     protected fun hideKeyboard() {

@@ -51,8 +51,6 @@ class CatDescriptionFragment : BaseFragment() {
         }).get(CatDescriptionViewModel::class.java)
     }
 
-    override fun getLayoutId() = R.layout.fragment_cat_description
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

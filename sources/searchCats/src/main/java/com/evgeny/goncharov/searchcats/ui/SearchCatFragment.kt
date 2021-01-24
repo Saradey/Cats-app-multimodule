@@ -58,8 +58,6 @@ class SearchCatFragment : BaseFragment() {
         ).get(SearchCatViewModel::class.java)
     }
 
-    override fun getLayoutId() = R.layout.fragment_search_cat
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
