@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  * @property imperial
  * @property metric
  */
-data class Weight(
+data class WeightDto(
     @SerializedName("imperial") val imperial: String? = null,
     @SerializedName("metric") val metric: String? = null
 )

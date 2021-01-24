@@ -19,7 +19,7 @@ import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
 import com.evgeny.goncharov.wallcats.databinding.FragmentCatDescriptionBinding
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
-import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import com.evgeny.goncharov.wallcats.model.view.CatDescriptionEntity
 import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
 
 /**
@@ -131,7 +131,7 @@ class CatDescriptionFragment : BaseFragment() {
         .append(binder.txvDescription.text)
         .toString()
 
-    private fun setCatDescription(model: CatDescription) {
+    private fun setCatDescription(model: CatDescriptionEntity) {
         model.let {
             binder.apply {
                 txvNameCat.text = resources.getString(string.name_cat_title, model.name)
@@ -155,7 +155,7 @@ class CatDescriptionFragment : BaseFragment() {
         }
     }
 
-    private fun changeUiState(event: BaseUiEvent<CatDescription>?) {
+    private fun changeUiState(event: BaseUiEvent<CatDescriptionEntity>?) {
         when (event) {
             BaseUiEvent.EventShowProgress -> showProgress()
             BaseUiEvent.EventHideProgress -> hideProgress()

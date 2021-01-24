@@ -2,7 +2,7 @@ package com.evgeny.goncharov.coreapi.rest
 
 import com.evgeny.goncharov.coreapi.BREEDS_SEARCH_URL
 import com.evgeny.goncharov.coreapi.HEADERS_VALUE
-import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreed
+import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreedDto
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
@@ -21,5 +21,5 @@ interface ApiCatSearch {
      */
     @Headers(HEADERS_VALUE)
     @GET(BREEDS_SEARCH_URL)
-    fun getCatDescriptionAsync(@QueryMap request: Map<String, String>): Deferred<List<ChooseCatBreed>>
+    fun getCatDescriptionAsync(@QueryMap request: Map<String, String>): Deferred<List<ChooseCatBreedDto>>
 }

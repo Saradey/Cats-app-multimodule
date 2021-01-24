@@ -18,7 +18,7 @@ import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.searchcats.R
 import com.evgeny.goncharov.searchcats.databinding.FragmentSearchCatBinding
 import com.evgeny.goncharov.searchcats.di.components.SearchCatComponent
-import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.model.CatCatchEntity
 import com.evgeny.goncharov.searchcats.ui.adapter.CatsCatchAdapter
 import com.evgeny.goncharov.searchcats.view.model.SearchCatViewModel
 
@@ -139,7 +139,7 @@ class SearchCatFragment : BaseFragment() {
         }
     }
 
-    private fun setCatsCatched(models: List<CatCatch>?) = adapter.submitList(models ?: emptyList())
+    private fun setCatsCatched(models: List<CatCatchEntity>?) = adapter.submitList(models ?: emptyList())
 
     override fun showSomethingWrong() {
         binder.txvCatsStubNotFound.isGone = false
@@ -149,7 +149,7 @@ class SearchCatFragment : BaseFragment() {
         binder.txvCatsStubNotFound.isGone = true
     }
 
-    private fun changeUiState(event: BaseUiEvent<List<CatCatch>>?) {
+    private fun changeUiState(event: BaseUiEvent<List<CatCatchEntity>>?) {
         when (event) {
             BaseUiEvent.EventShowProgress -> {
                 hideSomethingWrong()

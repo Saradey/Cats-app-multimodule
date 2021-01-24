@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.wallcats.interactors
 
-import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import com.evgeny.goncharov.wallcats.model.view.CatDescriptionEntity
 import com.evgeny.goncharov.wallcats.repository.CatDescriptionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,9 +21,9 @@ class CatDescriptionInteractorImpl @Inject constructor(
         this.catId = catId
     }
 
-    override suspend fun loadChooseCat(): CatDescription? =
+    override suspend fun loadChooseCat(): CatDescriptionEntity? =
         withContext(Dispatchers.Main) {
-            var cat: CatDescription? = null
+            var cat: CatDescriptionEntity? = null
             cat = try {
                 repository.loadChooseCatFromInternet(catId)
             } catch (exception: Exception) {
@@ -33,7 +33,7 @@ class CatDescriptionInteractorImpl @Inject constructor(
             cat
         }
 
-    private suspend fun loadChooseCatFromDatabase(): CatDescription? {
+    private suspend fun loadChooseCatFromDatabase(): CatDescriptionEntity? {
         val model = repository.loadChooseCatFromDatabase(catId)
         return model ?: run {
             repository.loadChooseCatFromDatabaseSpare(catId)

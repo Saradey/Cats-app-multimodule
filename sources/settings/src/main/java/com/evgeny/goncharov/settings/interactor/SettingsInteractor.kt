@@ -3,7 +3,7 @@ package com.evgeny.goncharov.settings.interactor
 import androidx.annotation.StyleRes
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
-import com.evgeny.goncharov.settings.models.ThemeModel
+import com.evgeny.goncharov.settings.models.ThemeEntity
 
 /**
  * Контракт use case экрана настроек
@@ -13,7 +13,7 @@ interface SettingsInteractor {
     /**
      * Возвращает тему которая установлена сейчас
      */
-    fun getThemeNow(): ThemeModel
+    fun getThemeNow(): ThemeEntity
 
     /**
      * Включить светлую тему

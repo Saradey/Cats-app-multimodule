@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.wallcats.ui.adapters
 
 import androidx.paging.PageKeyedDataSource
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  */
 class PageKeyedDataSourceCatBreeds(
     private val viewModel: WallCatsViewModel
-) : PageKeyedDataSource<Int, CatBreedView>() {
+) : PageKeyedDataSource<Int, CatBreedEntity>() {
 
     /** Скоуп для запуска корутины которые делают запрос в сеть */
     private var mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
@@ -25,7 +25,7 @@ class PageKeyedDataSourceCatBreeds(
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, CatBreedView>
+        callback: LoadInitialCallback<Int, CatBreedEntity>
     ) {
         mainScope.launch {
             val result = viewModel.initWallCat()
@@ -34,7 +34,7 @@ class PageKeyedDataSourceCatBreeds(
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, CatBreedView>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, CatBreedEntity>) {
         mainScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
         }) {
@@ -44,5 +44,5 @@ class PageKeyedDataSourceCatBreeds(
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, CatBreedView>) {}
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, CatBreedEntity>) {}
 }

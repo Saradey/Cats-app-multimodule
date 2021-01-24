@@ -6,7 +6,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.wallcats.R
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 
 /**
@@ -17,7 +17,7 @@ import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
 class CatBreedsPagedAdapter(
     private val listener: CatBreedViewHolder.CatBreedViewHolderListener,
     private val themeManager: ThemeManager
-) : PagedListAdapter<CatBreedView, CatBreedViewHolder>(DiffUtilsCatBreeds()) {
+) : PagedListAdapter<CatBreedEntity, CatBreedViewHolder>(DiffUtilsCatBreeds()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatBreedViewHolder {
         val view =
@@ -32,12 +32,12 @@ class CatBreedsPagedAdapter(
     /**
      * Для рассчета списков
      */
-    class DiffUtilsCatBreeds : DiffUtil.ItemCallback<CatBreedView>() {
+    class DiffUtilsCatBreeds : DiffUtil.ItemCallback<CatBreedEntity>() {
 
-        override fun areItemsTheSame(oldItem: CatBreedView, newItem: CatBreedView) =
+        override fun areItemsTheSame(oldItem: CatBreedEntity, newItem: CatBreedEntity) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: CatBreedView, newItem: CatBreedView) =
+        override fun areContentsTheSame(oldItem: CatBreedEntity, newItem: CatBreedEntity) =
             oldItem == newItem
     }
 }

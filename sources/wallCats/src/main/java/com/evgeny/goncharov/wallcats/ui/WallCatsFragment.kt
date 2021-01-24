@@ -22,7 +22,7 @@ import com.evgeny.goncharov.wallcats.databinding.FragmentWallCatsBinding
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.managers.NavigationWallCatsManager
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
 import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
@@ -150,7 +150,7 @@ class WallCatsFragment : BaseFragment(),
             .setEnablePlaceholders(false)
             .setPageSize(PAGE_WALL_CATS_SIZE)
             .build()
-        val pagedList = PagedList.Builder<Int, CatBreedView>(dataSource, pagedConfig)
+        val pagedList = PagedList.Builder<Int, CatBreedEntity>(dataSource, pagedConfig)
             .setNotifyExecutor(mainThreadExecutor)
             .setFetchExecutor(Executors.newCachedThreadPool())
             .build()

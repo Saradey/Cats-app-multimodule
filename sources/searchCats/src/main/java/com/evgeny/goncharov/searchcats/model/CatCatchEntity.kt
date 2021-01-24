@@ -5,7 +5,7 @@ package com.evgeny.goncharov.searchcats.model
  * @property catName имя кота
  * @property catId id кота
  */
-data class CatCatch(
+data class CatCatchEntity(
     val catName: String,
     val catId: String
 )

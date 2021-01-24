@@ -23,7 +23,7 @@ import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.databinding.FragmentSettingsBinding
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
 import com.evgeny.goncharov.settings.events.SettingUiEvents
-import com.evgeny.goncharov.settings.models.ThemeModel
+import com.evgeny.goncharov.settings.models.ThemeEntity
 import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 
 /**
@@ -142,7 +142,7 @@ class SettingsFragment : BaseFragment() {
         )
     }
 
-    private fun initTheme(model: ThemeModel?) {
+    private fun initTheme(model: ThemeEntity?) {
         model?.let {
             setThemeModel(model)
         }
@@ -154,7 +154,7 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
-    private fun setThemeModel(value: ThemeModel) {
+    private fun setThemeModel(value: ThemeEntity) {
         when (value.themeValue) {
             R.style.AppThemeNight -> initNightTheme()
             R.style.AppThemeDay -> initLightTheme()

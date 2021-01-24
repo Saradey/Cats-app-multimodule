@@ -3,7 +3,7 @@ package com.evgeny.goncharov.wallcats.interactors
 import com.evgeny.goncharov.coreapi.LIMIT_PAGE_SIZE_CAT_WALL
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.repository.WallCatRepository
 import javax.inject.Inject
 
@@ -40,7 +40,7 @@ class WallCatInteractorImpl @Inject constructor(
         )
     )
 
-    private fun sortCats(models: List<CatBreedView>) = when (gateway.getSortType()) {
+    private fun sortCats(models: List<CatBreedEntity>) = when (gateway.getSortType()) {
         SortType.SortName -> models.sortedBy {
             it.name?.first()
         }

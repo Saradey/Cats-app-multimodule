@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.databinding.HolderCatBreedBinding
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 
 /**
  * Холдер кота на экране стены котов
@@ -29,7 +29,7 @@ class CatBreedViewHolder(
      * Биндим данные со вью
      * @param item модель кота
      */
-    fun bind(item: CatBreedView?) {
+    fun bind(item: CatBreedEntity?) {
         binder = HolderCatBreedBinding.bind(itemView)
         item?.let {
             animationHolder(item)
@@ -37,7 +37,7 @@ class CatBreedViewHolder(
         }
     }
 
-    private fun bindModel(item: CatBreedView) {
+    private fun bindModel(item: CatBreedEntity) {
         binder.apply {
             txvBreedName.text = item.name
             txvBreedDescription.text = item.description
@@ -62,7 +62,7 @@ class CatBreedViewHolder(
         }
     }
 
-    private fun animationHolder(item: CatBreedView) {
+    private fun animationHolder(item: CatBreedEntity) {
         if (!item.isAnimated) {
             binder.root.startAnimation(
                 AnimationUtils.loadAnimation(

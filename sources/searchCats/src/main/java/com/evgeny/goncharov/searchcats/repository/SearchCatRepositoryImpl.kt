@@ -1,10 +1,10 @@
 package com.evgeny.goncharov.searchcats.repository
 
-import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
-import com.evgeny.goncharov.coreapi.dto.database.CatBreed
-import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreed
+import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO
+import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
+import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreedDto
 import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
-import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.model.CatCatchEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 class SearchCatRepositoryImpl @Inject constructor(
     private val api: ApiCatSearch,
-    private val dao: CatsWallDao
+    private val dao: CatsWallDAO
 ) : SearchCatRepository {
 
     override suspend fun loadFromDatabase(text: String) = withContext(Dispatchers.IO) {
@@ -29,21 +29,21 @@ class SearchCatRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun mapModelsFromDatabase(list: List<CatBreed>) = list.map {
-        CatCatch(
+    private fun mapModelsFromDatabase(list: List<CatBreedDto>) = list.map {
+        CatCatchEntity(
             catName = it.name ?: "-",
             catId = it.id
         )
     }
 
-    override suspend fun loadFromInternet(request: Map<String, String>): List<CatCatch> {
+    override suspend fun loadFromInternet(request: Map<String, String>): List<CatCatchEntity> {
         val response = api.getCatDescriptionAsync(request)
             .await()
         return mapModels(response)
     }
 
-    private fun mapModels(list: List<ChooseCatBreed>) = list.map {
-        CatCatch(
+    private fun mapModels(list: List<ChooseCatBreedDto>) = list.map {
+        CatCatchEntity(
             catName = it.name ?: "-",
             catId = it.id
         )

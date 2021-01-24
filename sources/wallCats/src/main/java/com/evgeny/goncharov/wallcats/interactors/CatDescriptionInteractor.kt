@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.wallcats.interactors
 
-import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import com.evgeny.goncharov.wallcats.model.view.CatDescriptionEntity
 
 /**
  * Контракт бизнес логики экрана описание кота
@@ -16,5 +16,5 @@ interface CatDescriptionInteractor {
     /**
      * Загружаем выбранного кота
      */
-    suspend fun loadChooseCat(): CatDescription?
+    suspend fun loadChooseCat(): CatDescriptionEntity?
 }

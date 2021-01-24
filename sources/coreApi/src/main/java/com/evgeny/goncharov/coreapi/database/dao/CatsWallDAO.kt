@@ -4,40 +4,40 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.evgeny.goncharov.coreapi.dto.database.CatBreed
+import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
 
 /**
  * DAO для модели:
- * @see CatBreed
+ * @see CatBreedDto
  */
 @Dao
-interface CatsWallDao {
+interface CatsWallDAO {
 
     /**
      * Записываем в базу данных, если конфликт то перезаписываес
      * @param models список котов
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertWallCat(models: List<CatBreed>)
+    fun insertWallCat(models: List<CatBreedDto>)
 
     /**
      * Получить всех котов
      */
     @Query("SELECT * FROM cat_breed")
-    fun getCatBreed(): List<CatBreed>
+    fun getCatBreed(): List<CatBreedDto>
 
     /**
      * Получить кота по его id
      * @param id породы
      */
     @Query("SELECT * FROM cat_breed WHERE id = :id")
-    fun getCatFromId(id: String): CatBreed?
+    fun getCatFromId(id: String): CatBreedDto?
 
     /**
      * Получить котов у которых совпадает:
-     * @see CatBreed.name
-     * @see CatBreed.id
+     * @see CatBreedDto.name
+     * @see CatBreedDto.id
      */
     @Query("SELECT * FROM cat_breed WHERE name OR id LIKE :value")
-    fun getCatLike(value: String): List<CatBreed>?
+    fun getCatLike(value: String): List<CatBreedDto>?
 }
