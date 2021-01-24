@@ -1,6 +1,7 @@
 package com.evgeny.goncharov.wallcats.ui.holders
 
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -31,28 +32,45 @@ class CatBreedViewHolder(
     fun bind(item: CatBreedView?) {
         binder = HolderCatBreedBinding.bind(itemView)
         item?.let {
-            binder.apply {
-                txvBreedName.text = item.name
-                txvBreedDescription.text = item.description
-                Glide.with(itemView)
-                    .load(item.urlImage)
-                    .apply(
-                        RequestOptions()
-                            .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
-                            .centerCrop()
-                    )
-                    .into(imvShowCat)
-                imbWiki.setOnClickListener {
-                    listener.clickCatUrlBreed(item.wikipediaUrl)
-                }
-                when (themeManager.getThemeNow()) {
-                    R.style.AppThemeDay -> imbWiki.setImageResource(R.drawable.ic_wikipedia)
-                    R.style.AppThemeNight -> imbWiki.setImageResource(R.drawable.ic_wikipedia_night)
-                }
-                cnlContainerCat.setOnClickListener {
-                    listener.clickCatBreed(item.id)
-                }
+            animationHolder(item)
+            bindModel(item)
+        }
+    }
+
+    private fun bindModel(item: CatBreedView) {
+        binder.apply {
+            txvBreedName.text = item.name
+            txvBreedDescription.text = item.description
+            Glide.with(itemView)
+                .load(item.urlImage)
+                .apply(
+                    RequestOptions()
+                        .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
+                        .centerCrop()
+                )
+                .into(imvShowCat)
+            imbWiki.setOnClickListener {
+                listener.clickCatUrlBreed(item.wikipediaUrl)
             }
+            when (themeManager.getThemeNow()) {
+                R.style.AppThemeDay -> imbWiki.setImageResource(R.drawable.ic_wikipedia)
+                R.style.AppThemeNight -> imbWiki.setImageResource(R.drawable.ic_wikipedia_night)
+            }
+            cnlContainerCat.setOnClickListener {
+                listener.clickCatBreed(item.id)
+            }
+        }
+    }
+
+    private fun animationHolder(item: CatBreedView) {
+        if (!item.isAnimated) {
+            binder.root.startAnimation(
+                AnimationUtils.loadAnimation(
+                    itemView.context,
+                    R.anim.fade_scale_translate_animation
+                )
+            )
+            item.isAnimated = true
         }
     }
 
