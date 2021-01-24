@@ -11,7 +11,7 @@ package com.evgeny.goncharov.wallcats.model.view
  * @param description описание кота
  * @param urlWiki урла на википедию
  */
-data class CatDescription(
+data class CatDescriptionDto(
     val name: String,
     val urlImage: String,
     val origin: String,

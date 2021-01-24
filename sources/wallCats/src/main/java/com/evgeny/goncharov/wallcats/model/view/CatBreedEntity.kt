@@ -11,7 +11,7 @@ package com.evgeny.goncharov.wallcats.model.view
  * @param weightKg вес в кг кота
  * @param isAnimated флаг для воспроизведения анимации холдера
  */
-data class CatBreedView(
+data class CatBreedViewEntity(
     val name: String? = null,
     val description: String? = null,
     val id: String? = null,
