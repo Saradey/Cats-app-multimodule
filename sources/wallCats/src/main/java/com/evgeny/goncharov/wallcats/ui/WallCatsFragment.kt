@@ -75,8 +75,6 @@ class WallCatsFragment : BaseFragment(),
         ).get(WallCatsViewModel::class.java)
     }
 
-    override fun getLayoutId() = R.layout.fragment_wall_cats
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -195,10 +193,10 @@ class WallCatsFragment : BaseFragment(),
                 hideProgress()
             }
             is BaseUiEvent.Success<*> -> {
-                binder.cnlContentWallCats.isGone = false
+                binder.rcvCatBreeds.isGone = false
             }
             BaseUiEvent.EventSomethingWrong -> {
-                binder.cnlContentWallCats.isGone = true
+                binder.rcvCatBreeds.isGone = true
                 hideProgress()
                 showSomethingWrong()
             }
