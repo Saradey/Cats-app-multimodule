@@ -5,7 +5,7 @@ import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.interactors.CatDescriptionInteractor
-import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import com.evgeny.goncharov.wallcats.model.view.CatDescriptionEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ class CatDescriptionViewModel(
     private val coroutineMainScope = CoroutineScope(Dispatchers.Main)
 
     /** Отдает ui эвенты */
-    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent<CatDescription>?>()
+    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent<CatDescriptionEntity>?>()
 
     /**
      * Делегирование id кота слою бизнес логики

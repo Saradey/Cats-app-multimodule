@@ -1,13 +1,13 @@
 package com.evgeny.goncharov.wallcats.repository
 
-import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
-import com.evgeny.goncharov.coreapi.dto.database.CatBreed
+import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO
+import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
 import com.evgeny.goncharov.coreapi.managers.SortCatsManager
 import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.wallcats.model.request.GetImageRequest
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
-import com.evgeny.goncharov.wallcats.model.response.CatBreedImage
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.response.CatBreedImageDto
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.rest.ApiBreeds
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -20,7 +20,7 @@ import javax.inject.Inject
  */
 class WallCatRepositoryImpl @Inject constructor(
     private val api: ApiBreeds,
-    private val daoWallCat: CatsWallDao,
+    private val daoWallCat: CatsWallDAO,
     private val sortManager: SortCatsManager
 ) : WallCatRepository {
 
@@ -44,8 +44,8 @@ class WallCatRepositoryImpl @Inject constructor(
         mapResult
     }
 
-    private fun mapResponse(modelResponse: List<CatBreed>) = modelResponse.map { modelDb ->
-        CatBreedView(
+    private fun mapResponse(modelResponse: List<CatBreedDto>) = modelResponse.map { modelDb ->
+        CatBreedEntity(
             name = modelDb.name,
             description = modelDb.description,
             id = modelDb.id,
@@ -60,7 +60,7 @@ class WallCatRepositoryImpl @Inject constructor(
         Regex(PATTERN_MAP_STRING_TO_INT).find(value.orEmpty())?.value?.replace("- ", "")
             ?.toInt()
 
-    private suspend fun loadAllImage(result: List<CatBreed>) {
+    private suspend fun loadAllImage(result: List<CatBreedDto>) {
         val jobs = mutableListOf<Job>()
         result.forEach { response ->
             val job = coroutineScopeIo.launch {
@@ -74,7 +74,7 @@ class WallCatRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getUrlImage(request: GetImageRequest): String? {
-        var result = emptyList<CatBreedImage>()
+        var result = emptyList<CatBreedImageDto>()
         try {
             result = api.getImageUrlAsync(request.createRequest()).await()
         } catch (exp: Exception) {

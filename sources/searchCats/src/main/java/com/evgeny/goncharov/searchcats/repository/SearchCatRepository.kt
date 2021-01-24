@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.searchcats.repository
 
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
-import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.model.CatCatchEntity
 
 /**
  * Контракт, источника данных искомых котов
@@ -13,11 +13,11 @@ interface SearchCatRepository {
      * @param request параметры запроса
      * @see GetChooseCatRequest модель запроса
      */
-    suspend fun loadFromInternet(request: Map<String, String>): List<CatCatch>
+    suspend fun loadFromInternet(request: Map<String, String>): List<CatCatchEntity>
 
     /**
      * Загрузка искомых котов через базу данных
      * @param text имя искомого кота
      */
-    suspend fun loadFromDatabase(text: String): List<CatCatch>
+    suspend fun loadFromDatabase(text: String): List<CatCatchEntity>
 }

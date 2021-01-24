@@ -9,13 +9,15 @@ package com.evgeny.goncharov.wallcats.model.view
  * @param wikipediaUrl ссылка на википедию подробного описания кота
  * @param lifeSpan сколько живет кот
  * @param weightKg вес в кг кота
+ * @param isAnimated флаг для воспроизведения анимации холдера
  */
-data class CatBreedView(
+data class CatBreedEntity(
     val name: String? = null,
     val description: String? = null,
     val id: String? = null,
     var urlImage: String? = null,
     val wikipediaUrl: String? = null,
     val lifeSpan: Int? = null,
-    val weightKg: Int? = null
+    val weightKg: Int? = null,
+    var isAnimated: Boolean = false
 )

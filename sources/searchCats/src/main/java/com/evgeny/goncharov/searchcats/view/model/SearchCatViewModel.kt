@@ -6,7 +6,7 @@ import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.searchcats.interactor.SearchCatInteractor
-import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.model.CatCatchEntity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -20,7 +20,7 @@ class SearchCatViewModel(
 ) : ViewModel() {
 
     /** LiveData отдает Ui эвенты */
-    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent<List<CatCatch>>?>()
+    val liveDataUiEvents = SingleLiveEvent<BaseUiEvent<List<CatCatchEntity>>?>()
 
     /**
      * Для отмены поиска если мы ввели новое значение
@@ -42,7 +42,7 @@ class SearchCatViewModel(
         }
     }
 
-    private fun validateData(models: List<CatCatch>) {
+    private fun validateData(models: List<CatCatchEntity>) {
         if (models.isEmpty()) {
             liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong
         } else {

@@ -7,7 +7,7 @@ import com.evgeny.goncharov.coreapi.managers.SortCatsManager
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
-import com.evgeny.goncharov.settings.models.ThemeModel
+import com.evgeny.goncharov.settings.models.ThemeEntity
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_EN
 import com.evgeny.goncharov.settings.ui.DialogChooseLanguageApp.Companion.INDEX_CHOOSE_RU
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class SettingsRepositoryImpl @Inject constructor(
     private val notificationManager: NotificationAppManager
 ) : SettingsRepository {
 
-    override fun getThemeModeAppNow() = ThemeModel(themeManager.getThemeNow())
+    override fun getThemeModeAppNow() = ThemeEntity(themeManager.getThemeNow())
 
     override fun saveChooseTheme(themeValue: Int) = themeManager.setThemeNow(themeValue)
 

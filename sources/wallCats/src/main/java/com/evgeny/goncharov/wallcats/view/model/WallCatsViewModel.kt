@@ -5,7 +5,7 @@ import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.managers.NetworkManager
 import com.evgeny.goncharov.coreapi.utils.SingleLiveEvent
 import com.evgeny.goncharov.wallcats.interactors.WallCatInteractor
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -25,7 +25,7 @@ class WallCatsViewModel(
     /**
      * Иницилизация стены котов
      */
-    suspend fun initWallCat(): List<CatBreedView> {
+    suspend fun initWallCat(): List<CatBreedEntity> {
         if (networkManager.isConnect())
             liveDataUiEvents.value = BaseUiEvent.EventShowProgress
         val result = interactor.loadWallCat()
@@ -36,7 +36,7 @@ class WallCatsViewModel(
         }
     }
 
-    private fun changeStateView(listModels: List<CatBreedView>) {
+    private fun changeStateView(listModels: List<CatBreedEntity>) {
         if (listModels.isEmpty()) {
             liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong
         } else {
@@ -48,7 +48,7 @@ class WallCatsViewModel(
      * Пангинация стены котов
      * @param nextCount индекс следующей порции
      */
-    suspend fun loadNextCats(nextCount: Int): List<CatBreedView> {
+    suspend fun loadNextCats(nextCount: Int): List<CatBreedEntity> {
         val result = interactor.loadNextPage(nextCount)
         return suspendCoroutine { continuation ->
             continuation.resume(result)

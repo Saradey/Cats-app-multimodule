@@ -2,7 +2,7 @@ package com.evgeny.goncharov.settings.repository
 
 import com.evgeny.goncharov.coreapi.utils.Language
 import com.evgeny.goncharov.coreapi.utils.SortType
-import com.evgeny.goncharov.settings.models.ThemeModel
+import com.evgeny.goncharov.settings.models.ThemeEntity
 
 /**
  * Контракт источника данных на экране настроек
@@ -12,7 +12,7 @@ interface SettingsRepository {
     /**
      * Получить тему установленную на данный момент в приложении
      */
-    fun getThemeModeAppNow(): ThemeModel
+    fun getThemeModeAppNow(): ThemeEntity
 
     /**
      * Сменить тему

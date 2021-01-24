@@ -6,6 +6,6 @@ import androidx.annotation.StyleRes
  * Модель которая содержит ресурс темы
  * @property themeValue
  */
-data class ThemeModel(
+data class ThemeEntity(
     @StyleRes val themeValue: Int
 )

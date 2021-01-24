@@ -9,7 +9,7 @@ import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.settings.events.SettingUiEvents
 import com.evgeny.goncharov.settings.interactor.SettingsInteractor
 import com.evgeny.goncharov.settings.interactor.SettingsInteractorImpl
-import com.evgeny.goncharov.settings.models.ThemeModel
+import com.evgeny.goncharov.settings.models.ThemeEntity
 import com.evgeny.goncharov.settings.ui.DialogChooseOnOrOfNotification.Companion.INDEX_CHOOSE_OFF
 import com.evgeny.goncharov.settings.ui.DialogChooseOnOrOfNotification.Companion.INDEX_CHOOSE_ON
 import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SORT_LIFE_SPAN
@@ -25,7 +25,7 @@ class SettingsViewModel(
 ) : ViewModel() {
 
     /** Отдает какая тема установлена */
-    val themeLiveDataModel = MutableLiveData<ThemeModel?>()
+    val themeLiveDataModel = MutableLiveData<ThemeEntity?>()
 
     /** Отдает какой язык установлен */
     val languageLiveData = MutableLiveData<Language?>()

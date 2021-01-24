@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.evgeny.goncharov.coreapi.DATA_BASE_NAME
 import com.evgeny.goncharov.coreapi.database.DatabaseContract
 import com.evgeny.goncharov.coreapi.database.dao.CatDescriptionDAO
-import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
+import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO
 import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.scope.AppScope
 import dagger.Module
@@ -33,6 +33,6 @@ object DatabaseModule {
     @Provides
     @JvmStatic
     @Reusable
-    fun provideCatsWallDao(appDatabase: DatabaseContract): CatsWallDao =
+    fun provideCatsWallDao(appDatabase: DatabaseContract): CatsWallDAO =
         appDatabase.createCatsWallDao()
 }

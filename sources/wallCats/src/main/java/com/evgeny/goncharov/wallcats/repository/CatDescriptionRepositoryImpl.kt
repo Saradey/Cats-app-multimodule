@@ -1,13 +1,13 @@
 package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.coreapi.database.dao.CatDescriptionDAO
-import com.evgeny.goncharov.coreapi.database.dao.CatsWallDao
-import com.evgeny.goncharov.coreapi.dto.database.CatBreed
-import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreed
+import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO
+import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
+import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreedDto
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import com.evgeny.goncharov.coreapi.exception.ChooseCateNullPointerException
 import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
-import com.evgeny.goncharov.wallcats.model.view.CatDescription
+import com.evgeny.goncharov.wallcats.model.view.CatDescriptionEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class CatDescriptionRepositoryImpl @Inject constructor(
     private val api: ApiCatSearch,
     private val dao: CatDescriptionDAO,
-    private val daoWallCat: CatsWallDao
+    private val daoWallCat: CatsWallDAO
 ) : CatDescriptionRepository {
 
     override suspend fun loadChooseCatFromInternet(catId: String) = withContext(Dispatchers.IO) {
@@ -41,8 +41,8 @@ class CatDescriptionRepositoryImpl @Inject constructor(
         mapModel(model)
     }
 
-    private fun mapModel(model: ChooseCatBreed?) = if (model != null) {
-        CatDescription(
+    private fun mapModel(model: ChooseCatBreedDto?) = if (model != null) {
+        CatDescriptionEntity(
             name = model.name ?: "-",
             urlImage = getUrlImageFromDataBase(model.id) ?: "null",
             origin = model.origin ?: "-",
@@ -65,7 +65,7 @@ class CatDescriptionRepositoryImpl @Inject constructor(
             mapModel(model)
         }
 
-    private fun mapModel(model: CatBreed?) = CatDescription(
+    private fun mapModel(model: CatBreedDto?) = CatDescriptionEntity(
         name = model?.name ?: "-",
         urlImage = getUrlImageFromDataBase(model?.id) ?: "null",
         origin = model?.origin ?: "-",

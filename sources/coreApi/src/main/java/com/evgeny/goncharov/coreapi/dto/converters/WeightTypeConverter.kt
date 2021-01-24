@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.coreapi.dto.converters
 
 import androidx.room.TypeConverter
-import com.evgeny.goncharov.coreapi.dto.database.Weight
+import com.evgeny.goncharov.coreapi.dto.database.WeightDto
 
 /**
  * Конвертер для модели Weight
@@ -13,7 +13,7 @@ class WeightTypeConverter {
      * @param model модель
      */
     @TypeConverter
-    fun fromWeight(model: Weight): String {
+    fun fromWeight(model: WeightDto): String {
         return "${model.imperial};${model.metric}"
     }
 
@@ -22,9 +22,9 @@ class WeightTypeConverter {
      * @param model значение из базы данных
      */
     @TypeConverter
-    fun toWeight(model: String): Weight {
+    fun toWeight(model: String): WeightDto {
         val models = model.split(";")
-        return Weight(
+        return WeightDto(
             imperial = models[0],
             metric = models[1]
         )

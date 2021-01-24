@@ -3,7 +3,7 @@ package com.evgeny.goncharov.searchcats.ui.holder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.evgeny.goncharov.searchcats.databinding.HolderCathedCatBinding
-import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.model.CatCatchEntity
 
 /**
  * Холдер искомых котов в RecycleView
@@ -20,7 +20,7 @@ class CatsCatchHolder(private val listener: (id: String) -> Unit, view: View) :
      * Бинд данных для данного холдера
      * @param catCatch модель для бинда
      */
-    fun bind(catCatch: CatCatch) {
+    fun bind(catCatch: CatCatchEntity) {
         binder = HolderCathedCatBinding.bind(itemView)
         binder.apply {
             txvTitleName.text = catCatch.catName

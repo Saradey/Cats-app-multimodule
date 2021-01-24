@@ -19,7 +19,7 @@ import com.google.gson.annotations.SerializedName
  * @property urlImageCat ссылка на картинку как выглядит кошак
  */
 @Entity(tableName = CAT_BREED_TABLE_NAME)
-data class CatBreed(
+data class CatBreedDto(
     @SerializedName("description") val description: String? = null,
     @SerializedName("name") val name: String? = null,
     @SerializedName("life_span") val lifeSpan: String? = null,
@@ -27,6 +27,6 @@ data class CatBreed(
     @SerializedName("origin") val origin: String? = null,
     @SerializedName("temperament") val temperament: String? = null,
     @SerializedName("wikipedia_url") val wikipediaUrl: String? = null,
-    @SerializedName("weight") val weight: Weight? = null,
+    @SerializedName("weight") val weight: WeightDto? = null,
     @Expose(serialize = false) var urlImageCat: String? = null
 )

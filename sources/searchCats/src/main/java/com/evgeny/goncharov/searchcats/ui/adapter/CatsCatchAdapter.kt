@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.evgeny.goncharov.searchcats.R.layout
-import com.evgeny.goncharov.searchcats.model.CatCatch
+import com.evgeny.goncharov.searchcats.model.CatCatchEntity
 import com.evgeny.goncharov.searchcats.ui.holder.CatsCatchHolder
 
 /**
@@ -14,7 +14,7 @@ import com.evgeny.goncharov.searchcats.ui.holder.CatsCatchHolder
  */
 class CatsCatchAdapter constructor(
     private val listener: (id: String) -> Unit
-) : ListAdapter<CatCatch, CatsCatchHolder>(CatCatchItemCallback()) {
+) : ListAdapter<CatCatchEntity, CatsCatchHolder>(CatCatchItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsCatchHolder {
         return CatsCatchHolder(
@@ -30,13 +30,13 @@ class CatsCatchAdapter constructor(
     /**
      * Для оптимизации поиска
      */
-    class CatCatchItemCallback : DiffUtil.ItemCallback<CatCatch>() {
+    class CatCatchItemCallback : DiffUtil.ItemCallback<CatCatchEntity>() {
 
-        override fun areItemsTheSame(oldItem: CatCatch, newItem: CatCatch): Boolean {
+        override fun areItemsTheSame(oldItem: CatCatchEntity, newItem: CatCatchEntity): Boolean {
             return oldItem.catId == newItem.catId
         }
 
-        override fun areContentsTheSame(oldItem: CatCatch, newItem: CatCatch): Boolean {
+        override fun areContentsTheSame(oldItem: CatCatchEntity, newItem: CatCatchEntity): Boolean {
             return oldItem == newItem
         }
     }

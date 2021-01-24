@@ -1,13 +1,14 @@
 package com.evgeny.goncharov.wallcats.ui.holders
 
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.evgeny.goncharov.coreapi.managers.ThemeManager
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.databinding.HolderCatBreedBinding
-import com.evgeny.goncharov.wallcats.model.view.CatBreedView
+import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 
 /**
  * Холдер кота на экране стены котов
@@ -28,31 +29,48 @@ class CatBreedViewHolder(
      * Биндим данные со вью
      * @param item модель кота
      */
-    fun bind(item: CatBreedView?) {
+    fun bind(item: CatBreedEntity?) {
         binder = HolderCatBreedBinding.bind(itemView)
         item?.let {
-            binder.apply {
-                txvBreedName.text = item.name
-                txvBreedDescription.text = item.description
-                Glide.with(itemView)
-                    .load(item.urlImage)
-                    .apply(
-                        RequestOptions()
-                            .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
-                            .centerCrop()
-                    )
-                    .into(imvShowCat)
-                imbWiki.setOnClickListener {
-                    listener.clickCatUrlBreed(item.wikipediaUrl)
-                }
-                when (themeManager.getThemeNow()) {
-                    R.style.AppThemeDay -> imbWiki.setImageResource(R.drawable.ic_wikipedia)
-                    R.style.AppThemeNight -> imbWiki.setImageResource(R.drawable.ic_wikipedia_night)
-                }
-                cnlContainerCat.setOnClickListener {
-                    listener.clickCatBreed(item.id)
-                }
+            animationHolder(item)
+            bindModel(item)
+        }
+    }
+
+    private fun bindModel(item: CatBreedEntity) {
+        binder.apply {
+            txvBreedName.text = item.name
+            txvBreedDescription.text = item.description
+            Glide.with(itemView)
+                .load(item.urlImage)
+                .apply(
+                    RequestOptions()
+                        .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
+                        .centerCrop()
+                )
+                .into(imvShowCat)
+            imbWiki.setOnClickListener {
+                listener.clickCatUrlBreed(item.wikipediaUrl)
             }
+            when (themeManager.getThemeNow()) {
+                R.style.AppThemeDay -> imbWiki.setImageResource(R.drawable.ic_wikipedia)
+                R.style.AppThemeNight -> imbWiki.setImageResource(R.drawable.ic_wikipedia_night)
+            }
+            cnlContainerCat.setOnClickListener {
+                listener.clickCatBreed(item.id)
+            }
+        }
+    }
+
+    private fun animationHolder(item: CatBreedEntity) {
+        if (!item.isAnimated) {
+            binder.root.startAnimation(
+                AnimationUtils.loadAnimation(
+                    itemView.context,
+                    R.anim.fade_scale_translate_animation
+                )
+            )
+            item.isAnimated = true
         }
     }
 
