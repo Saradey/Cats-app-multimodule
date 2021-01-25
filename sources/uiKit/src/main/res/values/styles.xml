@@ -11,10 +11,6 @@
         <item name="android:background">?attr/color_card_background</item>
     </style>
 
-    <style name="Image.ImageBackground">
-        <item name="android:background">@color/color_grey</item>
-    </style>
-
     <style name="Image">
         <item name="android:contentDescription">@null</item>
     </style>

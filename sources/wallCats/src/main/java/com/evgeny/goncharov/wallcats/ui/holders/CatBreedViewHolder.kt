@@ -1,7 +1,9 @@
 package com.evgeny.goncharov.wallcats.ui.holders
 
+import android.graphics.drawable.Animatable
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -17,9 +19,9 @@ import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
  * @param view макет холдера кота на стене котов
  */
 class CatBreedViewHolder(
-    view: View,
     private val listener: CatBreedViewHolderListener,
-    private val themeManager: ThemeManager
+    private val themeManager: ThemeManager,
+    view: View
 ) : RecyclerView.ViewHolder(view) {
 
     /** Биндинг View кошачего холдера */
@@ -41,6 +43,8 @@ class CatBreedViewHolder(
         binder.apply {
             txvBreedName.text = item.name
             txvBreedDescription.text = item.description
+            val animatedDrawable = getAnimationDrawable()
+            (animatedDrawable as Animatable).start()
             Glide.with(itemView)
                 .load(item.urlImage)
                 .apply(
@@ -48,6 +52,7 @@ class CatBreedViewHolder(
                         .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
                         .centerCrop()
                 )
+                .placeholder(animatedDrawable)
                 .into(imvShowCat)
             imbWiki.setOnClickListener {
                 listener.clickCatUrlBreed(item.wikipediaUrl)
@@ -60,6 +65,20 @@ class CatBreedViewHolder(
                 listener.clickCatBreed(item.id)
             }
         }
+    }
+
+    private fun getAnimationDrawable() = if (themeManager.getThemeNow() == R.style.AppThemeDay) {
+        ResourcesCompat.getDrawable(
+            itemView.resources,
+            R.drawable.day_shimmer_drawable,
+            null
+        )
+    } else {
+        ResourcesCompat.getDrawable(
+            itemView.resources,
+            R.drawable.night_shimmer_drawable,
+            null
+        )
     }
 
     private fun animationHolder(item: CatBreedEntity) {

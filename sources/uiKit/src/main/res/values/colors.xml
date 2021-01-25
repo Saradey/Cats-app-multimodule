@@ -16,4 +16,6 @@
     <color name="color_light_black">#151515</color>
     <color name="color_light_light_navigation_bar">#DCDCDC</color>
     <color name="color_black_translucent">#000000</color>
+    <color name="lite_shimmer_layout_color">#f0f2f5</color>
+    <color name="dark_shimmer_layout_color">#101010</color>
 </resources>
