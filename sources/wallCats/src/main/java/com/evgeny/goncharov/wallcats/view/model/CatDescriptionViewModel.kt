@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 /**
  * Вьюмодель экрана описание кота
- * @param interactor бизнес логики экрана описание кота
- * @param networkManager проверяет есть ли соединение с интернетом
+ * @property interactor бизнес логики экрана описание кота
+ * @property networkManager проверяет есть ли соединение с интернетом
  */
 class CatDescriptionViewModel(
     private val interactor: CatDescriptionInteractor,

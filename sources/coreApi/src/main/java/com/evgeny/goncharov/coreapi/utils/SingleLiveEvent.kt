@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * ЛайвДата способная обнулять значения при вызове call, используется для ui эвентов
- * @param T тип value который хранится в лайвдата
+ * @property T тип value который хранится в лайвдата
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 

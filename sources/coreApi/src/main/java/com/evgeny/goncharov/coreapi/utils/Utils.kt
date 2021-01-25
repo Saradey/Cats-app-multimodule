@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
  * Обобщённая фабрика для создания вью моделей
  * Используется внутри [ViewModelProvider] ([ViewModelProviders] устаревший класс, начианя с версии 2.2.0)
  *
- * @param creator лямбда для создания экземпляра вью модели
+ * @property creator лямбда для создания экземпляра вью модели
  */
 class ViewModelProviderFactory<VM : ViewModel>(
     private val creator: () -> VM
@@ -21,8 +21,8 @@ class ViewModelProviderFactory<VM : ViewModel>(
  * Обобщённая фабрика для создания вью моделей
  * Используется внутри [ViewModelProvider] ([ViewModelProviders] устаревший класс, начианя с версии 2.2.0)
  *
- * @param creator лямбда для создания экземпляра вью модели
- * @param hook хук для выполения действий после создания экземпляра вью модели, например загрузки элементов
+ * @property creator лямбда для создания экземпляра вью модели
+ * @property hook хук для выполения действий после создания экземпляра вью модели, например загрузки элементов
  */
 class ViewModelProviderFactoryHook<VM : ViewModel>(
     private val creator: () -> VM,

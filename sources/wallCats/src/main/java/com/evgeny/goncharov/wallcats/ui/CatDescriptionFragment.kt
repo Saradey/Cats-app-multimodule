@@ -1,12 +1,14 @@
 package com.evgeny.goncharov.wallcats.ui
 
 import android.content.Intent
+import android.graphics.drawable.Animatable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -147,12 +149,29 @@ class CatDescriptionFragment : BaseFragment() {
                     val intent = Intent(Intent.ACTION_VIEW, uri)
                     startActivity(intent)
                 }
+                val animatedDrawable = getAnimationDrawable()
+                (animatedDrawable as Animatable).start()
                 Glide.with(this@CatDescriptionFragment)
                     .load(model.urlImage)
+                    .placeholder(animatedDrawable)
                     .centerCrop()
                     .into(imvCat)
             }
         }
+    }
+
+    private fun getAnimationDrawable() = if (themeManager.getThemeNow() == R.style.AppThemeDay) {
+        ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.day_shimmer_drawable,
+            null
+        )
+    } else {
+        ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.night_shimmer_drawable,
+            null
+        )
     }
 
     private fun changeUiState(event: BaseUiEvent<CatDescriptionEntity>?) {
