@@ -47,7 +47,6 @@ ext {
     materialVersion = '1.3.0-alpha03'
     work_version = '2.4.0'
     leakCanaryVersion = '2.5'
-    shimmerVersion = '2.1.0'
 
     cardview = "androidx.cardview:cardview:$componentUi"
     swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$componentSwiperefreshlayout"
@@ -79,5 +78,4 @@ ext {
     constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayout"
     workManager = "androidx.work:work-runtime-ktx:$work_version"
     leakCanary = "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    shimmer = "io.supercharge:shimmerlayout:$shimmerVersion"
 }

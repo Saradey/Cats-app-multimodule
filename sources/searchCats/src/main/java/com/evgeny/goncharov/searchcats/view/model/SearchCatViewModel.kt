@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 
 /**
  * Вьюмодель поиска котов
- * @param interactor интерактор поиска
+ * @property interactor интерактор поиска
+ * @property networkManager предоставляет информацию о подключении к интернету
  */
 class SearchCatViewModel(
     private val interactor: SearchCatInteractor,

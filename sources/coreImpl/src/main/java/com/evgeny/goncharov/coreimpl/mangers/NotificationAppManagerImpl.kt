@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 /**
  * Реализация менеджера отвечающего за создание уведомлений в приложении
- * @param appContext контекст Application
+ * @property appContext контекст Application
  */
 class NotificationAppManagerImpl @Inject constructor(
     @AppContext private val appContext: Context

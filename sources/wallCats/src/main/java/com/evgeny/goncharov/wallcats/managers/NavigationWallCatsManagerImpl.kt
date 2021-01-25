@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 /**
  * Реализация контракта менеджера отвечающего за навигацию на экране стены котов
- * @param wallCatsMediator медиатор для перехода на экран описания кота
- * @param searchMediator Для перехода на экран поиска котов
- * @param settingsMediator Для перехода на экран настроек
+ * @property wallCatsMediator медиатор для перехода на экран описания кота
+ * @property searchMediator Для перехода на экран поиска котов
+ * @property settingsMediator Для перехода на экран настроек
  */
 class NavigationWallCatsManagerImpl @Inject constructor(
     private val wallCatsMediator: WallCatsMediator,

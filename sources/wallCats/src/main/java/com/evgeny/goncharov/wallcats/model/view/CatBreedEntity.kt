@@ -2,14 +2,14 @@ package com.evgeny.goncharov.wallcats.model.view
 
 /**
  * Дата класс для отображения списка стены котов
- * @param name имя кота
- * @param description описание кота
- * @param id айдишник кота
- * @param urlImage урл картинки кота
- * @param wikipediaUrl ссылка на википедию подробного описания кота
- * @param lifeSpan сколько живет кот
- * @param weightKg вес в кг кота
- * @param isAnimated флаг для воспроизведения анимации холдера
+ * @property name имя кота
+ * @property description описание кота
+ * @property id айдишник кота
+ * @property urlImage урл картинки кота
+ * @property wikipediaUrl ссылка на википедию подробного описания кота
+ * @property lifeSpan сколько живет кот
+ * @property weightKg вес в кг кота
+ * @property isAnimated флаг для воспроизведения анимации холдера
  */
 data class CatBreedEntity(
     val name: String? = null,

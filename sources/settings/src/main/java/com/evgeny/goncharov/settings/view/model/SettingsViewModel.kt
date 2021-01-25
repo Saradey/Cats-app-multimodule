@@ -18,7 +18,7 @@ import com.evgeny.goncharov.settings.ui.DialogChooseSortType.Companion.INDEX_SOR
 
 /**
  * Вьюмодель экрана настроек
- * @param interactor Интерактор экрана настроек
+ * @property interactor Интерактор экрана настроек
  */
 class SettingsViewModel(
     private val interactor: SettingsInteractor

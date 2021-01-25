@@ -2,14 +2,14 @@ package com.evgeny.goncharov.wallcats.model.view
 
 /**
  * Описание кота
- * @param name имя кота
- * @param urlImage урл кота для Glide
- * @param origin место происхождение кота
- * @param lifeSpan сколько живет кот
- * @param weight вес кота в кг
- * @param temperament характер кота
- * @param description описание кота
- * @param urlWiki урла на википедию
+ * @property name имя кота
+ * @property urlImage урл кота для Glide
+ * @property origin место происхождение кота
+ * @property lifeSpan сколько живет кот
+ * @property weight вес кота в кг
+ * @property temperament характер кота
+ * @property description описание кота
+ * @property urlWiki урла на википедию
  */
 data class CatDescriptionEntity(
     val name: String,
