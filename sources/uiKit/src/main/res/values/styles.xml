@@ -75,6 +75,12 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="Image.TitleImageBackground">
+        <item name="android:outlineProvider">bounds</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:elevation">@dimen/size_dp_2</item>
+    </style>
+
     <style name="BackgroundClickAndFocusTrue">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>

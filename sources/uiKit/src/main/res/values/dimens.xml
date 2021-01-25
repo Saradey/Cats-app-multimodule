@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dp -->
+    <dimen name="size_dp_2">2dp</dimen>
+    <dimen name="size_dp_4">4dp</dimen>
+    <dimen name="size_dp_8">8dp</dimen>
+    <dimen name="size_dp_12">12dp</dimen>
+    <dimen name="size_dp_16">16dp</dimen>
+    <dimen name="size_dp_150">150dp</dimen>
+
+
+    <!-- sp -->
+
+
+</resources>
