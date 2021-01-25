@@ -86,6 +86,9 @@
         <item name="android:focusable">true</item>
     </style>
 
+    <style name="BackgroundClickAndFocusTrue.HolderCatTheme">
+        <item name="android:background">@drawable/background_card_cat</item>
+    </style>
 
     <style name="TextViewSplashScreenStyle">
         <item name="android:textSize">40sp</item>
