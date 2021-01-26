@@ -20,9 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:popupTheme="@style/MyPopupToolbarStyle" />
-
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swrlContainer"
@@ -43,6 +41,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/holder_cat_breed" />
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

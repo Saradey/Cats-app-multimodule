@@ -13,5 +13,4 @@
         android:icon="@drawable/ic_settings_night"
         android:title="@string/wall_menu_settings"
         app:showAsAction="ifRoom" />
-
 </menu>

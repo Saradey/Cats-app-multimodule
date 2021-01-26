@@ -17,7 +17,5 @@
         android:id="@+id/frmField"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="14dp"/>
-
-
+        android:elevation="@dimen/size_dp_14" />
 </androidx.constraintlayout.widget.ConstraintLayout>

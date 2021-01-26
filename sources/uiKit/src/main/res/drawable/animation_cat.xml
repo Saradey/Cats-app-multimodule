@@ -7,5 +7,4 @@
     <item
         android:drawable="@drawable/image_cat_second"
         android:duration="300" />
-
 </animation-list>

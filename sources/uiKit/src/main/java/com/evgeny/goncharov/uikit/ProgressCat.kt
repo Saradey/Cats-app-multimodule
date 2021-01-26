@@ -13,18 +13,6 @@ import com.evgeny.goncharov.uikit.databinding.LayoutProgressCatBinding
  */
 class ProgressCat : ConstraintLayout {
 
-    companion object {
-
-        /** Вращение картинки земли вокруг своей оси */
-        private const val RADIUS_ROTATE = 360f
-
-        /** Сколько миллисекунд длится анимация */
-        private const val DEFAULT_ANIMATION_DURATION = 2500L
-
-        /** Сколько раз необходимо повторить анимацию */
-        private const val REPEAT_ROTATE_PLANET = 9999
-    }
-
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -67,5 +55,17 @@ class ProgressCat : ConstraintLayout {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         stopAnimation()
+    }
+
+    companion object {
+
+        /** Вращение картинки земли вокруг своей оси */
+        private const val RADIUS_ROTATE = 360f
+
+        /** Сколько миллисекунд длится анимация */
+        private const val DEFAULT_ANIMATION_DURATION = 2500L
+
+        /** Сколько раз необходимо повторить анимацию */
+        private const val REPEAT_ROTATE_PLANET = 9999
     }
 }

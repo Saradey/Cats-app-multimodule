@@ -11,13 +11,12 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
+        android:elevation="@dimen/size_dp_4"
         android:theme="@style/MyToolbarStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/MyPopupToolbarStyle" />
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txvThemeApp"
@@ -27,7 +26,6 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:drawableStart="@drawable/ic_theme"
         tools:text="Тема приложения\nСветлые котики" />
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txvLanguageApp"
@@ -55,5 +53,4 @@
         app:layout_constraintTop_toBottomOf="@+id/txvSortParameter"
         tools:drawableStart="@drawable/ic_notification_night"
         tools:text="Уведомление\nВключено" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
