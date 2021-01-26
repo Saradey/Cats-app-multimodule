@@ -15,13 +15,16 @@ class SearchCatInteractorImpl @Inject constructor(
 ) : SearchCatInteractor {
 
     override suspend fun setInputTextSearchView(text: String) = withContext(Dispatchers.Main) {
-        try {
+        val result = try {
             repository.loadFromInternet(GetChooseCatRequest(text).createRequest()).filter {
                 it.catName.startsWith(text, true)
             }
         } catch (exp: Exception) {
             exp.printStackTrace()
             repository.loadFromDatabase(text)
+        }
+        result.sortedBy {
+            it.catName
         }
     }
 }
