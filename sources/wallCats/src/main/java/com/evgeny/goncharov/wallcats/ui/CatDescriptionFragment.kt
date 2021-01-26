@@ -17,6 +17,7 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
+import com.evgeny.goncharov.coreapi.utils.withArgs
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
 import com.evgeny.goncharov.wallcats.databinding.FragmentCatDescriptionBinding
@@ -28,9 +29,6 @@ import com.evgeny.goncharov.wallcats.view.model.CatDescriptionViewModel
  * Экран описания кота
  */
 class CatDescriptionFragment : BaseFragment() {
-
-    /** id выбранного кота */
-    private var catId: String? = null
 
     /** Биндинг View экрана описания кота */
     private lateinit var binder: FragmentCatDescriptionBinding
@@ -72,7 +70,7 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun loadOrInit(savedInstanceState: Bundle?) {
         savedInstanceState ?: run {
-            viewModel.setCatId(catId ?: "")
+            viewModel.setCatId(arguments?.getString(KEY_ID_CAT) ?: "")
         }
         viewModel.loadChooseCat()
     }
@@ -87,10 +85,6 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun initLiveData() {
         viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-    }
-
-    fun setCatId(catId: String) {
-        this.catId = catId
     }
 
     private fun initToolbar() {
@@ -197,9 +191,10 @@ class CatDescriptionFragment : BaseFragment() {
     companion object {
 
         private const val TYPE_INTENT = "text/plain"
+        private const val KEY_ID_CAT = "KEY_ID_CAT"
 
-        fun getInstance(idCat: String?) = CatDescriptionFragment().apply {
-            setCatId(idCat ?: "")
+        fun getInstance(idCat: String?) = CatDescriptionFragment().withArgs {
+            putString(KEY_ID_CAT, idCat)
         }
     }
 }

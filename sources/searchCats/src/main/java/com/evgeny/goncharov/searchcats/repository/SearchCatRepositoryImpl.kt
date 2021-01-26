@@ -23,9 +23,7 @@ class SearchCatRepositoryImpl @Inject constructor(
         if (text.isEmpty()) {
             emptyList()
         } else {
-            mapModelsFromDatabase(dao.getCatLike("%$text%")?.sortedBy {
-                it.name
-            } ?: emptyList())
+            mapModelsFromDatabase(dao.getCatLike("${text}%") ?: emptyList())
         }
     }
 

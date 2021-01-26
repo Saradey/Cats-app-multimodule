@@ -38,6 +38,6 @@ interface CatsWallDAO {
      * @see CatBreedDto.name
      * @see CatBreedDto.id
      */
-    @Query("SELECT * FROM cat_breed WHERE name OR id LIKE :value")
+    @Query("SELECT * FROM cat_breed WHERE name LIKE :value")
     fun getCatLike(value: String): List<CatBreedDto>?
 }

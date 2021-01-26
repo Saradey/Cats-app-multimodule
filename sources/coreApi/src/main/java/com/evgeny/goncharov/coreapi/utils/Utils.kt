@@ -1,5 +1,7 @@
 package com.evgeny.goncharov.coreapi.utils
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -35,4 +37,15 @@ class ViewModelProviderFactoryHook<VM : ViewModel>(
             hook?.invoke(this as VM)
         }
     }
+}
+
+/**
+ * Метод иницилизации фрагмента с передачей в него параметров через бандел
+ * @param argsInitializer лямбда, инициализирующая параметры фрагмента
+ */
+fun <T : Fragment> T.withArgs(argsInitializer: Bundle.() -> Unit): T {
+    val args = arguments ?: Bundle()
+    argsInitializer(args)
+    arguments = args
+    return this
 }
