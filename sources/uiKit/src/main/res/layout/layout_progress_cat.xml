@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/animation_cat" />
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imvPlanet"
         android:layout_width="wrap_content"
@@ -29,5 +28,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image_planet" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:elevation="14dp">
-
+    android:elevation="@dimen/size_dp_14">
 
     <com.evgeny.goncharov.uikit.ProgressCat
         android:id="@+id/prgLoad"
@@ -18,8 +17,8 @@
 
     <ImageView
         android:id="@+id/imvStubWallCat"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/size_dp_200"
+        android:layout_height="@dimen/size_dp_200"
         android:background="@drawable/ic_wrap"
         android:visibility="gone"
         android:contentDescription="@null"
@@ -28,7 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.40" />
-
 
     <TextView
         android:id="@+id/txvMessageStubWallCat"
@@ -40,7 +38,6 @@
         app:layout_constraintEnd_toEndOf="@+id/imvStubWallCat"
         app:layout_constraintStart_toStartOf="@+id/imvStubWallCat"
         app:layout_constraintTop_toBottomOf="@+id/imvStubWallCat" />
-
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/grpSomethingWrong"

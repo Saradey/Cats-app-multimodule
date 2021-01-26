@@ -56,4 +56,6 @@
         <item>Off</item>
     </string-array>
     <string name="share_cat_title">Share this cat</string>
+    <string name="content_description_cat_image">Picture of a cat</string>
+    <string name="content_description_wiki_button">Button go to the wiki browser of the selected cat</string>
 </resources>

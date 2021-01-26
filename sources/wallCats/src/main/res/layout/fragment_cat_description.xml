@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
+        android:elevation="@dimen/size_dp_4"
         android:theme="@style/MyToolbarStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,25 +31,23 @@
 
             <ImageView
                 android:id="@+id/imvCat"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:elevation="2dp"
-                android:outlineProvider="bounds"
-                android:scaleType="centerCrop"
+                style="@style/Image.TitleImageBackground"
+                android:layout_width="@dimen/size_dp_150"
+                android:layout_height="@dimen/size_dp_150"
+                android:layout_marginStart="@dimen/size_dp_16"
+                android:layout_marginTop="@dimen/size_dp_12"
+                android:contentDescription="@string/content_description_cat_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/txvNameCat"
                 style="@style/ColorMainText.LargeText.TextTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/size_dp_8"
+                android:layout_marginTop="@dimen/size_dp_4"
+                android:layout_marginEnd="@dimen/size_dp_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imvCat"
                 app:layout_constraintTop_toTopOf="@+id/imvCat"
@@ -60,41 +58,38 @@
                 style="@style/ColorMainText.SmallText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/size_dp_8"
                 app:layout_constraintStart_toEndOf="@+id/imvCat"
                 app:layout_constraintTop_toBottomOf="@+id/txvNameCat"
                 tools:text="Origin: Greece" />
-
 
             <TextView
                 android:id="@+id/txvLifeSpan"
                 style="@style/ColorMainText.SmallText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/size_dp_8"
                 app:layout_constraintStart_toEndOf="@+id/imvCat"
                 app:layout_constraintTop_toBottomOf="@+id/txvOrigin"
                 tools:text="Life span: 9 - 12 Age" />
-
 
             <TextView
                 android:id="@+id/txvWeight"
                 style="@style/ColorMainText.SmallText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/size_dp_8"
                 app:layout_constraintStart_toEndOf="@+id/imvCat"
                 app:layout_constraintTop_toBottomOf="@+id/txvLifeSpan"
                 tools:text="Weight: 3 - 5 kg" />
-
 
             <TextView
                 android:id="@+id/txvTemperament"
                 style="@style/ColorMainText.SmallText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/size_dp_8"
+                android:layout_marginEnd="@dimen/size_dp_16"
                 android:ellipsize="end"
                 android:lines="3"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,36 +97,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/txvWeight"
                 tools:text="Temperament: Affectionate, Social, Intelligent, Playful, Active" />
 
-
             <TextView
                 android:id="@+id/txvDescription"
                 style="@style/ColorTextDescription.LargeTextDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/size_dp_16"
+                android:layout_marginTop="@dimen/size_dp_8"
+                android:layout_marginEnd="@dimen/size_dp_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imvCat"
                 tools:text="Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children." />
-
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbtnWikiLink"
                 style="@style/Costume_Main1ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/size_dp_16"
+                android:layout_marginTop="@dimen/size_dp_12"
+                android:layout_marginEnd="@dimen/size_dp_16"
                 android:text="@string/wiki_cat_description_title"
                 app:icon="@drawable/ic_symbol"
                 app:iconGravity="end"
-                app:iconPadding="16dp"
+                app:iconPadding="@dimen/size_dp_16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvDescription" />
-
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/grpAllContent"

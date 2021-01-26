@@ -3,30 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="124dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="2dp"
-    android:elevation="6dp"
-    app:cardCornerRadius="5dp">
+    android:layout_height="@dimen/size_dp_124"
+    android:layout_marginStart="@dimen/size_dp_16"
+    android:layout_marginTop="@dimen/size_dp_2"
+    android:layout_marginEnd="@dimen/size_dp_16"
+    android:layout_marginBottom="@dimen/size_dp_2"
+    android:elevation="@dimen/size_dp_6"
+    app:cardCornerRadius="@dimen/size_dp_5">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cnlContainerCat"
+        style="@style/BackgroundClickAndFocusTrue.HolderCatTheme"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_card_cat"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imvShowCat"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:contentDescription="@null"
+            android:layout_width="@dimen/size_dp_100"
+            android:layout_height="@dimen/size_dp_100"
+            android:layout_marginStart="@dimen/size_dp_16"
+            android:layout_marginTop="@dimen/size_dp_12"
+            android:layout_marginBottom="@dimen/size_dp_12"
+            android:contentDescription="@string/content_description_cat_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +34,7 @@
             style="@style/ColorMainText.LargeText.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/size_dp_16"
             app:layout_constraintStart_toEndOf="@+id/imvShowCat"
             app:layout_constraintTop_toTopOf="@+id/imvShowCat"
             tools:text="Abyssinian" />
@@ -46,9 +44,9 @@
             style="@style/ColorMainText.SmallText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginStart="@dimen/size_dp_16"
+            android:layout_marginEnd="@dimen/size_dp_16"
+            android:layout_marginBottom="@dimen/size_dp_12"
             android:ellipsize="end"
             android:lines="4"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -62,12 +60,11 @@
             style="@style/Image.BackgroundBorderlessRipple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@null"
+            android:layout_marginEnd="@dimen/size_dp_16"
+            android:contentDescription="@string/content_description_wiki_button"
             app:layout_constraintBottom_toTopOf="@+id/txvBreedDescription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_wikipedia" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

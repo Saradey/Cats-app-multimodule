@@ -48,6 +48,7 @@
         <item>Включено</item>
         <item>Выключено</item>
     </string-array>
-
     <string name="share_cat_title">Расшарить кота</string>
+    <string name="content_description_cat_image">Картинка кошки</string>
+    <string name="content_description_wiki_button">Кнопка, перейти в браузер wiki выбранного кота</string>
 </resources>

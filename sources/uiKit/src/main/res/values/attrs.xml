@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!--    color-->
     <attr name="color_all_background" format="color|reference" />
     <attr name="color_main_text" format="color|reference" />

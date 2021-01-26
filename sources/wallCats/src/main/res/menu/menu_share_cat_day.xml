@@ -7,5 +7,4 @@
         android:icon="@drawable/ic_share"
         android:title="@string/share_cat_title"
         app:showAsAction="always" />
-
 </menu>
