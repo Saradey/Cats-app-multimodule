@@ -11,4 +11,10 @@
     <!--    background-->
     <attr name="imitation_card_view_background" format="reference" />
 
+    <!--    icon-->
+    <attr name="search_wall_cats_icon" format="reference" />
+    <attr name="settings_wall_cats_icon" format="reference" />
+    <attr name="wiki_button_icon" format="reference" />
+    <attr name="navigation_toolbar_icon" format="reference" />
+    <attr name="share_toolbar_icon" format="reference" />
 </resources>

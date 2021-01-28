@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppThemeDay" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/color_background_white</item>
@@ -14,10 +15,17 @@
         <item name="color_text_description">@color/text_toolbar_title_light</item>
         <item name="color_text_button">@color/white</item>
         <item name="color_background_button">@color/orange_title</item>
-
-        <item name="imitation_card_view_background">@drawable/imitation_cardview_back</item>
-
         <item name="android:navigationBarColor">@color/color_dark_grey</item>
         <item name="android:statusBarColor">@color/color_dark_grey</item>
+
+        <!-- background -->
+        <item name="imitation_card_view_background">@drawable/imitation_cardview_back</item>
+
+        <!-- icon -->
+        <item name="search_wall_cats_icon">@drawable/ic_search</item>
+        <item name="settings_wall_cats_icon">@drawable/ic_settings</item>
+        <item name="wiki_button_icon">@drawable/ic_wikipedia</item>
+        <item name="navigation_toolbar_icon">@drawable/ic_arrow_back_black</item>
+        <item name="share_toolbar_icon">@drawable/ic_share</item>
     </style>
 </resources>

@@ -19,7 +19,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|snap|enterAlways"
-            app:popupTheme="@style/MyPopupToolbarStyle" />
+            app:menu="@menu/menu_wall_cats"
+            app:popupTheme="@style/MyPopupToolbarStyle"
+            app:title="@string/wall_cat_toolbar_title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

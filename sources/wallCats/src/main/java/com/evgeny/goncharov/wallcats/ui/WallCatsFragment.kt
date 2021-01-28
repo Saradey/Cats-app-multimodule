@@ -160,11 +160,6 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initToolbar() {
-        binder.toolbar.setTitle(R.string.wall_cat_toolbar_title)
-        when (themeManager.getThemeNow()) {
-            R.style.AppThemeDay -> binder.toolbar.inflateMenu(R.menu.menu_wall_cats_day)
-            R.style.AppThemeNight -> binder.toolbar.inflateMenu(R.menu.menu_wall_cats_night)
-        }
         binder.toolbar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
                 R.id.menuSearchCat -> {

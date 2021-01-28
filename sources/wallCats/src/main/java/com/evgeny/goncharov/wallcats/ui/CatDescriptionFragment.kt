@@ -89,22 +89,13 @@ class CatDescriptionFragment : BaseFragment() {
 
     private fun initToolbar() {
         binder.toolbar.apply {
-            when (themeManager.getThemeNow()) {
-                R.style.AppThemeDay -> {
-                    setNavigationIcon(R.drawable.ic_arrow_back_black)
-                    inflateMenu(R.menu.menu_share_cat_day)
-                }
-                R.style.AppThemeNight -> {
-                    setNavigationIcon(R.drawable.ic_arrow_back_black_night)
-                    inflateMenu(R.menu.menu_share_cat_night)
-                }
-            }
             setOnMenuItemClickListener(::onClickShareButton)
-            setNavigationOnClickListener {
-                requireFragmentManager().popBackStack()
-            }
-            setTitle(string.description_cat_title_toolbar)
+            setNavigationOnClickListener(::clickNavigation)
         }
+    }
+
+    private fun clickNavigation(view: View) {
+        requireFragmentManager().popBackStack()
     }
 
     private fun onClickShareButton(menu: MenuItem): Boolean {

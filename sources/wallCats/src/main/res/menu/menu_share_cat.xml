@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/share_cat"
-        android:icon="@drawable/ic_share_night"
+        android:icon="?attr/share_toolbar_icon"
         android:title="@string/share_cat_title"
         app:showAsAction="always" />
 </menu>
