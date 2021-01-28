@@ -17,4 +17,7 @@
     <attr name="wiki_button_icon" format="reference" />
     <attr name="navigation_toolbar_icon" format="reference" />
     <attr name="share_toolbar_icon" format="reference" />
+    <attr name="notification_icon" format="reference" />
+    <attr name="theme_icon" format="reference" />
+    <attr name="language_icon" format="reference" />
 </resources>

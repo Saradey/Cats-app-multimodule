@@ -27,5 +27,8 @@
         <item name="wiki_button_icon">@drawable/ic_wikipedia</item>
         <item name="navigation_toolbar_icon">@drawable/ic_arrow_back_black</item>
         <item name="share_toolbar_icon">@drawable/ic_share</item>
+        <item name="notification_icon">@drawable/ic_notification_night</item>
+        <item name="theme_icon">@drawable/ic_theme</item>
+        <item name="language_icon">@drawable/ic_global</item>
     </style>
 </resources>

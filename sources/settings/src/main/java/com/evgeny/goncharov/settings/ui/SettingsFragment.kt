@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -74,7 +73,7 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initUi() {
-        initToolbar()
+        binder.toolbar.setNavigationOnClickListener(::clickToolbarNavigation)
         initClickThemeApp()
         initClickLanguageChoose()
         initClickNotification()
@@ -100,55 +99,44 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initNotificationView(@StringRes subTitle: Int) {
-        when (viewModel.themeLiveDataModel.value?.themeValue) {
-            R.style.AppThemeNight -> setNotificationView(subTitle, R.drawable.ic_notification_day)
-            R.style.AppThemeDay -> setNotificationView(subTitle, R.drawable.ic_notification_night)
-        }
-    }
-
-    private fun setNotificationView(@StringRes subTitle: Int, @DrawableRes drawId: Int) {
         initSpannableTextView(
             title = R.string.notification_settings_title,
             subTitle = subTitle,
-            drawStart = drawId,
             textView = binder.txvNotification
         )
     }
 
     private fun initTheme(model: ThemeEntity?) {
         model?.let {
-            setThemeModel(model)
+            when (model.themeValue) {
+                R.style.AppThemeNight -> initSubTitleTheme(R.string.settings_night_title)
+                R.style.AppThemeDay -> initSubTitleTheme(R.string.settings_light_title)
+            }
         }
     }
 
-    private fun initLanguage(lang: Language?) {
-        lang?.let {
-            setLanguageApp(lang)
-        }
-    }
-
-    private fun setThemeModel(value: ThemeEntity) {
-        when (value.themeValue) {
-            R.style.AppThemeNight -> initNightTheme()
-            R.style.AppThemeDay -> initLightTheme()
-        }
-    }
-
-    private fun initNightTheme() {
+    private fun initSubTitleTheme(@StringRes subtitle: Int) {
         initSpannableTextView(
             title = R.string.theme_title_settings,
-            subTitle = R.string.settings_night_title,
-            drawStart = R.drawable.ic_theme_night,
+            subTitle = subtitle,
             textView = binder.txvThemeApp
         )
     }
 
-    private fun initLightTheme() {
+    private fun initLanguage(lang: Language?) {
+        lang?.let {
+            when (lang) {
+                Language.RU -> initSubTitleLanguage(R.string.language_app_title_ru)
+                Language.EN -> initSubTitleLanguage(R.string.language_app_title_en)
+            }
+        }
+    }
+
+    private fun initSubTitleLanguage(@StringRes subTitle: Int) {
         initSpannableTextView(
-            title = R.string.theme_title_settings,
-            subTitle = R.string.settings_light_title,
-            drawStart = R.drawable.ic_theme,
-            textView = binder.txvThemeApp
+            title = R.string.language_app_title,
+            subTitle = subTitle,
+            textView = binder.txvLanguageApp
         )
     }
 
@@ -158,7 +146,6 @@ class SettingsFragment : BaseFragment() {
      * @param subTitle выбранное значение
      * @param colorTitle цвет тайтла
      * @param colorSubTitle цвет выбранного значения
-     * @param drawStart иконка которая отрисовывается рядом с текстом
      * @param textView вьюха для модификации
      */
     private fun initSpannableTextView(
@@ -166,7 +153,6 @@ class SettingsFragment : BaseFragment() {
         @StringRes subTitle: Int,
         @ColorRes colorTitle: Int = getColorTitle(),
         @ColorRes colorSubTitle: Int = getColorSubtitle(),
-        @DrawableRes drawStart: Int,
         textView: AppCompatTextView
     ) {
         val titleStr = requireActivity().getString(title)
@@ -180,12 +166,6 @@ class SettingsFragment : BaseFragment() {
                 ContextCompat.getColor(requireContext(), colorSubTitle)
             )
         textView.text = resultTitle
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-            ContextCompat.getDrawable(
-                requireContext(),
-                drawStart
-            ), null, null, null
-        )
     }
 
     private fun initClickThemeApp() {
@@ -195,47 +175,8 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
-    private fun initToolbar() {
-        binder.toolbar.apply {
-            when (themeManager.getThemeNow()) {
-                R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
-                R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
-            }
-            setNavigationOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
-            setTitle(R.string.settings_to_cat_title)
-        }
-    }
-
-    private fun setLanguageApp(language: Language) {
-        when (language) {
-            Language.RU -> initRuLanguageTitle()
-            Language.EN -> initEnLanguageTitle()
-        }
-    }
-
-    private fun initRuLanguageTitle() {
-        initSpannableTextView(
-            title = R.string.language_app_title,
-            subTitle = R.string.language_app_title_ru,
-            drawStart = getIconTheme(),
-            textView = binder.txvLanguageApp
-        )
-    }
-
-    private fun getIconTheme() = when (themeManager.getThemeNow()) {
-        R.style.AppThemeNight -> R.drawable.ic_global_night
-        else -> R.drawable.ic_global
-    }
-
-    private fun initEnLanguageTitle() {
-        initSpannableTextView(
-            title = R.string.language_app_title,
-            subTitle = R.string.language_app_title_en,
-            drawStart = getIconTheme(),
-            textView = binder.txvLanguageApp
-        )
+    private fun clickToolbarNavigation(view: View) {
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun getColorTitle(): Int = when (viewModel.getThemeNow()) {
