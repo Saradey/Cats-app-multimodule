@@ -2,8 +2,6 @@ package com.evgeny.goncharov.wallcats.repository
 
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO
 import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
-import com.evgeny.goncharov.coreapi.managers.SortCatsManager
-import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.wallcats.model.request.GetImageRequest
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.model.response.CatBreedImageDto
@@ -16,12 +14,10 @@ import javax.inject.Inject
  * Реализация логики источника данных экрана стены котов
  * @property api для загрузки котов из сети
  * @property daoWallCat для загрузки котов из бд
- * @property sortManager менеджер который отдает тип сортировки
  */
 class WallCatRepositoryImpl @Inject constructor(
     private val api: ApiBreeds,
     private val daoWallCat: CatsWallDAO,
-    private val sortManager: SortCatsManager
 ) : WallCatRepository {
 
     /** Скоуп для загрузки картинок и ожидание пока все не загрузится */
@@ -82,8 +78,6 @@ class WallCatRepositoryImpl @Inject constructor(
         }
         return result.firstOrNull()?.url
     }
-
-    override fun getSortType(): SortType = sortManager.getSortedType()
 
     companion object {
 

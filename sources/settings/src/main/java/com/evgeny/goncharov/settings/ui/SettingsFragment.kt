@@ -17,7 +17,6 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.providers.ActivityContextProvider
 import com.evgeny.goncharov.coreapi.utils.Language
-import com.evgeny.goncharov.coreapi.utils.SortType
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.databinding.FragmentSettingsBinding
@@ -78,7 +77,6 @@ class SettingsFragment : BaseFragment() {
         initToolbar()
         initClickThemeApp()
         initClickLanguageChoose()
-        initClickSortType()
         initClickNotification()
     }
 
@@ -91,7 +89,6 @@ class SettingsFragment : BaseFragment() {
         viewModel.themeLiveDataModel.observe(this, ::initTheme)
         viewModel.languageLiveData.observe(this, ::initLanguage)
         viewModel.uiLiveDataEvent.observe(this, ::changeUiState)
-        viewModel.sortTypeLiveData.observe(this, ::initSortTypeTextView)
         viewModel.notificationLiveData.observe(this, ::initNotificationView)
     }
 
@@ -115,30 +112,6 @@ class SettingsFragment : BaseFragment() {
             subTitle = subTitle,
             drawStart = drawId,
             textView = binder.txvNotification
-        )
-    }
-
-    private fun initSortTypeTextView(type: SortType) {
-        when (type) {
-            SortType.SortName -> initSort(R.string.sort_by_name)
-            SortType.SortLifeSpan -> initSort(R.string.sort_by_life_span)
-            SortType.SortWeight -> initSort(R.string.sort_by_wight)
-        }
-    }
-
-    private fun initSort(@StringRes sortTitle: Int) {
-        when (viewModel.themeLiveDataModel.value?.themeValue) {
-            R.style.AppThemeNight -> initThemeSort(sortTitle, R.drawable.ic_sort_light)
-            R.style.AppThemeDay -> initThemeSort(sortTitle, R.drawable.ic_sort_night)
-        }
-    }
-
-    private fun initThemeSort(@StringRes sortSubTitle: Int, @DrawableRes idDrawable: Int) {
-        initSpannableTextView(
-            title = R.string.sort_mine_title,
-            subTitle = sortSubTitle,
-            drawStart = idDrawable,
-            textView = binder.txvSortParameter
         )
     }
 
@@ -279,13 +252,6 @@ class SettingsFragment : BaseFragment() {
         binder.txvLanguageApp.setOnClickListener {
             val dialog = DialogChooseLanguageApp.getInstance(viewModel)
             dialog.show(requireFragmentManager(), DialogChooseLanguageApp::class.java.name)
-        }
-    }
-
-    private fun initClickSortType() {
-        binder.txvSortParameter.setOnClickListener {
-            val dialog = DialogChooseSortType.getInstance(viewModel)
-            dialog.show(requireFragmentManager(), DialogChooseSortType::class.java.name)
         }
     }
 

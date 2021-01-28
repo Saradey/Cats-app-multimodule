@@ -33,6 +33,7 @@ class SettingsViewModel(
     /** Отдает ui эвенты */
     val uiLiveDataEvent = SingleLiveEvent<SettingUiEvents?>()
 
+    //TODO сортировка выпелена из за пангинации
     /** Отдает какая сортировка установлена */
     val sortTypeLiveData = MutableLiveData<SortType>()
 
