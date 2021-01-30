@@ -150,7 +150,7 @@ class WallCatsFragment : BaseFragment(),
             .setEnablePlaceholders(false)
             .setPageSize(PAGE_WALL_CATS_SIZE)
             .build()
-        val pagedList = PagedList.Builder<Int, CatBreedEntity>(dataSource, pagedConfig)
+        val pagedList = PagedList.Builder(dataSource, pagedConfig)
             .setNotifyExecutor(mainThreadExecutor)
             .setFetchExecutor(Executors.newCachedThreadPool())
             .build()
@@ -160,11 +160,6 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initToolbar() {
-        binder.toolbar.setTitle(R.string.wall_cat_toolbar_title)
-        when (themeManager.getThemeNow()) {
-            R.style.AppThemeDay -> binder.toolbar.inflateMenu(R.menu.menu_wall_cats_day)
-            R.style.AppThemeNight -> binder.toolbar.inflateMenu(R.menu.menu_wall_cats_night)
-        }
         binder.toolbar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
                 R.id.menuSearchCat -> {

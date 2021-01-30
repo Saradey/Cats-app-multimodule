@@ -14,8 +14,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/MyPopupToolbarStyle" />
-
+        app:menu="@menu/menu_share_cat"
+        app:navigationIcon="?attr/navigation_toolbar_icon"
+        app:popupTheme="@style/MyPopupToolbarStyle"
+        app:title="@string/description_cat_title_toolbar" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

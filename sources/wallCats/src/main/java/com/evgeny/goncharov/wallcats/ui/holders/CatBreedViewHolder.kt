@@ -57,10 +57,6 @@ class CatBreedViewHolder(
             imbWiki.setOnClickListener {
                 listener.clickCatUrlBreed(item.wikipediaUrl)
             }
-            when (themeManager.getThemeNow()) {
-                R.style.AppThemeDay -> imbWiki.setImageResource(R.drawable.ic_wikipedia)
-                R.style.AppThemeNight -> imbWiki.setImageResource(R.drawable.ic_wikipedia_night)
-            }
             cnlContainerCat.setOnClickListener {
                 listener.clickCatBreed(item.id)
             }

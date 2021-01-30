@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/menuSearchCat"
-        android:icon="@drawable/ic_search_night"
+        android:icon="?attr/search_wall_cats_icon"
         android:title="@string/wall_menu_search_cat"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menuSettings"
-        android:icon="@drawable/ic_settings_night"
+        android:icon="?attr/settings_wall_cats_icon"
         android:title="@string/wall_menu_settings"
         app:showAsAction="ifRoom" />
 </menu>

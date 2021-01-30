@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppThemeNight" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">?attr/color_card_background</item>
@@ -14,10 +15,20 @@
         <item name="color_text_description">@color/white</item>
         <item name="color_text_button">@color/white</item>
         <item name="color_background_button">@color/color_light_black</item>
-
-        <item name="imitation_card_view_background">@drawable/imitation_cardview_back_night</item>
-
         <item name="android:navigationBarColor">?attr/color_card_background</item>
         <item name="android:statusBarColor">?attr/color_card_background</item>
+
+        <!-- background -->
+        <item name="imitation_card_view_background">@drawable/imitation_cardview_back_night</item>
+
+        <!-- icon -->
+        <item name="search_wall_cats_icon">@drawable/ic_search_night</item>
+        <item name="settings_wall_cats_icon">@drawable/ic_settings_night</item>
+        <item name="wiki_button_icon">@drawable/ic_wikipedia_night</item>
+        <item name="navigation_toolbar_icon">@drawable/ic_arrow_back_black_night</item>
+        <item name="share_toolbar_icon">@drawable/ic_share_night</item>
+        <item name="notification_icon">@drawable/ic_notification_day</item>
+        <item name="theme_icon">@drawable/ic_theme_night</item>
+        <item name="language_icon">@drawable/ic_global_night</item>
     </style>
 </resources>
