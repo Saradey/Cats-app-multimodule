@@ -170,8 +170,8 @@ class SettingsFragment : BaseFragment() {
 
     private fun initClickThemeApp() {
         binder.txvThemeApp.setOnClickListener {
-            val dialog = DialogChooseThemeApp.getInstance(viewModel)
-            dialog.show(requireFragmentManager(), DialogChooseThemeApp::class.java.name)
+            val dialog = DialogChooseThemeApp.getInstance()
+            dialog.show(childFragmentManager, DialogChooseThemeApp::class.java.name)
         }
     }
 
@@ -191,15 +191,15 @@ class SettingsFragment : BaseFragment() {
 
     private fun initClickLanguageChoose() {
         binder.txvLanguageApp.setOnClickListener {
-            val dialog = DialogChooseLanguageApp.getInstance(viewModel)
-            dialog.show(requireFragmentManager(), DialogChooseLanguageApp::class.java.name)
+            val dialog = DialogChooseLanguageApp.getInstance()
+            dialog.show(childFragmentManager, DialogChooseLanguageApp::class.java.name)
         }
     }
 
     private fun initClickNotification() {
         binder.txvNotification.setOnClickListener {
-            val dialog = DialogChooseOnOrOfNotification.getInstance(viewModel)
-            dialog.show(requireFragmentManager(), DialogChooseOnOrOfNotification::class.java.name)
+            val dialog = DialogChooseOnOrOfNotification.getInstance()
+            dialog.show(childFragmentManager, DialogChooseOnOrOfNotification::class.java.name)
         }
     }
 
