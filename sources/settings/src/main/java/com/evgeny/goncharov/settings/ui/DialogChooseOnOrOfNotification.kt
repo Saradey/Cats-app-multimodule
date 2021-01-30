@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.os.Bundle
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
-import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -40,8 +39,6 @@ class DialogChooseOnOrOfNotification : BaseSettingsFragmentDialog() {
         /** Индекс нотификации выключены */
         const val INDEX_CHOOSE_OFF = 1
 
-        fun getInstance(vm : SettingsViewModel) = DialogChooseOnOrOfNotification().apply {
-            this.vm = vm
-        }
+        fun getInstance() = DialogChooseOnOrOfNotification()
     }
 }

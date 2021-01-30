@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.os.Bundle
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
-import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -41,8 +40,6 @@ class DialogChooseLanguageApp : BaseSettingsFragmentDialog() {
         /** Индекс английского языка в списке выбора */
         const val INDEX_CHOOSE_EN = 1
 
-        fun getInstance(vm: SettingsViewModel) = DialogChooseLanguageApp().apply {
-            this.vm = vm
-        }
+        fun getInstance() = DialogChooseLanguageApp()
     }
 }

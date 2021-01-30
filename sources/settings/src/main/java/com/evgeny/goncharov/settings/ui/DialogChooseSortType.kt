@@ -6,7 +6,6 @@ import com.evgeny.goncharov.domain.SortTypeViewModel
 import com.evgeny.goncharov.settings.R
 import com.evgeny.goncharov.settings.base.BaseSettingsFragmentDialog
 import com.evgeny.goncharov.settings.di.components.SettingsComponent
-import com.evgeny.goncharov.settings.view.model.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -55,8 +54,6 @@ class DialogChooseSortType : BaseSettingsFragmentDialog() {
         /** Индекс сортировки по весу в диалоговом окне */
         const val INDEX_SORT_WIGHT = 2
 
-        fun getInstance(vm : SettingsViewModel) = DialogChooseSortType().apply {
-            this.vm = vm
-        }
+        fun getInstance() = DialogChooseSortType()
     }
 }
