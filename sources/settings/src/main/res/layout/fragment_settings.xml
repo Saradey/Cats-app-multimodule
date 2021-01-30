@@ -14,7 +14,7 @@
         android:theme="@style/MyToolbarStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="p arent"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="?attr/navigation_toolbar_icon"
         app:popupTheme="@style/MyPopupToolbarStyle"
         app:title="@string/settings_to_cat_title" />

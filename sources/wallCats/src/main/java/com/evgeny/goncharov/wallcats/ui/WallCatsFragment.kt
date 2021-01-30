@@ -150,7 +150,7 @@ class WallCatsFragment : BaseFragment(),
             .setEnablePlaceholders(false)
             .setPageSize(PAGE_WALL_CATS_SIZE)
             .build()
-        val pagedList = PagedList.Builder<Int, CatBreedEntity>(dataSource, pagedConfig)
+        val pagedList = PagedList.Builder(dataSource, pagedConfig)
             .setNotifyExecutor(mainThreadExecutor)
             .setFetchExecutor(Executors.newCachedThreadPool())
             .build()
