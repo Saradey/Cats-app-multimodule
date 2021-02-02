@@ -22,15 +22,15 @@ class ServiceBreedsImpl @Inject constructor(
     private val analyticsManager: AnalyticsManager
 ) : ServiceBreeds {
 
-    override fun getBreedsAsync(createRequest: Map<String, Int>): Deferred<List<CatBreedDto>> {
+    override fun getBreedsAsync(request: Map<String, Int>): Deferred<List<CatBreedDto>> {
         analyticsManager.toEvent(LoadWallCatsEvents)
-        return api.getBreedsAsync(createRequest)
+        return api.getBreedsAsync(request)
     }
 
-    override fun getImageUrlAsync(createRequest: Map<String, String>): Deferred<List<CatBreedImageDto>> {
+    override fun getImageUrlAsync(request: Map<String, String>): Deferred<List<CatBreedImageDto>> {
         analyticsManager.toEvent(LoadImageCat.apply {
-            bundle = bundleOf(Pair(IMAGE_CAT_ID_PARAM, createRequest[GET_PARAM_BREED_ID]))
+            bundle = bundleOf(Pair(IMAGE_CAT_ID_PARAM, request[GET_PARAM_BREED_ID]))
         })
-        return api.getImageUrlAsync(createRequest)
+        return api.getImageUrlAsync(request)
     }
 }

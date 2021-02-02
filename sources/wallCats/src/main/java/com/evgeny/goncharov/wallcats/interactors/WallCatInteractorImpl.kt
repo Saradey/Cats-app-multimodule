@@ -1,5 +1,7 @@
 package com.evgeny.goncharov.wallcats.interactors
 
+import androidx.core.os.bundleOf
+import com.evgeny.goncharov.coreapi.consts.FATAL_LOAD_MESSAGE_PARAM
 import com.evgeny.goncharov.coreapi.consts.LIMIT_PAGE_SIZE_CAT_WALL
 import com.evgeny.goncharov.coreapi.managers.AnalyticsManager
 import com.evgeny.goncharov.coreapi.managers.NetworkManager
@@ -25,12 +27,18 @@ class WallCatInteractorImpl @Inject constructor(
         return if (networkManager.isConnect())
             try {
                 loadFromInternet()
-            } catch (e: Exception) {
-                e.printStackTrace()
-                analyticsManager.toEvent(FatalLoadWallCatsEvents)
+            } catch (exception: Exception) {
+                error(exception)
                 loadFromDatabase()
             }
         else loadFromDatabase()
+    }
+
+    private fun error(exception: Exception) {
+        exception.printStackTrace()
+        analyticsManager.toEvent(FatalLoadWallCatsEvents.apply {
+            bundle = bundleOf(Pair(FATAL_LOAD_MESSAGE_PARAM, exception.message))
+        })
     }
 
     override suspend fun loadNextPage(nextCount: Int): List<CatBreedEntity> {

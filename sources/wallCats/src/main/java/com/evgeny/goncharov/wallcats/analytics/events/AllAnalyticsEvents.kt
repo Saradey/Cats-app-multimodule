@@ -18,8 +18,6 @@ object LoadWallCatsEvents : BaseAnalyticsEvent() {
  */
 object FatalLoadWallCatsEvents : BaseAnalyticsEvent() {
 
-    override var bundle: Bundle = Bundle()
-
     override var event: String = FATAL_LOAD_WALL_CATS_EVENT
 }
 

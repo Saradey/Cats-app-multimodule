@@ -19,8 +19,10 @@ const val LOAD_IMAGE_CAT_EVENT = "load_image_cat"
 const val FATAL_LOAD_IMAGE_CAT_EVENT = "fatal_load_image_cat"
 
 ///////////параметры
+/** Параметр id кота */
 const val IMAGE_CAT_ID_PARAM = "id_cat_load_image"
 
+/** Параметр текст сообщения ошибки */
 const val FATAL_LOAD_MESSAGE_PARAM = "fatal_load_message"
 
 /**
