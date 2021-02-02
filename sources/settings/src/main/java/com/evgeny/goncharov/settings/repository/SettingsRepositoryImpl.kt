@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.settings.repository
 
-import com.evgeny.goncharov.coreapi.RU_CODE
+import com.evgeny.goncharov.coreapi.consts.RU_CODE
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
 import com.evgeny.goncharov.coreapi.managers.NotificationAppManager
 import com.evgeny.goncharov.coreapi.managers.SortCatsManager

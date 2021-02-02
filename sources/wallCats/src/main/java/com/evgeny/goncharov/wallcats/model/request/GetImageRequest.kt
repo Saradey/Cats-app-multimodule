@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.wallcats.model.request
 
-import com.evgeny.goncharov.coreapi.GET_PARAM_BREED_ID
+import com.evgeny.goncharov.coreapi.consts.GET_PARAM_BREED_ID
 
 /**
  * Модель для запроса получить картинку кота

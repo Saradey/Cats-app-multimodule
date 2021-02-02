@@ -31,4 +31,8 @@ interface ManagersBindsModule {
     @Binds
     @AppScope
     fun NetworkManagerImpl.bindNetworkManager() : NetworkManager
+
+    @Binds
+    @AppScope
+    fun AnalyticsManagerImpl.bindAnalyticsManager() : AnalyticsManager
 }

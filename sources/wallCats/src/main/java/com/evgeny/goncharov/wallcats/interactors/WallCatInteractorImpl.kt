@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.wallcats.interactors
 
-import com.evgeny.goncharov.coreapi.LIMIT_PAGE_SIZE_CAT_WALL
+import com.evgeny.goncharov.coreapi.consts.LIMIT_PAGE_SIZE_CAT_WALL
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.repository.WallCatRepository
 import javax.inject.Inject
