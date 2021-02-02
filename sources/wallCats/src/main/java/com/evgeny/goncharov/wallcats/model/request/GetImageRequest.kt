@@ -7,7 +7,7 @@ import com.evgeny.goncharov.coreapi.consts.GET_PARAM_BREED_ID
  * @property breedId id кота
  */
 data class GetImageRequest(
-    private val breedId: String
+    val breedId: String
 ) {
 
     /**

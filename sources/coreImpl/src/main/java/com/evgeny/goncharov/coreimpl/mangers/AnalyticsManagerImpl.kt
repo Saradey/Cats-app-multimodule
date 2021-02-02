@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 /**
  * Реализация контракта менеджера событий
- * @param context аппликейшен для иницилизации:
+ * @property context аппликейшен для иницилизации:
  * @see FirebaseAnalytics Непосредственно аналитика в которую мы пушим собатия
  */
 class AnalyticsManagerImpl @Inject constructor(

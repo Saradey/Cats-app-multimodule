@@ -2,14 +2,26 @@ package com.evgeny.goncharov.coreapi.consts
 
 import android.os.Bundle
 
+///////////эвенты
 /** Событие старта приложения */
 const val START_APPLICATION_EVENT = "start_app"
 
 /** Событие загрузки стены котов */
 const val LOAD_WALL_CATS_EVENT = "load_wall_cats"
 
-/** Событие выбора кота */
-const val CHOOSE_CAT_EVENT = "choose_cat"
+/** Событие ошибки загрузки стены котов */
+const val FATAL_LOAD_WALL_CATS_EVENT = "fatal_load_wall_cats"
+
+/** Событие загрузки изображения кота */
+const val LOAD_IMAGE_CAT_EVENT = "load_image_cat"
+
+/** Событие ошибкт загрузки изображения кота */
+const val FATAL_LOAD_IMAGE_CAT_EVENT = "fatal_load_image_cat"
+
+///////////параметры
+const val IMAGE_CAT_ID_PARAM = "id_cat_load_image"
+
+const val FATAL_LOAD_MESSAGE_PARAM = "fatal_load_message"
 
 /**
  * Базовый класс который содержит метоинформацию об аналитике

@@ -20,5 +20,5 @@ interface SettingsBindsModule {
 
     @Binds
     @FragmentScope
-    fun bindSettingsGateway(gateway: SettingsRepositoryImpl): SettingsRepository
+    fun bindSettingsRepository(repository: SettingsRepositoryImpl): SettingsRepository
 }
