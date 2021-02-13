@@ -1,8 +1,6 @@
 package com.evgeny.goncharov.coreapi.base
 
 import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -23,7 +21,7 @@ abstract class BaseFragment : Fragment() {
     private var stubController = UiStateController()
 
     /** Добавляем часто используемую заглушку */
-    protected fun addStubLayout(root : View) {
+    protected fun addStubLayout(root: View) {
         stubController.rootLayout = root as ViewGroup
     }
 

@@ -183,11 +183,8 @@ class WallCatsFragment : BaseFragment(),
                 hideSomethingWrong()
                 showProgress()
             }
-            BaseUiEvent.EventHideProgress -> {
-                hideSomethingWrong()
-                hideProgress()
-            }
             is BaseUiEvent.Success<*> -> {
+                hideProgress()
                 binder.rcvCatBreeds.isGone = false
             }
             BaseUiEvent.EventSomethingWrong -> {

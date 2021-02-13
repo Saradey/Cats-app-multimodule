@@ -62,9 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/size_dp_16"
             android:contentDescription="@string/content_description_wiki_button"
+            android:src="?attr/wiki_button_icon"
             app:layout_constraintBottom_toTopOf="@+id/txvBreedDescription"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_wikipedia" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

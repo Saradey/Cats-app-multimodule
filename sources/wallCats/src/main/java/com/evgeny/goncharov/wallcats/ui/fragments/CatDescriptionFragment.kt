@@ -155,12 +155,13 @@ class CatDescriptionFragment : BaseFragment() {
     private fun changeUiState(event: BaseUiEvent<CatDescriptionEntity>?) {
         when (event) {
             BaseUiEvent.EventShowProgress -> showProgress()
-            BaseUiEvent.EventHideProgress -> hideProgress()
             is BaseUiEvent.Success -> {
+                hideProgress()
                 binder.grpAllContent.isGone = false
                 setCatDescription(event.data)
             }
             BaseUiEvent.EventSomethingWrong -> {
+                hideProgress()
                 binder.grpAllContent.isGone = true
                 showSomethingWrong()
             }
