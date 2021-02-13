@@ -35,11 +35,15 @@ class SearchCatViewModel(
     fun setInputTextSearchView(text: String) {
         job?.cancel()
         job = viewModelScope.launch {
-            if (networkManager.isConnect())
-                liveDataUiEvents.value = BaseUiEvent.EventShowProgress
-            val models = interactor.setInputTextSearchView(text)
-            liveDataUiEvents.value = BaseUiEvent.EventHideProgress
-            validateData(models)
+            if (text.isNotEmpty()) {
+                if (networkManager.isConnect())
+                    liveDataUiEvents.value = BaseUiEvent.EventShowProgress
+                val models = interactor.setInputTextSearchView(text)
+                liveDataUiEvents.value = BaseUiEvent.EventHideProgress
+                validateData(models)
+            } else {
+                liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong
+            }
         }
     }
 
