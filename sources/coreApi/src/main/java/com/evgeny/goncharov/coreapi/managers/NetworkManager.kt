@@ -9,6 +9,5 @@ interface NetworkManager {
      * Возвращает true есть интернет
      * false нету интернета
      */
-    fun isConnect() : Boolean
-
+    fun isConnect(): Boolean
 }
