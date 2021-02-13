@@ -11,6 +11,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
 import com.evgeny.goncharov.coreapi.base.BaseFragment
@@ -85,10 +86,10 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.themeLiveDataModel.observe(this, ::initTheme)
-        viewModel.languageLiveData.observe(this, ::initLanguage)
-        viewModel.uiLiveDataEvent.observe(this, ::changeUiState)
-        viewModel.notificationLiveData.observe(this, ::initNotificationView)
+        viewModel.themeLiveDataModel.observe(this, Observer { initTheme(it) })
+        viewModel.languageLiveData.observe(this, Observer { initLanguage(it) })
+        viewModel.uiLiveDataEvent.observe(this, Observer { changeUiState(it) })
+        viewModel.notificationLiveData.observe(this, Observer { initNotificationView(it) })
     }
 
     private fun initNotificationView(isOn: Boolean) {

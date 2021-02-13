@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -111,8 +112,8 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initLiveData() {
-        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-        vmSort.updateChooseSortType.observe(this, ::updateWallCats)
+        viewModel.liveDataUiEvents.observe(this, Observer { changeUiState(it) })
+        vmSort.updateChooseSortType.observe(this, Observer { updateWallCats(it) })
     }
 
     private fun updateWallCats(isUpdate: Boolean?) {

@@ -3,11 +3,7 @@ package com.evgeny.goncharov.wallcats.ui.adapters
 import androidx.paging.PageKeyedDataSource
 import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.view.model.WallCatsViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * Для пангинации списка стены котов

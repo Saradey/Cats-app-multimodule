@@ -58,6 +58,10 @@ fun <T : Fragment> T.withArgs(argsInitializer: Bundle.() -> Unit): T {
 
 /**
  * Получить Drawable ресурс в зависимости от включенной темы в приложении
+ * @param resLight дровебел для светлой темы
+ * @param resNight дровебел для темной темы
+ * @param themeManager менеджер темы
+ * @param resource для ResourcesCompat
  */
 fun getDrawableTheme(
     @DrawableRes resLight: Int,

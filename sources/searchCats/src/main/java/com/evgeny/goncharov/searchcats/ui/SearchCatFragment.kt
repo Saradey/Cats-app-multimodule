@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isGone
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
@@ -86,7 +87,7 @@ class SearchCatFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
+        viewModel.liveDataUiEvents.observe(this, Observer { changeUiState(it) })
     }
 
     /** Выбрали кота, делаем переход в на экран описание кота */
@@ -105,10 +106,6 @@ class SearchCatFragment : BaseFragment() {
 
     private fun initToolbar() {
         binder.toolbar.apply {
-            when (themeManager.getThemeNow()) {
-                R.style.AppThemeDay -> setNavigationIcon(R.drawable.ic_arrow_back_black)
-                R.style.AppThemeNight -> setNavigationIcon(R.drawable.ic_arrow_back_black_night)
-            }
             setNavigationOnClickListener {
                 activity?.supportFragmentManager?.popBackStack()
             }
@@ -139,7 +136,9 @@ class SearchCatFragment : BaseFragment() {
         }
     }
 
-    private fun setCatsCatched(models: List<CatCatchEntity>?) = adapter.submitList(models ?: emptyList())
+    private fun setCatsCatched(models: List<CatCatchEntity>?) {
+        adapter.submitList(models ?: emptyList())
+    }
 
     override fun showSomethingWrong() {
         binder.txvCatsStubNotFound.isGone = false

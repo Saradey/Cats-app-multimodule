@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
@@ -17,6 +17,7 @@ import com.evgeny.goncharov.coreapi.activity.contracts.WithProviders
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.base.BaseUiEvent
 import com.evgeny.goncharov.coreapi.utils.ViewModelProviderFactory
+import com.evgeny.goncharov.coreapi.utils.getDrawableTheme
 import com.evgeny.goncharov.coreapi.utils.withArgs
 import com.evgeny.goncharov.wallcats.R
 import com.evgeny.goncharov.wallcats.R.string
@@ -84,17 +85,17 @@ class CatDescriptionFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
+        viewModel.liveDataUiEvents.observe(this, Observer { changeUiState(it) })
     }
 
     private fun initToolbar() {
         binder.toolbar.apply {
             setOnMenuItemClickListener(::onClickShareButton)
-            setNavigationOnClickListener(::clickNavigation)
+            setNavigationOnClickListener(::onClickNavigation)
         }
     }
 
-    private fun clickNavigation(view: View) {
+    private fun onClickNavigation(view: View) {
         requireFragmentManager().popBackStack()
     }
 
@@ -103,12 +104,13 @@ class CatDescriptionFragment : BaseFragment() {
         return true
     }
 
-    private fun createChooseIntent() = Intent.createChooser(
-        Intent(Intent.ACTION_SEND)
-            .setType(TYPE_INTENT)
-            .putExtra(Intent.EXTRA_TEXT, buildExtraText()),
-        resources.getString(string.share_cat_title)
-    )
+    private fun createChooseIntent() =
+        Intent.createChooser(
+            Intent(Intent.ACTION_SEND)
+                .setType(TYPE_INTENT)
+                .putExtra(Intent.EXTRA_TEXT, buildExtraText()),
+            resources.getString(string.share_cat_title)
+        )
 
     private fun buildExtraText(): String = StringBuilder()
         .append(binder.txvNameCat.text)
@@ -134,7 +136,12 @@ class CatDescriptionFragment : BaseFragment() {
                     val intent = Intent(Intent.ACTION_VIEW, uri)
                     startActivity(intent)
                 }
-                val animatedDrawable = getAnimationDrawable()
+                val animatedDrawable = getDrawableTheme(
+                    R.drawable.day_shimmer_drawable,
+                    R.drawable.night_shimmer_drawable,
+                    themeManager,
+                    resources
+                )
                 (animatedDrawable as Animatable).start()
                 Glide.with(this@CatDescriptionFragment)
                     .load(model.urlImage)
@@ -143,20 +150,6 @@ class CatDescriptionFragment : BaseFragment() {
                     .into(imvCat)
             }
         }
-    }
-
-    private fun getAnimationDrawable() = if (themeManager.getThemeNow() == R.style.AppThemeDay) {
-        ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.day_shimmer_drawable,
-            null
-        )
-    } else {
-        ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.night_shimmer_drawable,
-            null
-        )
     }
 
     private fun changeUiState(event: BaseUiEvent<CatDescriptionEntity>?) {
