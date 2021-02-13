@@ -67,7 +67,7 @@ class CatDescriptionRepositoryImpl @Inject constructor(
 
     private fun mapModel(model: CatBreedDto?) = CatDescriptionEntity(
         name = model?.name ?: "-",
-        urlImage = getUrlImageFromDataBase(model?.id) ?: "null",
+        urlImage = getUrlImageFromDataBase(model?.id) ?: "-",
         origin = model?.origin ?: "-",
         lifeSpan = model?.lifeSpan ?: "-",
         weight = model?.weight?.metric ?: "-",

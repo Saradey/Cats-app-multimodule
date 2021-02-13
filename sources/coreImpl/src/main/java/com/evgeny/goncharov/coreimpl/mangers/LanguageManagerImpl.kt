@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.coreimpl.mangers
 
 import android.content.Context
-import com.evgeny.goncharov.coreapi.RU_CODE
+import com.evgeny.goncharov.coreapi.consts.RU_CODE
 import com.evgeny.goncharov.coreapi.managers.LanguageManager
 import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.utils.Language

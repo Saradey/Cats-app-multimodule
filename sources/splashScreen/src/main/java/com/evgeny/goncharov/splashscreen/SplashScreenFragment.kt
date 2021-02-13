@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.evgeny.goncharov.coreapi.activity.contracts.WithFacade
+import com.evgeny.goncharov.coreapi.managers.AnalyticsManager
 import com.evgeny.goncharov.coreapi.managers.MainRouter
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
 import com.evgeny.goncharov.coreapi.providers.MainRouterProvider
+import com.evgeny.goncharov.coreapi.providers.ManagerProvider
+import com.evgeny.goncharov.splashscreen.analytics.events.StartAppEvent
 import com.evgeny.goncharov.splashscreen.databinding.FragmentSplashScreenBinding
 import kotlinx.coroutines.*
 
@@ -32,16 +35,21 @@ class SplashScreenFragment : Fragment() {
     /** Биндинг View на сплеш скрине */
     private lateinit var binder: FragmentSplashScreenBinding
 
+    /** Менеджер аналитики */
+    private lateinit var analyticsManager: AnalyticsManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerSplashScreenComponent
             .builder()
             .mediatorsProvider((requireActivity() as WithFacade).getFacade())
             .mainRouterProvider((requireActivity() as WithFacade).getFacade() as MainRouterProvider)
+            .managerProvider((requireActivity() as WithFacade).getFacade() as ManagerProvider)
             .build()
             .apply {
                 wallCatsMediator = provideWallCatsMediator()
                 mainRouter = provideMainRouter()
+                analyticsManager = provideAnalyticsManager()
             }
     }
 
@@ -58,6 +66,7 @@ class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initUi()
+        analyticsManager.toEvent(StartAppEvent)
     }
 
     private fun initUi() {

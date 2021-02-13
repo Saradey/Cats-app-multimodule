@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.wallcats.model.request
 
-import com.evgeny.goncharov.coreapi.GET_PARAM_LIMIT
-import com.evgeny.goncharov.coreapi.GET_PARAM_PAGE
+import com.evgeny.goncharov.coreapi.consts.GET_PARAM_LIMIT
+import com.evgeny.goncharov.coreapi.consts.GET_PARAM_PAGE
 
 /**
  * Модель для запроса очередной порции котов

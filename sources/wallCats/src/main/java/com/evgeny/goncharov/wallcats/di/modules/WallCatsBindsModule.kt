@@ -9,6 +9,8 @@ import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManagerImpl
 import com.evgeny.goncharov.wallcats.repository.WallCatRepository
 import com.evgeny.goncharov.wallcats.repository.WallCatRepositoryImpl
+import com.evgeny.goncharov.wallcats.services.ServiceBreeds
+import com.evgeny.goncharov.wallcats.services.ServiceBreedsImpl
 import dagger.Binds
 import dagger.Module
 
@@ -24,7 +26,7 @@ interface WallCatsBindsModule {
 
     @Binds
     @FragmentScope
-    fun WallCatRepositoryImpl.bindWallCatGateway(): WallCatRepository
+    fun WallCatRepositoryImpl.bindWallCatRepository(): WallCatRepository
 
     @Binds
     fun WorkScheduleManagerImpl.bindWorkScheduleManager(): WorkScheduleManager
@@ -32,4 +34,7 @@ interface WallCatsBindsModule {
     @Binds
     @FragmentScope
     fun NavigationWallCatsManagerImpl.bindNavigationWallCatsManager(): NavigationWallCatsManager
+
+    @Binds
+    fun ServiceBreedsImpl.bindServiceBreeds(): ServiceBreeds
 }

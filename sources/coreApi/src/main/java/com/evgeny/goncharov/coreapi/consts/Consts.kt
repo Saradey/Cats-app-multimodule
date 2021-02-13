@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.coreapi
+package com.evgeny.goncharov.coreapi.consts
 
 const val VERSION_DATA_BASE = 1
 

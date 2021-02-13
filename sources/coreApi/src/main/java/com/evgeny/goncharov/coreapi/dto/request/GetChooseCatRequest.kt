@@ -1,6 +1,6 @@
 package com.evgeny.goncharov.coreapi.dto.request
 
-import com.evgeny.goncharov.coreapi.GET_PARAM_Q_SEARCH
+import com.evgeny.goncharov.coreapi.consts.GET_PARAM_Q_SEARCH
 
 /**
  * Запрос на получение списка котов по имени или по id

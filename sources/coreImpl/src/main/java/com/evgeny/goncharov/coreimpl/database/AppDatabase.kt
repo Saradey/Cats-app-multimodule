@@ -3,7 +3,7 @@ package com.evgeny.goncharov.coreimpl.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.evgeny.goncharov.coreapi.VERSION_DATA_BASE
+import com.evgeny.goncharov.coreapi.consts.VERSION_DATA_BASE
 import com.evgeny.goncharov.coreapi.database.DatabaseContract
 import com.evgeny.goncharov.coreapi.dto.converters.WeightTypeConverter
 import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto

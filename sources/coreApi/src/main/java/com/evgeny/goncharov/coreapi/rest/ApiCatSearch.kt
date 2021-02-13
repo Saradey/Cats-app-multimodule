@@ -1,7 +1,7 @@
 package com.evgeny.goncharov.coreapi.rest
 
-import com.evgeny.goncharov.coreapi.BREEDS_SEARCH_URL
-import com.evgeny.goncharov.coreapi.HEADERS_VALUE
+import com.evgeny.goncharov.coreapi.consts.BREEDS_SEARCH_URL
+import com.evgeny.goncharov.coreapi.consts.HEADERS_VALUE
 import com.evgeny.goncharov.coreapi.dto.database.ChooseCatBreedDto
 import com.evgeny.goncharov.coreapi.dto.request.GetChooseCatRequest
 import kotlinx.coroutines.Deferred

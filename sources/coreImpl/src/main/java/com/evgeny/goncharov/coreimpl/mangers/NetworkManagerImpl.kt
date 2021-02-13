@@ -17,26 +17,24 @@ class NetworkManagerImpl @Inject constructor(
     @AppContext private val context: Context
 ) : NetworkManager {
 
+    //перишены указаны в app модуле
     @SuppressLint("MissingPermission")
     override fun isConnect(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         connectivityManager ?: return false
-        var isConnectionInternet = false
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val networkCapabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             networkCapabilities ?: return false
-            isConnectionInternet =
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
         } else {
-            isConnectionInternet = connectivityManager.allNetworks.any { network ->
+            connectivityManager.allNetworks.any { network ->
                 val networkInfo = connectivityManager.getNetworkInfo(network)
                 (networkInfo?.type == ConnectivityManager.TYPE_WIFI ||
                         networkInfo?.type == ConnectivityManager.TYPE_MOBILE) && networkInfo.isConnected
             }
         }
-        return isConnectionInternet
     }
 }

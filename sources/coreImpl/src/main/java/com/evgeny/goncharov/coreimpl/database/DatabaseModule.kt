@@ -2,7 +2,7 @@ package com.evgeny.goncharov.coreimpl.database
 
 import android.content.Context
 import androidx.room.Room
-import com.evgeny.goncharov.coreapi.DATA_BASE_NAME
+import com.evgeny.goncharov.coreapi.consts.DATA_BASE_NAME
 import com.evgeny.goncharov.coreapi.database.DatabaseContract
 import com.evgeny.goncharov.coreapi.database.dao.CatDescriptionDAO
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO

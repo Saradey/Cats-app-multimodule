@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.wallcats.ui
+package com.evgeny.goncharov.wallcats.ui.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,6 @@ import com.evgeny.goncharov.wallcats.databinding.FragmentWallCatsBinding
 import com.evgeny.goncharov.wallcats.di.components.WallCatsComponent
 import com.evgeny.goncharov.wallcats.managers.NavigationWallCatsManager
 import com.evgeny.goncharov.wallcats.managers.WorkScheduleManager
-import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
 import com.evgeny.goncharov.wallcats.ui.adapters.CatBreedsPagedAdapter
 import com.evgeny.goncharov.wallcats.ui.adapters.PageKeyedDataSourceCatBreeds
 import com.evgeny.goncharov.wallcats.ui.holders.CatBreedViewHolder
@@ -112,8 +112,8 @@ class WallCatsFragment : BaseFragment(),
     }
 
     private fun initLiveData() {
-        viewModel.liveDataUiEvents.observe(this, ::changeUiState)
-        vmSort.updateChooseSortType.observe(this, ::updateWallCats)
+        viewModel.liveDataUiEvents.observe(this, Observer { changeUiState(it) })
+        vmSort.updateChooseSortType.observe(this, Observer { updateWallCats(it) })
     }
 
     private fun updateWallCats(isUpdate: Boolean?) {

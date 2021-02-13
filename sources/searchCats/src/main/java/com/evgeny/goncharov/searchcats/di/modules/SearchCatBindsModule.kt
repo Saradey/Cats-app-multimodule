@@ -20,5 +20,5 @@ interface SearchCatBindsModule {
 
     @Binds
     @FragmentScope
-    fun bindSearchCatGateway(gateway: SearchCatRepositoryImpl): SearchCatRepository
+    fun bindSearchCatRepository(repository: SearchCatRepositoryImpl): SearchCatRepository
 }

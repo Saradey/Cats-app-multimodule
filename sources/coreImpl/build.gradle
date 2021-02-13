@@ -60,4 +60,5 @@ dependencies {
     implementation coroutinesAdapter
     implementation coroutinesCore
     implementation coroutinesAndroid
+    implementation analytics
 }

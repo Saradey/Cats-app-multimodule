@@ -1,8 +1,8 @@
 package com.evgeny.goncharov.wallcats.rest
 
-import com.evgeny.goncharov.coreapi.BREEDS_URL
-import com.evgeny.goncharov.coreapi.HEADERS_VALUE
-import com.evgeny.goncharov.coreapi.IMAGE_SEARCH_URL
+import com.evgeny.goncharov.coreapi.consts.BREEDS_URL
+import com.evgeny.goncharov.coreapi.consts.HEADERS_VALUE
+import com.evgeny.goncharov.coreapi.consts.IMAGE_SEARCH_URL
 import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
 import com.evgeny.goncharov.wallcats.model.request.GetImageRequest
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest

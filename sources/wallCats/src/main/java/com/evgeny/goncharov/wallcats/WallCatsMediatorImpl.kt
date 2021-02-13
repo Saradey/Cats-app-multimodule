@@ -3,8 +3,8 @@ package com.evgeny.goncharov.wallcats
 import androidx.fragment.app.FragmentManager
 import com.evgeny.goncharov.coreapi.base.BaseFragment
 import com.evgeny.goncharov.coreapi.mediators.WallCatsMediator
-import com.evgeny.goncharov.wallcats.ui.CatDescriptionFragment
-import com.evgeny.goncharov.wallcats.ui.WallCatsFragment
+import com.evgeny.goncharov.wallcats.ui.fragments.CatDescriptionFragment
+import com.evgeny.goncharov.wallcats.ui.fragments.WallCatsFragment
 import javax.inject.Inject
 
 /**

@@ -1,10 +1,10 @@
 package com.evgeny.goncharov.coreimpl.network
 
 import android.content.Context
-import com.evgeny.goncharov.coreapi.BASE_URL
-import com.evgeny.goncharov.coreapi.CONNECTION_TIMEOUT
-import com.evgeny.goncharov.coreapi.READ_TIMEOUT
-import com.evgeny.goncharov.coreapi.WRITE_TIMEOUT
+import com.evgeny.goncharov.coreapi.consts.BASE_URL
+import com.evgeny.goncharov.coreapi.consts.CONNECTION_TIMEOUT
+import com.evgeny.goncharov.coreapi.consts.READ_TIMEOUT
+import com.evgeny.goncharov.coreapi.consts.WRITE_TIMEOUT
 import com.evgeny.goncharov.coreapi.qualifier.AppContext
 import com.evgeny.goncharov.coreapi.rest.ApiCatSearch
 import com.evgeny.goncharov.coreapi.scope.AppScope

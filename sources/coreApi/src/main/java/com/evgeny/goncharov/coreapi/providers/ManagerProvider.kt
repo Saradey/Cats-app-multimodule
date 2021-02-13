@@ -20,15 +20,20 @@ interface ManagerProvider {
     /**
      * Провайдит менеджер сортировки котов
      */
-    fun provideSortCatsManager() : SortCatsManager
+    fun provideSortCatsManager(): SortCatsManager
 
     /**
      * Провайд менеджера отвечающего за нотификации в приложении
      */
-    fun provideNotificationManager() : NotificationAppManager
+    fun provideNotificationManager(): NotificationAppManager
 
     /**
      * Провайд менеджера предоставляющего информацию о сети
      */
-    fun provideNetworkManager() : NetworkManager
+    fun provideNetworkManager(): NetworkManager
+
+    /**
+     * Провайдим менеджер аналитики
+     */
+    fun provideAnalyticsManager(): AnalyticsManager
 }

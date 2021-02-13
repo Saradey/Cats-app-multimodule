@@ -1,23 +1,30 @@
 package com.evgeny.goncharov.wallcats.repository
 
+import androidx.core.os.bundleOf
+import com.evgeny.goncharov.coreapi.consts.FATAL_LOAD_MESSAGE_PARAM
+import com.evgeny.goncharov.coreapi.consts.IMAGE_CAT_ID_PARAM
 import com.evgeny.goncharov.coreapi.database.dao.CatsWallDAO
 import com.evgeny.goncharov.coreapi.dto.database.CatBreedDto
+import com.evgeny.goncharov.coreapi.managers.AnalyticsManager
+import com.evgeny.goncharov.wallcats.analytics.events.FatalLoadImageCat
 import com.evgeny.goncharov.wallcats.model.request.GetImageRequest
 import com.evgeny.goncharov.wallcats.model.request.WallCatRequest
 import com.evgeny.goncharov.wallcats.model.response.CatBreedImageDto
 import com.evgeny.goncharov.wallcats.model.view.CatBreedEntity
-import com.evgeny.goncharov.wallcats.rest.ApiBreeds
+import com.evgeny.goncharov.wallcats.services.ServiceBreeds
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 /**
  * Реализация логики источника данных экрана стены котов
- * @property api для загрузки котов из сети
+ * @property service для загрузки котов из сети
  * @property daoWallCat для загрузки котов из бд
+ * @property analyticsManager для эвентов
  */
 class WallCatRepositoryImpl @Inject constructor(
-    private val api: ApiBreeds,
+    private val service: ServiceBreeds,
     private val daoWallCat: CatsWallDAO,
+    private val analyticsManager: AnalyticsManager
 ) : WallCatRepository {
 
     /** Скоуп для загрузки картинок и ожидание пока все не загрузится */
@@ -25,7 +32,7 @@ class WallCatRepositoryImpl @Inject constructor(
 
     override suspend fun loadWallCatFromInternet(request: WallCatRequest) =
         withContext(Dispatchers.IO) {
-            val result = api.getBreedsAsync(request.createRequest()).await()
+            val result = service.getBreedsAsync(request.createRequest()).await()
             loadAllImage(result)
             daoWallCat.insertWallCat(result)
             val resultMap = mapResponse(result)
@@ -72,11 +79,24 @@ class WallCatRepositoryImpl @Inject constructor(
     private suspend fun getUrlImage(request: GetImageRequest): String? {
         var result = emptyList<CatBreedImageDto>()
         try {
-            result = api.getImageUrlAsync(request.createRequest()).await()
-        } catch (exp: Exception) {
-            exp.printStackTrace()
+            result = service.getImageUrlAsync(request.createRequest()).await()
+        } catch (exception: Exception) {
+            error(request, exception)
+            exception.printStackTrace()
         }
         return result.firstOrNull()?.url
+    }
+
+    private fun error(
+        request: GetImageRequest,
+        exception: Exception
+    ) {
+        analyticsManager.toEvent(FatalLoadImageCat.apply {
+            bundle = bundleOf(
+                Pair(IMAGE_CAT_ID_PARAM, request.breedId),
+                Pair(FATAL_LOAD_MESSAGE_PARAM, exception.message)
+            )
+        })
     }
 
     companion object {
