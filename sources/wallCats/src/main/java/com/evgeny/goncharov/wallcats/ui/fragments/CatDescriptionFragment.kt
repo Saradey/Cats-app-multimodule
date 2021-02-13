@@ -1,4 +1,4 @@
-package com.evgeny.goncharov.wallcats.ui
+package com.evgeny.goncharov.wallcats.ui.fragments
 
 import android.content.Intent
 import android.graphics.drawable.Animatable

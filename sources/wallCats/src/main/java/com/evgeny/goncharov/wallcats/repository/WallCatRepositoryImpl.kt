@@ -19,6 +19,7 @@ import javax.inject.Inject
  * Реализация логики источника данных экрана стены котов
  * @property service для загрузки котов из сети
  * @property daoWallCat для загрузки котов из бд
+ * @property analyticsManager для эвентов
  */
 class WallCatRepositoryImpl @Inject constructor(
     private val service: ServiceBreeds,
