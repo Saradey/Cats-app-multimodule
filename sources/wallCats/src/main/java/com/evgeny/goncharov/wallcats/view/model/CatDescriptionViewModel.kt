@@ -42,7 +42,6 @@ class CatDescriptionViewModel(
             if (networkManager.isConnect())
                 liveDataUiEvents.value = BaseUiEvent.EventShowProgress
             val cat = interactor.loadChooseCat()
-            liveDataUiEvents.value = BaseUiEvent.EventHideProgress
             cat?.let {
                 liveDataUiEvents.value = BaseUiEvent.Success(cat)
             } ?: run {

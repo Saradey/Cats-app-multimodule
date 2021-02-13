@@ -39,7 +39,6 @@ class SearchCatViewModel(
                 if (networkManager.isConnect())
                     liveDataUiEvents.value = BaseUiEvent.EventShowProgress
                 val models = interactor.setInputTextSearchView(text)
-                liveDataUiEvents.value = BaseUiEvent.EventHideProgress
                 validateData(models)
             } else {
                 liveDataUiEvents.value = BaseUiEvent.EventSomethingWrong

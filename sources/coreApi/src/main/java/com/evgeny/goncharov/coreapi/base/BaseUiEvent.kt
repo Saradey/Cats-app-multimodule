@@ -15,11 +15,6 @@ sealed class BaseUiEvent<out T : Any> {
     object EventSomethingWrong : BaseUiEvent<Nothing>()
 
     /**
-     * Спрятать прогресс
-     */
-    object EventHideProgress : BaseUiEvent<Nothing>()
-
-    /**
      * В случае успеха загрузки мы передаем данные в виде такой обертки
      * @property data данные
      */

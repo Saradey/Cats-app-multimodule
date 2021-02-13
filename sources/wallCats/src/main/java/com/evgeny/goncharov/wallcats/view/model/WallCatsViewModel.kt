@@ -29,7 +29,6 @@ class WallCatsViewModel(
         if (networkManager.isConnect())
             liveDataUiEvents.value = BaseUiEvent.EventShowProgress
         val result = interactor.loadWallCat()
-        liveDataUiEvents.value = BaseUiEvent.EventHideProgress
         changeStateView(result)
         return suspendCoroutine { continuation ->
             continuation.resume(result)

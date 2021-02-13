@@ -154,15 +154,13 @@ class SearchCatFragment : BaseFragment() {
                 hideSomethingWrong()
                 showProgress()
             }
-            BaseUiEvent.EventHideProgress -> {
-                hideSomethingWrong()
-                hideProgress()
-            }
             is BaseUiEvent.Success -> {
+                hideProgress()
                 binder.crvContainerCats.isGone = false
                 setCatsCatched(event.data)
             }
             BaseUiEvent.EventSomethingWrong -> {
+                hideProgress()
                 binder.crvContainerCats.isGone = true
                 showSomethingWrong()
             }
