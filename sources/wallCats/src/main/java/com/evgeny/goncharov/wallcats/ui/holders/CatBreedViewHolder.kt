@@ -45,19 +45,15 @@ class CatBreedViewHolder(
             txvBreedDescription.text = item.description
             val animatedDrawable = getAnimationDrawable()
             (animatedDrawable as Animatable).start()
-            try {
-                Glide.with(itemView)
-                    .load(item.urlImage)
-                    .apply(
-                        RequestOptions()
-                            .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
-                            .centerCrop()
-                    )
-                    .placeholder(animatedDrawable)
-                    .into(imvShowCat)
-            } catch (exception: Exception) {
-                exception.printStackTrace()
-            }
+            Glide.with(itemView)
+                .load(item.urlImage)
+                .apply(
+                    RequestOptions()
+                        .override(SIZE_BITMAP_CATS, SIZE_BITMAP_CATS)
+                        .centerCrop()
+                )
+                .placeholder(animatedDrawable)
+                .into(imvShowCat)
             imbWiki.setOnClickListener {
                 listener.clickCatUrlBreed(item.wikipediaUrl)
             }

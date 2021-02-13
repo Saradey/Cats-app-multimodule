@@ -25,14 +25,17 @@ class WallCatInteractorImpl @Inject constructor(
 
     override suspend fun loadWallCat(): List<CatBreedEntity> {
         return if (networkManager.isConnect())
-            try {
-                loadFromInternet()
-            } catch (exception: Exception) {
-                error(exception)
-                loadFromDatabase()
-            }
+            tryLoadFromInternet()
         else loadFromDatabase()
     }
+
+    private suspend fun tryLoadFromInternet() =
+        try {
+            loadFromInternet()
+        } catch (exception: Exception) {
+            error(exception)
+            loadFromDatabase()
+        }
 
     private fun error(exception: Exception) {
         exception.printStackTrace()
